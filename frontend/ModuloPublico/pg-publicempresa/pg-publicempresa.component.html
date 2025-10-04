@@ -1,0 +1,44 @@
+
+
+  <main id="main">
+
+
+    <section id="about" class="about">
+      <div class="container-fluid">
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Counts Section ======= -->
+    
+    <div class="section-title">
+      <h2>REGISTRO DONANTES</h2>
+    </div>
+
+    <section id="counts" class="counts">
+      <div class="container">
+
+        <p-accordion [(activeIndex)]="activeAccordionIndex">
+          <!-- Formulario para Beneficiario -->
+          
+    
+          <!-- Formulario para Fundación -->
+          <p-accordionTab header="FICHA DE REGISTRO DONANTE– INDIVIDUAL">
+            <app-pg-registropersona></app-pg-registropersona>
+          </p-accordionTab>
+
+          <p-accordionTab header="FICHA DE REGISTRO DONANTE– EMPRESA">
+            <app-pg-registroempresa></app-pg-registroempresa>
+          </p-accordionTab>
+        </p-accordion>
+        
+      
+
+      </div>
+    </section><!-- End Counts Section -->
+
+  
+  </main><!-- End #main -->
+
+
+
+  

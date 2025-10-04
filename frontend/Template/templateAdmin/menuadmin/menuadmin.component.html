@@ -1,0 +1,27 @@
+<aside class="menu-lateral">
+  <nav>
+    <ul>
+      <li *ngFor="let item of items; trackBy: trackByRouterLink">
+        <a [routerLink]="item.routerLink"
+        routerLinkActive="active-menu-item"
+        [ngClass]="{'active-main-item': selectedItem === item}" 
+        (click)="toggleSubMenu(item)">
+       <i [class]="item.icon" class="layout-menuitem-icon"></i>
+       <span>{{ item.label }}</span>
+       <i *ngIf="item.items" class="pi pi-chevron-down layout-submenu-toggler" [class.expanded]="expandedItems.has(item)"></i>
+     </a>
+     
+
+        <!-- Submenú que se muestra solo cuando el item tiene subitem y está expandido -->
+        <ul *ngIf="item.items && expandedItems.has(item)" class="submenu expanded">
+          <li *ngFor="let subItem of item.items">
+            <a [routerLink]="subItem.routerLink" routerLinkActive="active-submenu-item">
+              <i [class]="subItem.icon" class="layout-menuitem-icon"></i>
+              <span>{{ subItem.label }}</span>
+            </a>
+          </li>
+        </ul>
+      </li> 
+    </ul>
+  </nav>
+</aside>  

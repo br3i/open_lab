@@ -1,0 +1,32 @@
+
+<p-tabView
+  [activeIndex]="selectedOption - 1"
+  (onChange)="CambioSelect($event.index + 1)"
+  styleClass="tabview-custom"
+>
+  <p-tabPanel>
+    <ng-template pTemplate="header">
+      <span>Convenios</span>
+    </ng-template>
+  </p-tabPanel>
+
+  <p-tabPanel>
+    <ng-template pTemplate="header">
+      <span>Contratos</span>
+    </ng-template>
+    
+  </p-tabPanel>
+
+  <p-tabPanel>
+    <ng-template pTemplate="header">
+      <span>Nuevo contrato</span>
+    </ng-template>
+  </p-tabPanel>
+<!-- Contenedor dinámico para rutas hijas -->
+<div class="tab-content">
+  <router-outlet></router-outlet>
+</div>
+
+</p-tabView>
+
+

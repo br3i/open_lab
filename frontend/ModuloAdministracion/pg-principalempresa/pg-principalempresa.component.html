@@ -1,0 +1,12 @@
+<p-tabView [activeIndex]="selectedOption - 1" (onChange)="CambioSelect($event.index + 1)" styleClass="tabview-custom">
+  <p-tabPanel *ngFor="let tab of tabs">
+    <ng-template pTemplate="header">
+      <span>{{ tab.label }}</span>
+    </ng-template>
+  </p-tabPanel>
+  
+  <div class="tab-content">
+    <router-outlet></router-outlet>
+  </div>
+
+</p-tabView>

@@ -1,0 +1,18 @@
+<p-tabView
+  styleClass="tabview-custom"
+  [(activeIndex)]="activeTabIndex"
+  (onChange)="onTabChange($event)"
+>
+  <p-tabPanel>
+    <ng-template pTemplate="header">
+      <span>Usuarios</span>
+    </ng-template>
+  </p-tabPanel>
+  <p-tabPanel>
+    <ng-template pTemplate="header">
+      <span>Roles</span>
+    </ng-template>
+  </p-tabPanel>
+  <router-outlet></router-outlet>
+</p-tabView>
+<div class="tab-content"></div>

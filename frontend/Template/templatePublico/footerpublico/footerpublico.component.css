@@ -1,0 +1,10 @@
+.social-links a {
+    font-size: 1.5rem;  /* Tamaño del icono */
+    color: #95c11f;     /* Color deseado */
+    transition: color 0.3s ease-in-out; /* Efecto de transición suave */
+  }
+  
+  .social-links a:hover {
+    color: #7ea619; /* Color ligeramente más oscuro al pasar el mouse */
+  }
+  

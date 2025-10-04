@@ -1,0 +1,26 @@
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top">
+  <div class="container d-flex align-items-center">
+
+    <!--<h1 class="logo me-auto"><a href="index.html">BANCO DE ALIMENTOS RIOBAMBA</a></h1>-->
+    <!-- Uncomment below if you prefer to use an image logo -->
+<a [routerLink]="['/dashpublic/inicio']" class="logo me-auto">
+  <img src="assets/img/logobar.png" alt="" class="img-fluid">
+</a>
+
+    <nav id="navbar" class="navbar order-last order-lg-0">
+      <ul>
+        <li><a class="nav-link scrollto" [routerLink]="['/dashpublic/registrovoluntario']">Quiero Ser Voluntario</a>
+        </li>
+        <li><a class="nav-link scrollto" [routerLink]="['/dashpublic/registrobeneficiario']">Quiero ser Beneficiario</a>
+        </li>
+        <li><a class="nav-link scrollto" [routerLink]="['/dashpublic/registroempresa']">Únete Como Donante</a></li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
+
+    <a [routerLink]="['/dashpublic/login'] " class="appointment-btn scrollto"><span class="d-none d-md-inline">Iniciar
+        Sesión</span></a>
+
+  </div>
+</header><!-- End Header -->

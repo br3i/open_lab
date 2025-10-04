@@ -1,0 +1,91 @@
+/* Contenedor principal */
+.inicio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(to bottom, #ffffff, #ffffff);
+  text-align: center;
+  padding: 20px;
+}
+
+.logo-section {
+  margin-bottom: 30px;
+}
+
+.logo {
+  width: 650px;
+  height: auto;
+}
+
+/* Contenedor de las opciones */
+.options-container {
+  display: flex; /* Alinea los elementos horizontalmente */
+  justify-content: space-around; /* Espacio uniforme entre elementos */
+  align-items: center; /* Alineación vertical */
+  width: 100%; /* Toma el ancho completo disponible */
+  max-width: 1200px; /* Limita el ancho máximo para que no se expanda demasiado */
+  gap: 20px; /* Espaciado entre las tarjetas */
+}
+
+/* Estilo base para las tarjetas */
+.icon-box {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 8px 20px rgba(14, 14, 14, 0.7);
+  padding: 20px;
+  width: 300px;
+  height: 200px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.icon-box:hover {
+  background-color: #95c11f; /* Cambia el fondo al pasar el cursor */
+  color: #fff; /* Cambia el color del texto e ícono al pasar el cursor */
+  transform: translateY(-5px);
+  box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilo del ícono */
+.icon {
+  margin-bottom: 15px;
+}
+
+.icon-image {
+  width: 50px; /* Tamaño del ícono */
+  height: 50px;
+  filter: grayscale(1) brightness(0) invert(0); /* Color negro predeterminado */
+  transition: filter 0.3s ease;
+}
+
+/* Cambio de color del ícono al pasar el cursor */
+.icon-box:hover .icon-image {
+  filter: invert(1); /* Cambia el color del ícono a blanco */
+}
+
+/* Títulos */
+.icon-box h4 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333; /* Color negro predeterminado */
+  margin-bottom: 10px;
+  transition: color 0.3s ease;
+}
+
+.icon-box:hover h4 {
+  color: #fff; /* Cambia el color del texto a blanco al pasar el cursor */
+}
+
+/* Descripciones */
+.icon-box p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.icon-box:hover p {
+  color: #fff; /* Cambia el color de la descripción a blanco */
+}
+  

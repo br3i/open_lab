@@ -1,0 +1,41 @@
+<p-menubar class="header-admin">
+  <ng-template pTemplate="start">
+  <img src="assets/img/logobar2.png" class="logo-header-admin" />
+  </ng-template>
+   
+    <ng-template pTemplate="end">
+  <div class="menu-derecha" style="display: flex; align-items: center; gap: 1rem;">
+  <!-- 🔹 Menú de roles con "Rol:" fijo y menos espacio entre elementos -->
+  <div class="roles-container" style="display: flex; align-items: center; gap: 5px;">
+  <span style="font-weight: 600; color: black;">Rol:</span>
+  <button 
+            pButton 
+            type="button" 
+            class="p-button-text perfil-button"
+            (click)="menuRoles.toggle($event)"
+            style="display: flex; align-items: center; gap: 5px; border: none; background: none; cursor: pointer; color: black;">
+
+  <span style="min-width: 100px; text-align: center;">{{ rolActual?.rol_nombre || 'No asignado' }}</span>
+  <i class="pi pi-angle-down" style="color: black; font-size: 0.9em;"></i>
+  </button>
+  <p-tieredMenu #menuRoles [model]="rolesMenu" [popup]="true"></p-tieredMenu>
+  </div>
+   
+       <!-- 🔹 Menú de usuario (sin cambios, solo reduciendo un poco el espacio) -->
+  <div class="perfil-container" style="display: flex; align-items: center;">
+  <button
+            pButton
+            type="button"
+            class="p-button-text perfil-button"
+            (click)="menuPerfil.toggle($event)"
+            style="display: flex; align-items: center; gap: 5px; border: none; background: none; cursor: pointer; color: black;"
+  >
+  <i class="pi pi-user" style="color: black; font-size: 0.9em;"></i>
+  <span style="min-width: 100px; text-align: center;">{{ nombreUsuario }}</span>
+  <i class="pi pi-angle-down" style="color: black; font-size: 0.9em;"></i>
+  </button>
+  <p-tieredMenu #menuPerfil [model]="perfilItems" [popup]="true"></p-tieredMenu>
+  </div>
+  </div>
+  </ng-template>
+  </p-menubar>

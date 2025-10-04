@@ -1,0 +1,259 @@
+<div class="card separador-componentes">
+ 
+
+
+  <p-toolbar>
+    <div class="p-toolbar-group-center">
+      <p><b>GESTIÓN DE ROLES</b></p>
+    </div>
+    <div class="p-toolbar-group-end">
+      <p-button
+      type="button" 
+      icon="pi pi-plus" 
+      styleClass="custom-green-button-guardar" 
+      label="Nuevo"
+        (click)="ModalNuevoRol()"
+      ></p-button>
+    </div>
+  </p-toolbar>
+
+  <p-table
+    [value]="lsRoles"
+    [paginator]="true"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    styleClass="p-datatable-sm"
+    currentPageReportTemplate="Mostrar {first} - {last} de {totalRecords} roles"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>CÓDIGO</th>
+        <th>NOMBRE</th>
+        <th>DESCRIPCIÓN</th>
+        <th>ESTADO</th>
+        <th>ACCIONES</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rol>
+      <tr>
+        <td>{{ rol.ourol_strcodigo }}</td>
+        <td>{{ rol.ourol_strnombre }}</td>
+        <td>{{ rol.ourol_strdescripcion }}</td>
+        <td>
+          <p-tag *ngIf="rol.ourol_blestado" severity="success" value="Activo"></p-tag>
+          <p-tag *ngIf="!rol.ourol_blestado" severity="danger" value="Desactivado"></p-tag>
+        </td>
+        <td>
+          <p-button
+            type="button"  
+            icon="pi pi-pencil"
+            styleClass="p-button-text"
+            pTooltip="Editar información" 
+            tooltipPosition="top" 
+            (click)="ModalEditarRol(rol)"w
+          ></p-button>
+          <p-button
+            type="button"  
+            icon="pi pi-power-off"
+            styleClass="p-button-text"
+            pTooltip="Cambiar estado" 
+            tooltipPosition="top" 
+            (click)="ConfirmarCambioEstado(rol)"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+
+<p-dialog
+  [(visible)]="visibleConfirmacion"
+  [modal]="true"
+  [closable]="false"
+  [style]="{ width: '400px', borderRadius: '12px', boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.15)' }"
+  [contentStyle]="{ padding: '2rem', backgroundColor: '#ffffff' }"
+  class="confirmacion-modal"
+>
+  <ng-template pTemplate="content">
+    <div class="confirmacion-content">
+      <i class="pi pi-exclamation-triangle confirmacion-icon"></i>
+      <p class="confirmacion-mensaje">{{ mensajeConfirmacion }}</p>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <p-button
+        label="Aceptar"
+        icon="pi pi-check"
+        styleClass="p-button-success p-button-sm"
+        (click)="CambiarEstadoRol()"
+      ></p-button>
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        styleClass="p-button-outlined p-button-sm"
+        (click)="visibleConfirmacion = false"
+      ></p-button>
+      
+    </div>
+  </ng-template>
+</p-dialog>
+
+
+
+
+
+
+<p-dialog
+  [(visible)]="visibleNuevo"
+  header="Nuevo Rol"
+  [modal]="true"
+  [style]="{ width: '25vw' }"
+  class="nuevo-rol-modal"
+>
+  <ng-template pTemplate="content">
+    <div class="intro-section">
+      <i class="pi pi-info-circle intro-icon"></i>
+      <p class="intro-text">
+        Complete los campos para registrar un nuevo rol.
+      </p>
+    </div>
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-key"></i>
+      </span>
+      <input
+        pInputText
+        placeholder="Código"
+        [(ngModel)]="rolCodigo"
+        class="p-inputtext-sm"
+      />
+    </div>
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-tag"></i>
+      </span>
+      <input
+        pInputText
+        placeholder="Nombre"
+        [(ngModel)]="rolNombre"
+        class="p-inputtext-sm"
+      />
+    </div>
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-align-left"></i>
+      </span>
+      <input
+        pInputText
+        placeholder="Descripción"
+        [(ngModel)]="rolDescripcion"
+        class="p-inputtext-sm"
+      />
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <p-button
+        label="Guardar"
+        icon="pi pi-save"
+        styleClass="p-button-success p-button-sm"
+        (click)="RegistrarNuevoRol()"
+      ></p-button>
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        styleClass="p-button-secondary p-button-sm"
+        (click)="visibleNuevo = false"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+
+<!-- Modal para editar rol -->
+<p-dialog
+  [(visible)]="visibleEditar"
+  header="Editar Rol"
+  [modal]="true"
+  [style]="{ width: '30vw', maxWidth: '500px', borderRadius: '12px', boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)' }"
+  [contentStyle]="{ padding: '1.5rem', backgroundColor: '#ffffff' }"
+  [draggable]="false"
+  [resizable]="false"
+  class="editar-rol-modal"
+>
+  <ng-template pTemplate="content">
+    <!-- Descripción introductoria -->
+    <div class="intro-section">
+      <i class="pi pi-info-circle intro-icon"></i>
+      <p class="intro-text">
+        Modifique los campos necesarios y guarde los cambios para actualizar el rol.
+      </p>
+    </div>
+
+    <!-- Campo Código -->
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-key"></i>
+      </span>
+     <input
+  
+  placeholder="Código"
+  [(ngModel)]="rolCodigo"
+  class="inputtext"
+   type="text"
+  maxlength="4"
+/>
+
+    </div>
+
+    <!-- Campo Nombre -->
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-tag"></i>
+      </span>
+      <input
+        pInputText
+        placeholder="Nombre"
+        [(ngModel)]="rolNombre"
+        class="p-inputtext-sm"
+      />
+    </div>
+
+    <!-- Campo Descripción -->
+    <div class="p-inputgroup">
+      <span class="p-inputgroup-addon">
+        <i class="pi pi-align-left"></i>
+      </span>
+      <input
+        pInputText
+        placeholder="Descripción"
+        [(ngModel)]="rolDescripcion"
+        class="p-inputtext-sm"
+      />
+    </div>
+  </ng-template>
+
+  <!-- Botones en el footer -->
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <p-button
+        label="Actualizar"
+        icon="pi pi-save"
+        styleClass="p-button-success p-button-sm"
+        (click)="ActualizarRol()"
+      ></p-button>
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        styleClass="p-button-secondary p-button-sm"
+        (click)="visibleEditar = false"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>

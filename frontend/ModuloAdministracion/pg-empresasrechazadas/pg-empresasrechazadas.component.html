@@ -1,0 +1,198 @@
+<div class="card separador-componentes">
+    <p-toolbar>
+        <div class="p-toolbar-group-center">
+            <p><b>INFORMACIÓN DE LAS EMPRESAS RECHAZADAS</b></p>
+        </div>
+    </p-toolbar>
+
+    <div class="flex justify-content-end align-items-center mb-4">
+      <div class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Búsqueda global" (input)="filtrarEmpresa($event)" />
+      </div>
+    </div>
+  
+  
+    <p-table [value]="lsListadoFiltrado" dataKey="ouidempresa" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '10rem' }" styleClass="p-datatable-sm"
+      currentPageReportTemplate="Mostrar {first} - {last} de {totalRecords} elementos" [rowsPerPageOptions]="[10, 25, 50]"
+      [sortField]="'ousolicitud_dtfechamodificacion'" [sortOrder]="-1">
+  
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="ousolicitud_dtfechamodificacion"> FECHA <p-sortIcon
+              field="ousolicitud_dtfechamodificacion"></p-sortIcon> </th>
+          <th style="width: 250px"> DATOS </th>
+          <th> ACTIVIDAD </th>
+          <th style="width: 250px"> CONTACTOS </th>
+          <th>ESTADO SOLICITUD</th>   
+          <th style="width: 150px">ACCIONES</th>
+        </tr>
+      </ng-template>
+  
+      <ng-template pTemplate="body" let-customer>
+        <tr>
+          <td>{{ customer.ousolicitud_dtfechamodificacion | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <strong> RAZÓN SOCIAL: </strong> <span style="size: 11px;">{{ customer.ouempresa_strnombre }}</span> <br />
+            <strong> RUC: </strong> <span style="size: 11px;">{{ customer.oustrruc}} </span> <br />
+          </td> 
+        <td>{{ customer.ouempresa_stractividad }}</td>
+        <td>
+          <strong> CELULAR: </strong> <span style="size: 11px;">{{ customer.ouempresa_strcelular1}}</span> <br />
+          <strong> CORREO: </strong> <span style="size: 11px;">{{ customer.ouempresa_strcorreo1}} </span> <br />
+        </td>
+        <td> <p-tag severity="danger" [value]="customer.oustrnombre "></p-tag></td>
+        <td>
+          <p-button type="button" icon="pi pi-eye" styleClass="p-button-text" pTooltip="Ver detalle"
+            tooltipPosition="top" (click)="ModalDetalle(customer)"></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+<p-dialog header="Detalles de la Empresa" [(visible)]="visibleDetalle" [modal]="true"
+  [style]="{ width: '60vw', borderRadius: '12px', boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.2)' }"
+  [contentStyle]="{ padding: '2rem', backgroundColor: '#f9f9f9' }" [draggable]="false" [resizable]="false"
+  class="informacion-modal">
+
+  <ng-template pTemplate="header">
+    <h2 class="text-xl font-bold section-title">Información</h2>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <div class="grid nested-grid info-section">
+      <div class="grid-container">
+        <h3 class="section-title">Datos de la Empresa</h3>
+        <!-- Dato que ocupa columna 1 y filas 1, 2 y 3 -->
+        <div class="grid-item-span-rows">
+          <p-image [src]="datosEmpresaForm.empresa_strfoto || 'assets/img/fotoportada2.jpg'" [preview]="true"
+            alt="Image" width="150" height="150">
+            <ng-template pTemplate="indicator">
+              <i class="pi pi-check"></i>
+            </ng-template>
+          </p-image>
+        </div>
+        <div class="formgrid grid">
+          <div class="field col info-item">
+            <label>RUC</label>
+            <input type="text" class="input-field" [(ngModel)]="datosEmpresaForm.strdocumento" readonly>
+          </div>
+          <div class="field col info-item">
+            <label>Fecha de Creación</label>
+            <input id="fechacreacion" type="text" class="input-field"
+              [value]="datosEmpresaForm.empresa_dtfechacreacion | date:'dd/MM/yyyy'" readonly>
+          </div>
+        </div>
+        <div class="formgrid grid">
+          <div class="field col info-item">
+            <label>Tipo de Empresa</label>
+            <input type="text" class="input-field" [(ngModel)]="datosEmpresaForm.strnombretipo" readonly>
+          </div>
+        </div>
+        <div class="grid-item-span-columns info-item">
+          <label>Razón Social</label>
+          <input id="razon" type="text" class="input-field" [(ngModel)]="datosEmpresaForm.empresa_strnombre" readonly>
+        </div>
+        <div class="grid-item-span-columns info-item">
+          <label>Actividad Económica</label>
+          <input id="actividad" type="text" class="input-field" [(ngModel)]="datosEmpresaForm.empresa_stractividad"
+            readonly>
+        </div>
+      </div>
+      <br>
+      <div class="formgrid grid">
+        <div class="field col info-item">
+          <label>Celular Principal</label>
+          <input type="text" class="input-field" [(ngModel)]="datosEmpresaForm.empresa_strcelular1" readonly>
+        </div>
+        <div class="field col info-item">
+          <label>Celular Secundario</label>
+          <input type="text" class="input-field" [(ngModel)]="datosEmpresaForm.empresa_strcelular2" readonly>
+        </div>
+        <div class="field col info-item">
+          <label>Correo Electrónico Pincipal</label>
+          <input type="text" class="input-field" [(ngModel)]="datosEmpresaForm.empresa_strcorreo1" readonly>
+        </div>
+        <div class="field col info-item">
+          <label>Correo Electrónico Secundario</label>
+          <input type="text" class="input-field" [(ngModel)]="datosEmpresaForm.empresa_strcorreo2" readonly>
+        </div>
+
+        <div class="field col-12 info-item">
+          <label>Dirección</label>
+          <input id="direccion" type="text" class="input-field" [(ngModel)]="empresa_strdireccion" readonly>
+        </div>
+        <div class="col-12 info-item">
+          <label>Motivo para ser donador</label>     
+          <input id="motivo" type="text" class="input-field" [(ngModel)]="solicitud_strdescripcion" readonly>
+        </div>
+        
+        <div class="col-12 info-item" style="margin-top: 20px;">
+          <label>Mensaje remitido</label>     
+          <input id="motivo" type="text" class="input-field" [(ngModel)]="solicitud_strcita" readonly>
+        </div>
+      </div>
+    </div>
+    <br>
+    <!-- Detalles del representante legal -->
+    <div class="grid nested-grid info-section">
+      <div class="col-12">
+        <h3 class="section-title">Representante Legal</h3>
+      </div>
+        <div class="field col">
+          <label> <b>Nombre Completo </b> </label>
+          <input type="text" class="input-field" [(ngModel)]="datosRepresentanteForm.nombreCompleto" readonly>
+        </div>
+        <div class="field col">
+          <label> <b>Cédula</b> </label>
+          <input type="text" class="input-field" [(ngModel)]="datosRepresentanteForm.ourepresentante_cedula" readonly>
+        </div>
+        <div class="field col">
+          <label> <b>Correo Electrónico </b> </label>
+          <input type="text" class="input-field" [(ngModel)]="datosRepresentanteForm.ourepresentante_correo" readonly>
+        </div>
+        <div class="field col">
+          <label> <b>Celular </b> </label>
+          <input type="text" class="input-field" [(ngModel)]="datosRepresentanteForm.ourepresentante_celular" readonly>
+        </div>
+        <div class="col-12">
+          <p-button type="button" label="Documento de relacón laboral" icon="pi pi-download" styleClass="p-button-text"
+            (click)="DescargarAnexo(datosEmpresaForm)" pTooltip="Descargar" tooltipPosition="top">
+          </p-button>
+        </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" label="Aceptar" styleClass="custom-green-button-guardar" (click)="CerrarModal('ModalDetalle')"></p-button>
+  </ng-template>
+
+  <ng-template #cargando>
+    <p>Cargando información...</p>
+  </ng-template>
+</p-dialog>
+
+<p-dialog header="Documento" [(visible)]="visiblepdfAnexo" [modal]="true" [style]="{ width: '50vw' }"
+  [draggable]="false" [resizable]="false">
+  <ng-template pTemplate="header">
+    <span class="text-xl font-bold">DOCUMENTO DE VERIFICACIÓN</span>
+  </ng-template>
+  <ng-template pTemplate="content">
+    <div class="grid nested-grid">
+      <div class="col-12">
+        <div class="formgrid grid text-center">
+          <div class="field col">
+            <div class="text-center col-md-12 col-sm-12 col-xs-12" style="height: 450px;overflow: auto;">
+              <iframe width="100%" height="100%" zoom_in="50%" [src]="strArchivoreporte64"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>

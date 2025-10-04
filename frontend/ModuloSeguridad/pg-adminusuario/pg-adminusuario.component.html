@@ -1,0 +1,904 @@
+<div class="card separador-componentes">
+
+  <p-toolbar>
+    <div class="p-toolbar-group-center">
+      <p><b>ADMINISTRACIÓN DE USUARIOS</b></p>
+    </div>
+    <div class="p-toolbar-group-end">
+      <p-button
+      type="button" 
+      icon="pi pi-plus" 
+      styleClass="custom-green-button-guardar" 
+      label="Nuevo"
+        (click)="ModalNuevoUsuario()"
+      ></p-button>
+    </div>
+  </p-toolbar>
+  <p-table
+    [value]="lsUsuarios"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '10rem' }"
+    styleClass="p-datatable-sm"
+    currentPageReportTemplate="Mostrar {first} - {last} de {totalRecords} usuarios"
+    [rowsPerPageOptions]="[10, 25, 50]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>USUARIO</th>
+        <th>NOMBRES</th>
+        <th>APELLIDOS</th>
+        <th>ESTADO</th>
+        <th>ACCIONES</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuario>
+      <tr>
+        <td>{{ usuario.ouusuario_strnombre }}</td>
+        <td>{{ usuario.ounombres }}</td>
+        <td>{{ usuario.ouapellidos }}</td>
+        <td>
+          <p-tag
+            *ngIf="usuario.ouusuario_blestado"
+            severity="success"
+            value="Activo"
+          ></p-tag>
+          <p-tag
+            *ngIf="!usuario.ouusuario_blestado"
+            severity="danger"
+            value="Desactivado"
+          ></p-tag>
+        </td>
+        <td>
+          <p-button
+            type="button"
+            icon="pi pi-eye"
+            styleClass="p-button-text"
+            pTooltip="Ver detalles" 
+            tooltipPosition="top"
+            (click)="abrirModalRoles(usuario)"
+          ></p-button>
+          <p-button
+            type="button"
+            icon="pi pi-pencil"
+            styleClass="p-button-text"
+            pTooltip="Editar información" 
+            tooltipPosition="top"
+            (click)="ModalEditarUsuario(usuario)"
+          ></p-button>
+          <p-button
+            type="button"
+            icon="pi pi-key"
+            styleClass="p-button-text"
+            pTooltip="Editar contraseña" 
+            tooltipPosition="top"
+            (click)="ActualizarPasswordUsuario(usuario)"
+            ></p-button
+          >
+          <p-button
+            type="button"
+            icon="pi pi-power-off"
+            styleClass="p-button-text"
+            pTooltip="Cambiar estado" 
+            tooltipPosition="top"
+            (click)="ActualizarEstadoUsuario(usuario)"
+          ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="visibleRoles"
+  header="Roles Asignados"
+  [modal]="true"
+  [style]="{
+    width: '30vw',
+    maxWidth: '500px',
+    borderRadius: '12px',
+    boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)'
+  }"
+  [contentStyle]="{ padding: '1.5rem', backgroundColor: '#ffffff' }"
+  [draggable]="false"
+  [resizable]="false"
+  class="roles-asignados-modal"
+>
+  <ng-template pTemplate="content">
+    <!-- Descripción introductoria -->
+    <div class="intro-section">
+      <p class="info-tip">
+        <i class="pi pi-info-circle info-icon"></i>
+        Seleccione los roles que desea habilitar o deshabilitar
+      </p>
+    </div>
+    <div *ngIf="isLoadingRoles" class="loading-section">
+      <p-progressSpinner
+        styleClass="p-spinner"
+        strokeWidth="4"
+        animationDuration="1s"
+      ></p-progressSpinner>
+      <p class="loading-text">Cargando roles asignados, por favor espere...</p>
+    </div>
+    <div *ngIf="!isLoadingRoles" class="roles-list">
+      <div *ngFor="let rol of lsRolesUsuario" class="role-item">
+        <p-checkbox
+          [(ngModel)]="rol.ouperfil_blestado"
+          [binary]="true"
+          [inputId]="'rol-' + rol.ouidrol"
+        ></p-checkbox>
+        <label [for]="'rol-' + rol.ouidrol" class="role-label">
+          <i class="pi pi-user-tag role-icon"></i>
+          {{ rol.ourol_strnombre }}
+        </label>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <p-button
+        label="Guardar Cambios"
+        icon="pi pi-save"
+        styleClass="custom-green-button-guardar"
+        (click)="
+          ActualizarEstadoRolesSeleccionados(
+            usuarioSeleccionado.ouidusuario,
+            lsRolesUsuario
+          )
+        "
+      ></p-button>
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        styleClass="custom-red-button-cancelar"
+        (click)="visibleRoles = false"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="visibleConfirmacion"
+  [modal]="true"
+  [closable]="false"
+  [style]="{
+    width: '450px',
+    borderRadius: '10px',
+    boxShadow: '0 12px 24px rgba(0, 0, 0, 0.1)',
+    paddingBottom: '20px'
+  }"
+>
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 20px 10px 20px;
+      text-align: center;
+    "
+  >
+    <i
+      class="pi pi-exclamation-triangle"
+      style="font-size: 2.5rem; color: #ff4d4f; margin-bottom: 15px"
+    ></i>
+    <p
+      style="
+        font-size: 1.2rem;
+        color: #333;
+        margin: 0 0 15px 0;
+        font-weight: bold;
+      "
+    >
+      {{ mensajeConfirmacion }}
+    </p>
+  </div>
+  <div
+    style="display: flex; justify-content: center; gap: 15px; margin-top: 10px"
+  >
+    <p-button
+      label="Aceptar"
+      icon="pi pi-check"
+      styleClass="p-button-primary"
+      [ngStyle]="{
+        'background-color': '#7266ff',
+        'color': 'white',
+        'border-radius': '5px',
+        'border': 'none',
+        'box-shadow': 'none'
+      }"
+      (click)="ConfirmarCambioEstadoUsuario()"
+    ></p-button>
+    <p-button
+      label="Cancelar"
+      icon="pi pi-times"
+      styleClass="p-button-outlined"
+      [ngStyle]="{
+        'border': '1px solid #d9d9d9',
+        'color': '#595959',
+        'background-color': '#fff',
+        'border-radius': '5px',
+        'box-shadow': 'none'
+      }"
+      (click)="visibleConfirmacion = false"
+    ></p-button>
+  </div>
+</p-dialog>
+
+<p-dialog
+  header="Registro de Usuario"
+  [(visible)]="visibleNuevo"
+  [modal]="true"
+  [style]="{
+    width: '40vw',
+    maxWidth: '600px',
+    borderRadius: '12px',
+    boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)'
+  }"
+  [contentStyle]="{ padding: '1.5rem', backgroundColor: '#ffffff' }"
+  [draggable]="false"
+  [resizable]="false"
+  class="registro-usuario-modal"
+>
+  <ng-template pTemplate="content">
+    <div class="info-section">
+      <div class="info-box">
+        <i class="pi pi-info-circle info-icon"></i>
+        <p class="info-text">
+          Ingrese la cédula para buscar la persona a la que se desea crear el
+          usuario.
+        </p>
+      </div>
+    </div>
+    <div class="field-section">
+      <label for="cedula" class="field-label">Cédula</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-id-card"></i>
+        </span>
+        <input
+          id="cedula"
+          type="text"
+          pInputText
+          placeholder="Ingrese la cédula"
+          [(ngModel)]="cedula"
+          class="w-full"
+        />
+        <span class="p-inputgroup-addon clickable" (click)="verificarCedula()">
+          <i class="pi pi-search"></i>
+        </span>
+        <span
+          class="p-inputgroup-addon clickable"
+          (click)="abrirModalNuevaPersona()"
+        >
+          <i class="pi pi-plus plus-icon"></i>
+        </span>
+      </div>
+    </div>
+    <div *ngIf="cedulaValida" class="person-card">
+      <h3 class="person-title">Información de la Persona</h3>
+      <div class="person-details">
+        <div class="detail-item">
+          <div class="icon-container">
+            <i class="pi pi-user icon"></i>
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">Nombres:</span>
+            <span class="detail-value">{{ usuarioNombre }}</span>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="icon-container">
+            <i class="pi pi-user icon"></i>
+          </div>
+          <div class="detail-content">
+            <span class="detail-label">Apellidos:</span>
+            <span class="detail-value">{{ usuarioApellido }}</span>
+          </div>
+        </div>
+        <p class="confirmation-message">
+          ¿Desea crear un usuario para
+          <span class="highlight"
+            >{{ usuarioNombre }} {{ usuarioApellido }}</span
+          >?
+        </p>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <p-button
+        label="Confirmar"
+        icon="pi pi-check"
+        styleClass="custom-green-button-guardar"
+        (click)="abrirModalFormularioUsuario()"
+        *ngIf="cedulaValida"
+      ></p-button>
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        styleClass="custom-red-button-cancelar"
+        (click)="cerrarModal()"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+
+
+<p-dialog
+  header="Crear Usuario"
+  [(visible)]="visibleFormularioUsuario"
+  [modal]="true"
+  [style]="{
+    width: '28vw',
+    maxWidth: '450px',
+    borderRadius: '12px',
+    boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)'
+  }"
+  [contentStyle]="{ padding: '1.5rem', backgroundColor: '#ffffff' }"
+  [draggable]="false"
+  [resizable]="false"
+  class="crear-usuario-modal"
+>
+  <ng-template pTemplate="content">
+    <div class="info-section">
+      <div class="info-box">
+        <i class="pi pi-user-plus info-icon"></i>
+        <p class="info-text">
+          Complete los campos para registrar un nuevo usuario.
+        </p>
+      </div>
+    </div>
+    <div class="field-section">
+      <label for="nombreUsuario" class="field-label">Nombre de Usuario</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-user"></i>
+        </span>
+        <input
+          id="nombreUsuario"
+          type="text"
+          pInputText
+          placeholder="Ingrese el nombre de usuario"
+          [(ngModel)]="usuario"
+          class="w-full"
+        />
+      </div>
+    </div>
+
+    <!-- Validaciones dinámicas de contraseña -->
+    <div class="field-section" style="position: relative;">
+      <label for="password" class="field-label">Contraseña</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-lock"></i>
+        </span>
+        <input
+          id="password"
+          [type]="mostrarPassword ? 'text' : 'password'"
+          pInputText
+          placeholder="Ingrese la contraseña"
+          [(ngModel)]="usuarioPassword"
+          (focus)="mostrarValidaciones = true"
+          (blur)="ocultarValidaciones()"
+          (input)="validarPassword()"
+          class="w-full"
+        />
+        <span
+          class="p-inputgroup-addon clickable"
+          (click)="mostrarPassword = !mostrarPassword"
+        >
+          <i [ngClass]="mostrarPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+        </span>
+      </div>
+    
+      <!-- Contenedor flotante para validaciones -->
+      <div
+        *ngIf="mostrarValidaciones && !validacionesCompletas"
+        class="password-tooltip"
+        style="
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          background-color: #f9f9f9;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          padding: 0.5rem;
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+          z-index: 1000;
+          margin-top: 0.5rem;
+        "
+      >
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li [style.color]="validaciones.longitud ? 'green' : 'red'">Minimo 8 caracteres</li>
+          <li [style.color]="validaciones.mayuscula ? 'green' : 'red'">Una letra mayúscula</li>
+          <li [style.color]="validaciones.minuscula ? 'green' : 'red'">Una letra minúscula</li>
+          <li [style.color]="validaciones.numero ? 'green' : 'red'">Un número</li>
+          <li [style.color]="validaciones.caracterEspecial ? 'green' : 'red'">
+            Un carácter especial (&#64; $ ! % * ? &)
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+
+    <div class="field-section">
+      <label for="confirmPassword" class="field-label">Confirmar Contraseña</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-lock"></i>
+        </span>
+        <input
+          id="confirmPassword"
+          [type]="mostrarPasswordVisual ? 'text' : 'password'"
+          pInputText
+          placeholder="Confirme la contraseña"
+          [(ngModel)]="confirmarPassword"
+          class="w-full"
+        />
+        <span
+          class="p-inputgroup-addon clickable"
+          (click)="mostrarPasswordVisual = !mostrarPasswordVisual"
+        >
+          <i [ngClass]="mostrarPasswordVisual ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+        </span>
+      </div>
+    </div>
+    <div class="field-section">
+      <label for="multiSelectRoles" class="field-label">Seleccione los Roles</label>
+      <p-multiSelect
+        id="multiSelectRoles"
+        [options]="lsRoles"
+        [(ngModel)]="rolesSeleccionados"
+        optionLabel="ourol_strnombre"
+        optionValue="ouidrol"
+        placeholder="Seleccione uno o más roles"
+        appendTo="body"
+        class="roles-input w-full"
+      ></p-multiSelect>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <p-button
+        label="Guardar"
+        icon="pi pi-check"
+        styleClass="custom-green-button-guardar"
+        (click)="RegistrarNuevoUsuario()"
+      ></p-button>
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        styleClass="custom-red-button-cancelar"
+        (click)="cerrarModalFormularioUsuario()"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+
+
+<p-dialog
+  header="Editar Usuario"
+  [(visible)]="visibleEditar"
+  [modal]="true"
+  [style]="{
+    width: '40vw',
+    maxWidth: '600px',
+    borderRadius: '12px',
+    boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.15)'
+  }"
+  [contentStyle]="{ padding: '1.5rem', backgroundColor: '#ffffff' }"
+  [draggable]="false"
+  [resizable]="false"
+  class="editar-usuario-modal"
+>
+  <ng-template pTemplate="content">
+    <div class="intro-section">
+      <i class="pi pi-user-edit intro-icon"></i>
+      <p class="intro-text">Modifique los datos necesarios del usuario.</p>
+    </div>
+    <div class="p-field">
+      <label for="cedula">Cédula</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-id-card"></i>
+        </span>
+        <input
+          id="cedula"
+          type="text"
+          pInputText
+          [value]="cedula"
+          class="p-inputtext-sm"
+          disabled
+        />
+      </div>
+    </div>
+    <div class="p-field">
+      <label for="usuarioNombre">Nombres</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-user"></i>
+        </span>
+        <input
+          id="usuarioNombre"
+          pInputText
+          placeholder="Nombres"
+          [value]="usuarioNombre"
+          class="p-inputtext-sm"
+          disabled
+        />
+      </div>
+    </div>
+    <div class="p-field">
+      <label for="usuarioApellido">Apellidos</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-user-edit"></i>
+        </span>
+        <input
+          id="usuarioApellido"
+          pInputText
+          placeholder="Apellidos"
+          [value]="usuarioApellido"
+          class="p-inputtext-sm"
+          disabled
+        />
+      </div>
+    </div>
+    <div class="p-field">
+      <label for="usuario">Nombre de Usuario</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-user"></i>
+        </span>
+        <input
+          id="usuario"
+          type="text"
+          pInputText
+          placeholder="Ingrese el nombre de usuario"
+          [(ngModel)]="usuario"
+          class="p-inputtext-sm"
+        />
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <p-button
+        label="Actualizar"
+        icon="pi pi-save"
+        styleClass="p-button-success p-button-sm"
+        (click)="ActualizarUsuario()"
+      ></p-button>
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        styleClass="p-button-secondary p-button-sm"
+        (click)="visibleEditar = false"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  header="Nueva Persona"
+  [(visible)]="visibleNuevaPersona"
+  [modal]="true"
+  [style]="{
+    width: '50vw',
+    maxWidth: '600px',
+    borderRadius: '12px',
+    boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)'
+  }"
+  [contentStyle]="{ padding: '1.5rem', backgroundColor: '#ffffff' }"
+  [draggable]="false"
+  [resizable]="false"
+  class="nueva-persona-modal"
+  styleClass="header-verde"
+>
+  <ng-template pTemplate="content">
+    <div class="intro-section">
+      <p class="intro-text">
+        Complete los siguientes campos para registrar una nueva persona.
+      </p>
+    </div>
+    <div class="p-fluid grid form-grid">
+      <div class="col-12 md:col-6">
+        <div class="p-field">
+          <label for="documento">Cédula</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-id-card"></i>
+            </span>
+            <input
+              id="documento"
+              type="text"
+              pInputText
+              [(ngModel)]="nuevaPersona.documento"
+            />
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="nombres">Nombres</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-user"></i>
+            </span>
+            <input
+              id="nombres"
+              type="text"
+              pInputText
+              [(ngModel)]="nuevaPersona.nombres"
+              (keypress)="validarSoloLetras($event)"
+            />
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="apellidos">Apellidos</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-user"></i>
+            </span>
+            <input
+              id="apellidos"
+              type="text"
+              pInputText
+              [(ngModel)]="nuevaPersona.apellidos"
+              (keypress)="validarSoloLetras($event)"
+            />
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="correo1">Correo Principal</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-envelope"></i>
+            </span>
+            <input
+              id="correo1"
+              type="email"
+              pInputText
+              [(ngModel)]="nuevaPersona.correo1"
+            />
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="correo2">Correo Secundario</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-envelope"></i>
+            </span>
+            <input
+              id="correo2"
+              type="email"
+              pInputText
+              [(ngModel)]="nuevaPersona.correo2"
+            />
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="celular1">Celular Principal</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-phone"></i>
+            </span>
+            <input
+              id="celular1"
+              type="text"
+              pInputText
+              [(ngModel)]="nuevaPersona.celular1"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-12 md:col-6">
+        <div class="p-field">
+          <label for="celular2">Celular Secundario</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-phone"></i>
+            </span>
+            <input
+              id="celular2"
+              type="text"
+              pInputText
+              [(ngModel)]="nuevaPersona.celular2"
+            />
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="direccion">Dirección</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-home"></i>
+            </span>
+            <input
+              id="direccion"
+              type="text"
+              pInputText
+              [(ngModel)]="nuevaPersona.direccion"
+            />
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="edad">Edad</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-calendar"></i>
+            </span>
+            <input
+              id="edad"
+              type="number"
+              style="appearance: none"
+              pInputText
+              [(ngModel)]="nuevaPersona.edad"
+            />
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="sexo">Sexo</label>
+          <p-dropdown
+            [options]="[
+              { label: 'MASCULINO', value: '1' },
+              { label: 'FEMENINO', value: '2' }
+            ]"
+            [(ngModel)]="nuevaPersona.sexo"
+            placeholder="Seleccione el sexo"
+            [style]="{ width: '100%' }"
+            appendTo="body"
+          ></p-dropdown>
+        </div>
+        <div class="p-field">
+          <label for="idetnia">Etnia</label>
+          <p-dropdown
+            [options]="[
+              { label: 'NINGUNA', value: '1' },
+              { label: 'MESTIZO', value: '2' },
+              { label: 'INDÍGENA', value: '3' },
+              { label: 'MONTUBIO', value: '4' },
+              { label: 'PRIVADA', value: '5' }
+            ]"
+            [(ngModel)]="nuevaPersona.idetnia"
+            placeholder="Seleccione la etnia"
+            [style]="{ width: '100%' }"
+            appendTo="body"
+          ></p-dropdown>
+        </div>
+        <div class="p-field">
+          <label for="idestadocivil">Estado Civil</label>
+          <p-dropdown
+            [options]="[
+              { label: 'NINGUNA', value: '1' },
+              { label: 'SOLTERO', value: '2' },
+              { label: 'CASADO', value: '3' },
+              { label: 'DIVORCIADO', value: '4' }
+            ]"
+            [(ngModel)]="nuevaPersona.idestadocivil"
+            placeholder="Seleccione el estado civil"
+            [style]="{ width: '100%' }"
+            appendTo="body"
+          ></p-dropdown>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <p-button
+        label="Guardar"
+        icon="pi pi-save"
+        styleClass="custom-green-button-guardar"
+        (click)="RegistrarNuevaPersona()"
+      ></p-button>
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        styleClass="custom-red-button-cancelar"
+        (click)="visibleNuevaPersona = false"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+<p-dialog
+  header="Actualizar Contraseña"
+  [(visible)]="visibleModalPassword"
+  [modal]="true"
+  [style]="{ width: '28vw', maxWidth: '450px', height: '45vh', borderRadius: '12px', boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)' }"
+  [contentStyle]="{ background: '#ffffff', padding: '1rem' }"
+  [draggable]="false"
+  [resizable]="false"
+  class="modal-password"
+>
+  <ng-template pTemplate="content">
+    <!-- Nueva Contraseña -->
+    <div class="p-field" style="margin-bottom: 1.5rem; position: relative;">
+      <label for="usuarioPassword" class="field-label">Nueva Contraseña</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-lock"></i>
+        </span>
+        <input
+          id="usuarioPassword"
+          [type]="mostrarPassword ? 'text' : 'password'"
+          pInputText
+          placeholder="Ingrese la nueva contraseña"
+          [(ngModel)]="usuarioPassword"
+          (focus)="mostrarValidaciones = true"
+          (blur)="ocultarValidaciones()"
+          (input)="validarPassword()"
+          class="p-inputtext-sm"
+        />
+        <span
+          class="p-inputgroup-addon clickable"
+          (click)="mostrarPassword = !mostrarPassword"
+        >
+          <i [ngClass]="mostrarPassword ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+        </span>
+      </div>
+      <!-- Tooltip flotante dentro del modal -->
+      <div
+        *ngIf="mostrarValidaciones && !validacionesCompletas"
+        class="password-tooltip"
+      >
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li [style.color]="validaciones.longitud ? 'green' : 'red'">8 caracteres</li>
+          <li [style.color]="validaciones.mayuscula ? 'green' : 'red'">Una letra mayúscula</li>
+          <li [style.color]="validaciones.minuscula ? 'green' : 'red'">Una letra minúscula</li>
+          <li [style.color]="validaciones.numero ? 'green' : 'red'">Un número</li>
+          <li [style.color]="validaciones.caracterEspecial ? 'green' : 'red'">
+            Un carácter especial (&#64; $ ! % * ? &)
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+
+    <!-- Confirmar Contraseña -->
+    <div class="p-field" style="margin-bottom: 1.5rem;">
+      <label for="confirmarPassword" class="field-label">Confirmar Contraseña</label>
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-lock"></i>
+        </span>
+        <input
+          id="confirmarPassword"
+          [type]="mostrarPasswordVisual ? 'text' : 'password'"
+          pInputText
+          placeholder="Confirme la contraseña"
+          [(ngModel)]="confirmarPassword"
+          class="p-inputtext-sm"
+        />
+        <span
+          class="p-inputgroup-addon clickable"
+          (click)="mostrarPasswordVisual = !mostrarPasswordVisual"
+        >
+          <i [ngClass]="mostrarPasswordVisual ? 'pi pi-eye-slash' : 'pi pi-eye'"></i>
+        </span>
+      </div>
+    </div>
+  </ng-template>
+
+  <!-- Botones -->
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons" style="display: flex; justify-content: flex-end; gap: 1rem;">
+      <p-button
+        label="Guardar"
+        icon="pi pi-save"
+        styleClass="p-button-sm p-button-success"
+        (click)="guardarNuevaPassword()"
+      ></p-button>
+      <p-button
+        label="Cancelar"
+        icon="pi pi-times"
+        styleClass="p-button-sm p-button-secondary"
+        (click)="cerrarModalPassword()"
+      ></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+<p-toast></p-toast>
+

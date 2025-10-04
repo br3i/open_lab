@@ -1,0 +1,251 @@
+/* Estilos específicos para el modal de Nuevo Rol */
+
+.nuevo-rol-modal .p-dialog-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  /* Sección de introducción */
+  .nuevo-rol-modal .intro-section {
+    background-color: #e6f4ea;
+    border-left: 4px solid #28a745;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .nuevo-rol-modal .intro-icon {
+    font-size: 1.5rem;
+    color: #28a745;
+    margin-right: 0.75rem;
+  }
+  
+  .nuevo-rol-modal .intro-text {
+    font-size: 1rem;
+    color: #495057;
+    margin: 0;
+  }
+  
+  /* Grupo de inputs */
+  .nuevo-rol-modal .p-inputgroup {
+    margin-bottom: 1.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  
+  /* Efecto hover en el input group */
+  .nuevo-rol-modal .p-inputgroup:hover {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
+  }
+  
+  /* Iconos dentro del input group */
+  .nuevo-rol-modal .p-inputgroup .p-inputgroup-addon {
+    background-color: #e6f4ea;
+    color: #28a745;
+    border-right: 1px solid #ced4da;
+  }
+  
+  /* Inputs */
+  .nuevo-rol-modal .p-inputtext-sm {
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0;
+  }
+  
+  /* Efecto focus en los inputs */
+  .nuevo-rol-modal .p-inputtext-sm:focus {
+    outline: none;
+  }
+  
+  /* Botones del footer */
+  .nuevo-rol-modal .footer-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  /* Botón Guardar */
+  .nuevo-rol-modal .p-button-success {
+    background-color: #28a745;
+    border: none;
+  }
+  
+  .nuevo-rol-modal .p-button-success:hover {
+    background-color: #218838;
+  }
+  
+  /* Botón Cancelar */
+  .nuevo-rol-modal .p-button-secondary {
+    background-color: #6c757d;
+    border: none;
+  }
+  
+  .nuevo-rol-modal .p-button-secondary:hover {
+    background-color: #5a6268;
+  }
+
+  /* Estilos específicos para el modal de Editar Rol */
+
+.editar-rol-modal {
+    padding: 1rem;
+  }
+  
+  /* Título del modal */
+  .editar-rol-modal .p-dialog-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #28a745;
+  }
+  
+  /* Sección de introducción */
+  .editar-rol-modal .intro-section {
+    background-color: #e6f4ea;
+    border-left: 4px solid #28a745;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .editar-rol-modal .intro-icon {
+    font-size: 1.5rem;
+    color: #28a745;
+    margin-right: 0.75rem;
+  }
+  
+  .editar-rol-modal .intro-text {
+    font-size: 1rem;
+    color: #495057;
+    margin: 0;
+  }
+  
+  /* Grupo de inputs */
+  .editar-rol-modal .p-inputgroup {
+    margin-bottom: 1.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  
+  /* Efecto hover en el input group */
+  .editar-rol-modal .p-inputgroup:hover {
+    border-color: #28a745;
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
+  }
+  
+  /* Iconos dentro del input group */
+  .editar-rol-modal .p-inputgroup .p-inputgroup-addon {
+    background-color: #e6f4ea;
+    color: #28a745;
+    border-right: 1px solid #ced4da;
+  }
+  
+  /* Inputs */
+  .editar-rol-modal .p-inputtext-sm {
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0;
+  }
+  
+  /* Efecto focus en los inputs */
+  .editar-rol-modal .p-inputtext-sm:focus {
+    outline: none;
+  }
+  
+  /* Botones del footer */
+  .editar-rol-modal .footer-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  /* Botón Actualizar */
+  .editar-rol-modal .p-button-success {
+    background-color: #28a745;
+    border: none;
+  }
+  
+  .editar-rol-modal .p-button-success:hover {
+    background-color: #218838;
+  }
+  
+  /* Botón Cancelar */
+  .editar-rol-modal .p-button-secondary {
+    background-color: #6c757d;
+    border: none;
+  }
+  
+  .editar-rol-modal .p-button-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  /* Estilos específicos para el modal de Confirmación */
+
+.confirmacion-modal .confirmacion-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 1rem;
+  }
+  
+  /* Icono de advertencia */
+  .confirmacion-modal .confirmacion-icon {
+    font-size: 3rem;
+    color: #ff4d4f;
+    margin-bottom: 1rem;
+  }
+  
+  /* Mensaje de confirmación */
+  .confirmacion-modal .confirmacion-mensaje {
+    font-size: 1.2rem;
+    color: #333;
+    font-weight: bold;
+    margin: 0 0 1.5rem 0;
+  }
+  
+  /* Botones del footer */
+  .confirmacion-modal .footer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  /* Botón Cancelar */
+  .confirmacion-modal .p-button-outlined {
+    border: 1px solid #d9d9d9;
+    color: #595959;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .confirmacion-modal .p-button-outlined:hover {
+    background-color: #f0f0f0;
+    color: #262626;
+  }
+  
+  /* Botón Aceptar */
+  .confirmacion-modal .p-button-success {
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 8px;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    transition: background-color 0.3s;
+  }
+  
+  .confirmacion-modal .p-button-success:hover {
+    background-color: #218838;
+  }
+  
+    

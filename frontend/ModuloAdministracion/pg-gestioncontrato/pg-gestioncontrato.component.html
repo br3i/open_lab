@@ -1,0 +1,916 @@
+<div class="card separador-componentes">
+  <p-toolbar>
+    <div class="p-toolbar-group-center">
+      <p>GESTION DE CONTRATO</p>
+    </div>
+  </p-toolbar>
+
+<!-- Botón flotante en esquina inferior derecha -->
+<div class="boton-ayuda-fijo">
+  <button
+    pButton
+    icon="pi pi-question-circle"
+    class="p-button-rounded p-button-text"
+    (click)="abrirAyuda()"
+    type="button"
+    title="Ver ayuda"
+    style="font-size: 2.5rem;">
+  </button>
+</div>
+
+
+  <div class="flex flex-column gap-2 mt-3">
+    <label for="contrato">Identificador del Convenio</label>
+    <input pInputText id="contrato" placeholder="Ingrese el Identificador del Convenio"
+      [(ngModel)]="contrato_strIdentificador" />
+  </div>
+
+  <!-- Campo para introducir el titulo del contrato -->
+  <div class="flex flex-column gap-2 mt-3">
+    <label for="contrato">Titulo Convenio</label>
+    <textarea id="contrato" pInputText placeholder="Ingrese el Título del Convenio" rows="5" cols="30"
+      [(ngModel)]="contrato_strTitulo">
+  </textarea>
+  </div>
+
+  <!-- Campo para introducir la descripcion del contrato -->
+  <div class="flex flex-column gap-2 mt-3">
+    <label for="contrato">Introducción Convenio</label>
+    <textarea id="contrato" pInputText placeholder="Ingrese la introducción del Convenio" rows="5" cols="30"
+      [(ngModel)]="contrato_strDescripcion">
+  </textarea>
+  </div>
+
+  <br>
+  <!-- Botón para expandir/contraer la sección de Cláusulas -->
+  <div class="card separador-componentes">
+    <div class="flex justify-content-between">
+      <div>
+        <p-button label="Cláusulas" icon="{{ expandirClausulas ? 'pi pi-chevron-up' : 'pi pi-chevron-down' }}"
+          (click)="activarExpandirClausulas()" styleClass="p-button-text">
+        </p-button>
+      </div>
+      <!-- Botón para agregar nueva cláusula (se ubica a la derecha) -->
+      <div>
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" (click)="ModalNuevoClausula()"
+          pTooltip="Agregar Nuevo" tooltipPosition="top">
+        </p-button>
+      </div>
+    </div>
+    <div>
+      <p-dialog header="Nueva Cláusula" [(visible)]="visibleNuevaClausula" [modal]="true" [style]="{ width: '55vw' }"
+        [draggable]="false" [resizable]="false" class="general-modal header-verde">
+
+        <ng-template pTemplate="header">
+          <span class="text-xl font-bold">Nueva Cláusula</span>
+        </ng-template>
+
+        <ng-template pTemplate="content">
+          <br>
+          <p-button type="button" icon="pi pi-external-link" label="Lista de Cláusulas" class="p-mb-3"
+            (click)="  ModalDialogClausula()">
+          </p-button>
+          <div class="flex flex-column gap-2 mt-3">
+            <label for="tituloClausula">Título de la Cláusula</label>
+            <input pInputText id="tituloClausula" placeholder="Ingrese el título de la cláusula"
+              [(ngModel)]="clausula_strTitulo" /> <!-- Vinculado al modelo de título -->
+          </div>
+          <div class="flex flex-column gap-2 mt-3">
+            <label for="contenidoClausula">Contenido</label>
+            <textarea id="contenidoClausula" rows="5" cols="30" pInputText
+              placeholder="Ingrese el contenido de la cláusula" [(ngModel)]="clausula_strDescripcion"
+              style="width: 100%;">
+            </textarea>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+          <p-button icon="pi pi-save" label="Guardar cláusula" styleClass="custom-green-button-guardar"
+            (click)="RegistrarNuevaClausula()"></p-button>
+        </ng-template>
+      </p-dialog>
+    </div>
+
+    <div *ngIf="expandirClausulas">
+      <div class="container mt-2">
+        <!-- Tabla de Cláusulas -->
+        <p-table [value]="ListadoClausula" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+          [tableStyle]="{ 'min-width': '10rem' }" styleClass="p-datatable-sm"
+          currentPageReportTemplate="Mostrar {first} - {last} de {totalRecords} elementos"
+          [rowsPerPageOptions]="[10, 25, 50]">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th>#</th>
+              <th pSortableColumn="nombre">TÍTULO DE LA CLÁUSULA <p-sortIcon field="nombre"></p-sortIcon></th>
+              <th>ACCIONES</th>
+            </tr>
+          </ng-template>
+
+          <!-- Cuerpo de la tabla -->
+          <ng-template pTemplate="body" let-clausula>
+            <tr>
+              <td>{{ clausula.idclausula }}</td>
+              <td>{{ clausula.clausula_strtitulo }}</td>
+              <td>
+                <p-button type="button" icon="pi pi-eye" styleClass="p-button-text" (click)="VerClausula(clausula)"
+                  pTooltip="Ver" tooltipPosition="top">
+                </p-button>
+                <p-button type="button" icon="pi pi-pencil" styleClass="p-button-text"
+                  (click)="ModalEditarClausula(clausula)" pTooltip="Editar" tooltipPosition="top">
+                </p-button>
+                <p-button type="button" icon="pi pi-trash" styleClass="p-button-text"
+                  (click)="ModalEliminarClausula(clausula)" pTooltip="Borrar" tooltipPosition="top">
+                </p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="flex justify-content-between mt-3">
+    <div class="p-toolbar-group-">
+    </div>
+    <div class="flex justify-content-start gap-2">
+      <button type="button" label="Previsualizar" (click)="previsualizarContrato()" pButton icon="pi pi-eye"
+        class="p-mr-3 p-button-info">
+      </button>
+      <p-button icon="pi pi-save" label="Guardar" styleClass="custom-green-button-guardar" (click)="guardarContrato()"></p-button>
+    </div>
+
+  </div>
+
+  <!-- Modal para Cláusula -->
+  <p-dialog header="Detalle de la Cláusula" [(visible)]="dialogVerClausulaVisible" [modal]="true"
+    [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
+
+    <ng-template pTemplate="content">
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12">
+          <label for="nombreClausula">Título de la Cláusula</label>
+          <input id="nombreClausula" type="text" pInputText [(ngModel)]="clausulaVisualizada.clausula_strtitulo"
+            disabled />
+        </div>
+        <div class="p-field p-col-12">
+          <label for="descripcionClausula">Descripción</label>
+          <textarea id="descripcionClausula" rows="10" cols="30" pInputText
+            [(ngModel)]="clausulaVisualizada.clausula_strdescripcion" class="p-inputtext-sm" style="width: 100%;">
+              </textarea>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <p-button label="Cerrar" icon="pi pi-times" (click)="dialogVerClausulaVisible = false">
+      </p-button>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Editar Cláusula" [(visible)]="visibleEditarClausula" [modal]="true" [style]="{ width: '75vw' }"
+    [draggable]="false" [resizable]="false" class="general-modal header-verde">
+
+    <ng-template pTemplate="header">
+      <span class="text-xl font-bold">Editar Cláusula</span>
+    </ng-template>
+
+    <ng-template pTemplate="content">
+      <div class="flex flex-column gap-2 mt-3">
+        <label for="tituloClausula">Título de la Cláusula</label>
+        <input pInputText id="tituloClausula" placeholder="Ingrese el título de la Cláusula"
+          [(ngModel)]="clausulaSeleccionada.clausula_strtitulo" />
+      </div>
+      <div class="flex flex-column gap-2 mt-3">
+        <label for="contenidoCausula">Contenido de la Cláusula</label>
+        <textarea pInputText id="contenidoClausula" rows="5" placeholder="Ingrese el contenido de la Cláusula"
+          [(ngModel)]="clausulaSeleccionada.clausula_strdescripcion" style="width: 100%;">
+        </textarea>
+      </div>
+      <br>
+      <div class="card separador-componentes">
+        <div class="flex justify-content-between">
+          <div>
+            <p-button label="Subcláusulas" icon="{{ expandedSubclausulas ? 'pi pi-chevron-up' : 'pi pi-chevron-down' }}"
+              (click)="activarExpandirSubclausulas()" styleClass="p-button-text">
+            </p-button>
+          </div>
+          <div>
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" (click)="ModalNuevoSubclausula()"
+              pTooltip="Agregar Nuevo" tooltipPosition="top">
+            </p-button>
+          </div>
+        </div>
+        <div *ngIf="expandedSubclausulas">
+          <div class="container mt-2">
+            <p-table [value]="ListadoSubclausula" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+              [tableStyle]="{ 'min-width': '10rem' }" styleClass="p-datatable-sm"
+              currentPageReportTemplate="Mostrar {first} - {last} de {totalRecords} elementos"
+              [rowsPerPageOptions]="[10, 25, 50]">
+
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>#</th>
+                  <th pSortableColumn="nombre">TÍTULO DE LA SUBCLÁUSULA <p-sortIcon field="nombre"></p-sortIcon>
+                  </th>
+                  <th>ACCIONES</th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-subclausula>
+                <tr>
+                  <td>{{ subclausula.ouclau_sub_idsubclausula }}</td>
+                  <td>{{ subclausula.ousubclausula_strtitulo }}</td>
+                  <td>
+                    <p-button type="button" icon="pi pi-eye" styleClass="p-button-text"
+                      (click)="VerSubclausula(subclausula)" pTooltip="Ver" tooltipPosition="top">
+                    </p-button>
+                    <p-button type="button" icon="pi pi-pencil" styleClass="p-button-text"
+                      (click)="ModalEditarSubclausula(subclausula)" pTooltip="Editar" tooltipPosition="top">
+                    </p-button>
+                    <p-button type="button" icon="pi pi-trash" styleClass="p-button-text"
+                      (click)="ModalEliminarSubclausula(subclausula)" pTooltip="Borrar" tooltipPosition="top">
+                    </p-button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <!--Opciones para editar y eliminar cláusula -->
+    <ng-template pTemplate="footer">
+      <div class="flex justify-content-end w-full">
+        <div class="flex align-items-center" style="gap: 6ch;">
+          <p-button icon="pi pi-times" label="Cerrar" styleClass="custom-red-button-cancelar"
+            (click)="visibleEditarClausula = false">
+          </p-button>
+          <p-button icon="pi pi-save" label="Guardar" styleClass="custom-button p-button-sm"
+            (click)="ActualizarClausula()">
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Lista de Cláusulas" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body"
+    [(visible)]="dialogClausulasVisible" [style]="{width: '75vw'}" [contentStyle]="{height: '300px'}">
+
+    <div class="flex justify-content-end align-items-center mb-4">
+      <div class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Búsqueda global" (input)="filtrarClausula($event)" />
+      </div>
+    </div>
+
+    <p-table [value]="ListadoClausulaActivasFiltrado" [(selection)]="selectedClausulas" selectionMode="multiple"
+      dataKey="idclausula" [scrollable]="true" scrollHeight="flex" [tableStyle]="{'min-width': '50rem'}">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem"></th>
+          <th>TÍTULO</th>
+          <th>DESCRIPCIÓN</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-clausula>
+        <tr [pSelectableRow]="clausula">
+          <td>
+            <p-tableCheckbox [value]="clausula"></p-tableCheckbox>
+          </td>
+          <td>{{clausula.clausula_strtitulo}}</td>
+          <td>{{clausula.clausula_strdescripcion}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-save" label="Confirmar selección" styleClass="custom-green-button-guardar"
+        (click)="confirmarClausulas()"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Elminar Cláusula" [(visible)]="visibleEliminarClausula" [modal]="true" [style]="{ width: '25vw' }"
+    [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+      <span class="text-xl font-bold">Eliminar Cláusula</span>
+    </ng-template>
+
+    <ng-template pTemplate="content">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-pencil"></i>
+        </span>
+        <input pInputText placeholder="Título" [(ngModel)]="clausulaSeleccionada.clausula_strtitulo"
+          class="p-inputtext-sm" readonly />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-save" label="Guardar" styleClass="custom-green-button-guardar" (click)="EliminarClausula()"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <!-- Modal para subcláusula -->
+  <p-dialog header="Nueva Subcláusula" [(visible)]="visibleNuevaSubclausula" [modal]="true" [style]="{ width: '55vw' }"
+    [draggable]="false" [resizable]="false" class="general-modal header-verde">
+
+    <ng-template pTemplate="header">
+      <span class="text-xl font-bold">Nueva Subcláusula</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <br>
+      <p-button type="button" icon="pi pi-external-link" label="Lista de Subcláusulas" class="p-mb-3"
+        (click)="ModalDialogSubclausula()">
+      </p-button>
+      <div class="flex flex-column gap-2 mt-3">
+        <label for="tituloClausula">Título de la Subcláusula</label>
+        <input pInputText id="tituloSubclausula" placeholder="Ingrese el título de la subcláusula"
+          [(ngModel)]="subclausula_strTitulo" />
+      </div>
+      <div class="flex flex-column gap-2 mt-3">
+        <label for="contenidoSubclausula">Contenido</label>
+        <textarea id="contenidoSubclausula" rows="5" cols="30" pInputText
+          placeholder="Ingrese el contenido de la subcláusula" [(ngModel)]="subclausula_strDescripcion"
+          style="width: 100%;">
+                    </textarea>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-save" label="Guardar subcláusula" styleClass="custom-green-button-guardar"
+        (click)="RegistrarNuevaSubclausula()"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Lista de Subcláusulas" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body"
+    [(visible)]="dialogSubclausulasVisible" [style]="{width: '75vw'}" [contentStyle]="{height: '300px'}">
+
+    <div class="flex justify-content-end align-items-center mb-4">
+      <div class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Búsqueda global" (input)="filtrarSubclausula($event)" />
+      </div>
+    </div>
+    <p-table [value]="ListadoSubclausulaActivasFiltradas" [(selection)]="selectedSubclausulas" selectionMode="multiple"
+      dataKey="ouclau_sub_idsubclausula" [scrollable]="true" scrollHeight="flex" [tableStyle]="{'min-width': '50rem'}">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem"></th>
+          <th>TÍTULO</th>
+          <th>DESCRIPCIÓN</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-subclausula>
+        <tr [pSelectableRow]="subclausula">
+          <td>
+            <p-tableCheckbox [value]="subclausula"></p-tableCheckbox>
+          </td>
+          <td>{{subclausula.ousubclausula_strtitulo}}</td>
+
+          <td>{{subclausula.ousubclausula_strdescripcion}}</td>
+
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" label="Confirmar selección" styleClass="custom-green-button-guardar"
+        (click)="confirmarSubclausulas()"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Detalle de la Subcláusula" [(visible)]="dialogVerSubclausulaVisible" [modal]="true"
+    [style]="{width: '50vw'}" [draggable]="false" [resizable]="false" class="general-modal header-verde">
+
+    <ng-template pTemplate="content">
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12">
+          <label for="nombreSubclausula">Título de la Subcláusula</label>
+          <input id="nombreSubclausula" type="text" pInputText
+            [(ngModel)]="subclausulaVisualizada.ousubclausula_strtitulo" disabled />
+        </div>
+        <div class="p-field p-col-12">
+          <label for="descripcionSubclausula">Descripción</label>
+          <textarea id="descripcionSubclausula" rows="10" cols="30" pInputText
+            [(ngModel)]="subclausulaVisualizada.ousubclausula_strdescripcion" class="p-inputtext-sm"
+            style="width: 100%;">
+          </textarea>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <p-button label="Cerrar" icon="pi pi-times" (click)="dialogVerSubclausulaVisible = false">
+      </p-button>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Editar Subcláusula" [(visible)]="visibleEditarSubclausula" [modal]="true"
+    [style]="{ width: '75vw' }" [draggable]="false" [resizable]="false" class="general-modal header-verde">
+
+    <ng-template pTemplate="header">
+      <span class="text-xl font-bold">Editar Subcláusula</span>
+    </ng-template>
+
+    <ng-template pTemplate="content">
+      <div class="flex flex-column gap-2 mt-3">
+        <label for="tituloSubclausula">Título de la Subcláusula</label>
+        <input pInputText id="tituloSubclausula" placeholder="Ingrese el título de la SubCláusula"
+          [(ngModel)]="subclausulaSeleccionada.ousubclausula_strtitulo" />
+      </div>
+
+      <div class="flex flex-column gap-2 mt-3">
+        <label for="contenidoSubclausula">Contenido de la Subcláusula</label>
+        <textarea pInputText id="contenidoSubclausula" rows="5" placeholder="Ingrese el contenido de la Subcláusula"
+          [(ngModel)]="subclausulaSeleccionada.ousubclausula_strdescripcion" style="width: 100%;">
+                      </textarea>
+      </div>
+
+      <div class="card separador-componentes">
+        <div class="flex justify-content-between">
+          <div>
+            <p-button label="Items" icon="{{ expandedItems ? 'pi pi-chevron-up' : 'pi pi-chevron-down' }}"
+              (click)="activarExpandirItems()" styleClass="p-button-text">
+            </p-button>
+          </div>
+
+          <div>
+            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text" (click)="ModalNuevoItem()"
+              pTooltip="Agregar Nuevo" tooltipPosition="top">
+            </p-button>
+          </div>
+        </div>
+
+        <div *ngIf="expandedItems">
+          <div class="container mt-2">
+            <p-table [value]="ListadoItem" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+              [tableStyle]="{ 'min-width': '10rem' }" styleClass="p-datatable-sm"
+              currentPageReportTemplate="Mostrar {first} - {last} de {totalRecords} elementos"
+              [rowsPerPageOptions]="[10, 25, 50]">
+
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>#</th>
+                  <th pSortableColumn="nombre">TÍTULO DEL ITEM <p-sortIcon field="nombre"></p-sortIcon>
+                  </th>
+                  <th>ACCIONES</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-item>
+                <tr>
+                  <td>{{ item.ousub_items_iditems }}</td>
+                  <td>{{ item.ouitems_strtitulo }}</td>
+                  <td>
+                    <p-button type="button" icon="pi pi-eye" styleClass="p-button-text" (click)="VerItem(item)"
+                      pTooltip="Ver" tooltipPosition="top">
+                    </p-button>
+                    <p-button type="button" icon="pi pi-pencil" styleClass="p-button-text"
+                      (click)="ModalEditarItem(item)" pTooltip="Editar" tooltipPosition="top">
+                    </p-button>
+                    <p-button type="button" icon="pi pi-trash" styleClass="p-button-text"
+                      (click)="ModalEliminarItem(item)" pTooltip="Borrar" tooltipPosition="top">
+                    </p-button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <!-- Opciones de editar y eliminar Subcláusulas -->
+    <ng-template pTemplate="footer">
+      <div class="flex justify-content-end w-full">
+        <div class="flex align-items-center" style="gap: 6ch;">
+          <p-button icon="pi pi-times" label="Cerrar" styleClass="custom-red-button-cancelar"
+            (click)="visibleEditarSubclausula = false">
+          </p-button>
+          <p-button icon="pi pi-save" label="Actualizar" styleClass="custom-button p-button-sm"
+            (click)="ActualizarSubclausula()">
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+
+
+  </p-dialog>
+
+  <p-dialog header="Elminar Subcláusula" [(visible)]="visibleEliminarSubclausula" [modal]="true"
+    [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+      <span class="text-xl font-bold">Eliminar Subcláusula</span>
+    </ng-template>
+
+    <ng-template pTemplate="content">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-pencil"></i>
+        </span>
+        <input pInputText placeholder="Título" [(ngModel)]="subclausulaSeleccionada.ousubclausula_strtitulo"
+          class="p-inputtext-sm" readonly />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-save" label="Guardar" styleClass="custom-green-button-guardar" (click)="EliminarSubclausula()"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <!-- Modal para intems -->
+
+  <p-dialog header="Nuevo Item" [(visible)]="visibleNuevoItem" [modal]="true" [style]="{ width: '55vw' }"
+    [draggable]="false" [resizable]="false" class="general-modal header-verde">
+
+    <ng-template pTemplate="header">
+      <span class="text-xl font-bold">Nuevo Item</span>
+    </ng-template>
+<br>
+    <ng-template pTemplate="content">
+      <p-button type="button" icon="pi pi-external-link" label="Lista de Items" class="p-mb-3"
+        (click)="ModalDialogItem()">
+      </p-button>
+
+      <div class="flex flex-column gap-2 mt-3">
+        <label for="tituloItem">Título del Item</label>
+        <input pInputText id="tituloItem" placeholder="Ingrese el título del item" [(ngModel)]="items_strTitulo" />
+      </div>
+
+      <div class="flex flex-column gap-2 mt-3">
+        <label for="contenidoItem">Contenido</label>
+        <textarea id="contenidoItem" rows="5" cols="30" pInputText placeholder="Ingrese el contenido del item"
+          [(ngModel)]="items_strDescripcion" style="width: 100%;">
+                    </textarea>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-save" label="Guardar Item" styleClass="custom-green-button-guardar"
+        (click)="RegistrarNuevoItem()"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Lista de Items" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body"
+    [(visible)]="dialogItemVisible" [style]="{width: '75vw'}" [contentStyle]="{height: '300px'}">
+
+    <div class="flex justify-content-end align-items-center mb-4">
+      <div class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input type="text" pInputText placeholder="Búsqueda global" (input)="filtrarItem($event)" />
+      </div>
+    </div>
+
+    <!-- Tabla de Items con checkboxes para seleccionar -->
+    <p-table [value]="ListadoItemActivasFiltradas" [(selection)]="selectedItems" selectionMode="multiple"
+      dataKey="ousub_items_iditems" [scrollable]="true" scrollHeight="flex" [tableStyle]="{'min-width': '50rem'}">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 4rem"></th> <!-- Espacio para el Checkbox -->
+          <th>TÍTULO</th>
+          <th>DESCRIPCIÓN</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-item>
+        <tr [pSelectableRow]="item">
+          <td>
+            <p-tableCheckbox [value]="item"></p-tableCheckbox>
+          </td>
+          <td>{{item.ouitems_strtitulo}}</td>
+          <td>{{item.ouitems_strdescripcion}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+    <!-- Botón para confirmar y guardar las Items seleccionadas -->
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-save" label="Confirmar selección" styleClass="custom-green-button-guardar"
+        (click)="confirmarItems()"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Detalle del Item" [(visible)]="dialogVerItemVisible" [modal]="true" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false" class="general-modal header-verde">
+
+    <ng-template pTemplate="content">
+      <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12">
+          <label for="nombreItem">Título del Item</label>
+          <input id="nombreItem" type="text" pInputText [(ngModel)]="itemVisualizado.ouitems_strtitulo" disabled />
+        </div>
+        <div class="p-field p-col-12">
+          <label for="descripcionItem">Descripción</label>
+          <textarea id="descripcionItem" rows="10" cols="30" pInputText
+            [(ngModel)]="itemVisualizado.ouitems_strdescripcion" class="p-inputtext-sm" style="width: 100%;">
+          </textarea>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <p-button label="Cerrar" icon="pi pi-times" (click)="dialogVerItemVisible = false">
+      </p-button>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Editar Item" [(visible)]="visibleEditarItem" [modal]="true" [style]="{ width: '75vw' }"
+    [draggable]="false" [resizable]="false" class="general-modal header-verde">
+
+    <ng-template pTemplate="header">
+      <span class="text-xl font-bold">Editar Item</span>
+    </ng-template>
+
+    <ng-template pTemplate="content">
+      <div class="flex flex-column gap-2 mt-3">
+        <label for="tituloItem">Título del Item</label>
+        <input pInputText id="tituloItem" placeholder="Ingrese el título del Item"
+          [(ngModel)]="itemSeleccionado.ouitems_strtitulo" />
+      </div>
+
+      <div class="flex flex-column gap-2 mt-3">
+        <label for="contenidoItem">Contenido del Item</label>
+        <textarea pInputText id="contenidoItem" rows="5" placeholder="Ingrese el contenido del item"
+          [(ngModel)]="itemSeleccionado.ouitems_strdescripcion" style="width: 100%;">
+        </textarea>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+      <div class="flex justify-content-end w-full">
+        <div class="flex align-items-center" style="gap: 6ch;">
+          <p-button icon="pi pi-times" label="Cerrar" styleClass="custom-red-button-cancelar"
+            (click)="visibleEditarItem = false">
+          </p-button>
+          <p-button icon="pi pi-save" label="Actualizar" styleClass="custom-button p-button-sm" (click)="ActualizarItem()">
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Elminar Item" [(visible)]="visibleEliminarItem" [modal]="true" [style]="{ width: '25vw' }"
+    [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+      <span class="text-xl font-bold">Eliminar Item</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-pencil"></i>
+        </span>
+        <input pInputText placeholder="Título" [(ngModel)]="itemSeleccionado.ouitems_strtitulo" class="p-inputtext-sm"
+          readonly />
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-save" label="Guardar" styleClass="custom-green-button-guardar" (click)="EliminarItem()"></p-button>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Previsualización del Convenio" [(visible)]="visiblepdfContrato" [modal]="true"
+    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+      <span class="text-xl font-bold">GENERACIÓN DOCUMENTO</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <div class="grid nested-grid">
+        <div class="col-12">
+          <div class="formgrid grid text-center">
+            <div class="field col">
+              <div class="text-center col-md-12 col-sm-12 col-xs-12" style="height: 450px;overflow: auto;">
+                <iframe width="100%" height="100%" zoom_in="50%" [src]="strArchivoreporte64"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+  <p-dialog header="Guía para estructurar convenios dinámicos" [(visible)]="mostrarModalAyuda" [modal]="true"
+    [style]="{ width: '65vw' }" class="general-modal header-verde">
+    <br>
+    <div class="modal-header">
+      <p class="modal-subtitle">
+        Esta guía te orienta para escribir convenios que serán exportados a PDF, usando etiquetas simples y valores
+        dinámicos que se llenan automáticamente.
+      </p>
+    </div>
+
+    <div class="info-section">
+      <h4 class="section-title">🛠 Formato del contenido</h4>
+      <p class="informacion-modal">
+        Puedes utilizar etiquetas básicas (como negrita, listas, párrafos) para organizar mejor la información del
+        convenio. Estas etiquetas se procesan al generar el PDF para que tenga una presentación profesional.
+      </p>
+
+      <table class="table p-datatable-sm">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Elemento</th>
+            <th>Uso</th>
+            <th>Sintaxis</th>
+            <th>Ejemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>Negrita</strong></td>
+            <td>Resaltar nombres o datos clave</td>
+            <td><code>&lt;strong&gt;Texto&lt;/strong&gt;</code></td>
+            <td><strong>Texto</strong></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><em>Cursiva</em></td>
+            <td>Usar en términos técnicos o citas</td>
+            <td><code>&lt;em&gt;Texto&lt;/em&gt;</code></td>
+            <td><em>Texto</em></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Párrafo</td>
+            <td>Separar ideas principales</td>
+            <td><code>&lt;p&gt;Texto&lt;/p&gt;</code></td>
+            <td>Bloque de texto</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Salto de línea</td>
+            <td>Agregar espacio entre líneas</td>
+            <td><code>\n</code></td>
+            <td>Texto 1<br>Texto 2</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Lista</td>
+            <td>Presentar elementos o responsabilidades</td>
+            <td><code>&lt;ul&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/ul&gt;</code></td>
+            <td>
+              <ul>
+                <li>Item</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Lista numerada</td>
+            <td>Pasos o artículos secuenciales</td>
+            <td><code>&lt;ol&gt;&lt;li&gt;Paso&lt;/li&gt;&lt;/ol&gt;</code></td>
+            <td>
+              <ol>
+                <li>Paso</li>
+              </ol>
+            </td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>Separador</td>
+            <td>Dividir secciones del documento</td>
+            <td><code>&lt;hr /&gt;</code></td>
+            <td>
+              <hr />
+            </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>Enlace</td>
+            <td>Incluir páginas web</td>
+            <td><code>&lt;a href="..."&gt;Texto&lt;/a&gt;</code></td>
+            <td><a href="#">Visitar</a></td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>Subrayado</td>
+            <td>Dar énfasis visual</td>
+            <td><code>&lt;u&gt;Texto&lt;/u&gt;</code></td>
+            <td><u>Texto</u></td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>Justificado</td>
+            <td>Texto alineado a ambos márgenes</td>
+            <td><code>&lt;p style="text-align: justify;"&gt;</code></td>
+            <td style="text-align: justify;">Texto alineado</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="info-section p-mt-4">
+      <h4 class="section-title">🔑 Palabras clave dinámicas</h4>
+      <p class="informacion-modal">
+        Estas palabras serán reemplazadas automáticamente por los datos del convenio o participantes. Escribe
+        exactamente como se muestra:
+      </p>
+
+      <table class="table p-datatable-sm">
+        <thead>
+          <tr>
+            <th>Palabra</th>
+            <th>Descripción</th>
+            <th>Ejemplo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>+NOMBRE_EMPRESA+</code></td>
+            <td>Nombre de la empresa</td>
+            <td>Fundación Vida Sana</td>
+          </tr>
+          <tr>
+            <td><code>+NOMBRE_GERENTE+</code></td>
+            <td>Gerente de la empresa</td>
+            <td>Ing. Carla Mendoza</td>
+          </tr>
+          <tr>
+            <td><code>+VIGENCIA+</code></td>
+            <td>Duración del convenio</td>
+            <td>01/07/2025 al 01/07/2026</td>
+          </tr>
+          <tr>
+            <td><code>+NOMBRE_COORDINADOR+</code></td>
+            <td>Coordinador del BAR</td>
+            <td>Ing. Pedro Torres</td>
+          </tr>
+          <tr>
+            <td><code>+NOMBRE_REPRESENTANTE+</code></td>
+            <td>Representante de la empresa</td>
+            <td>Lic. Ana Cueva</td>
+          </tr>
+          <tr>
+            <td><code>+DIRRECION_EMPRESA+</code></td>
+            <td>Dirección de la empresa</td>
+            <td>Av. Simón Bolívar 456</td>
+          </tr>
+          <tr>
+            <td><code>+TELEFONO_EMPRESA+</code></td>
+            <td>Teléfono de la empresa</td>
+            <td>032-456-789</td>
+          </tr>
+          <tr>
+            <td><code>+EMAIL_EMPRESA+</code></td>
+            <td>Correo de la empresa</td>
+            <td>info&#64;empresa.com</td>
+          </tr>
+          <tr>
+            <td><code>+WEB_EMPRESA+</code></td>
+            <td>Sitio web de la empresa</td>
+            <td>www.empresa.com</td>
+          </tr>
+          <tr>
+            <td><code>+CIUDAD_EMPRESA+</code></td>
+            <td>Ciudad de la empresa</td>
+            <td>Quito</td>
+          </tr>
+          <tr>
+            <td><code>+FECHA_ACTUAL+</code></td>
+            <td>Fecha de creación del PDF</td>
+            <td>01 de julio de 2025</td>
+          </tr>
+          <tr>
+            <td><code>+DIRRECION_BAR+</code></td>
+            <td>Dirección del BAR</td>
+            <td>Calle Bolívar 102</td>
+          </tr>
+          <tr>
+            <td><code>+TELEFONO_BAR+</code></td>
+            <td>Teléfono del BAR</td>
+            <td>032-987-654</td>
+          </tr>
+          <tr>
+            <td><code>+EMAIL_BAR+</code></td>
+            <td>Correo del BAR</td>
+            <td>contacto&#64;bar.org</td>
+          </tr>
+          <tr>
+            <td><code>+WEB_BAR+</code></td>
+            <td>Sitio web del BAR</td>
+            <td>www.bar.org</td>
+          </tr>
+          <tr>
+            <td><code>+CIUDAD_BAR+</code></td>
+            <td>Ciudad del BAR</td>
+            <td>Riobamba</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="p-mt-3">
+      <p><strong>📄 Ejemplo combinado:</strong></p>
+      <pre><code>&lt;p&gt;La empresa +NOMBRE_EMPRESA+ representada por +NOMBRE_GERENTE+ se compromete a...&lt;/p&gt;\n&lt;p&gt;Vigencia: +VIGENCIA+&lt;/p&gt;</code></pre>
+    </div>
+  </p-dialog>
+
+</div>
+<!-- Toast para mensajes de éxito/error -->
+<p-toast></p-toast>

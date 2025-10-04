@@ -1,0 +1,188 @@
+/* 📌 Contenedor principal */
+.perfil-contenedor {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🎭 Encabezado con avatar */
+.perfil-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #eeeeee;
+}
+
+/* 🟡 Avatar */
+
+/* Icono de usuario centrado */
+.perfil-avatar {
+    background: #95c11f; /* 🔹 Cambia el color del fondo del icono */
+    color: white; /* 🔹 Cambia el color del ícono */
+    border-radius: 50%;
+    width: 120px; /* 🔹 Aumenta el tamaño del círculo */
+    height: 120px; /* 🔹 Aumenta el tamaño del círculo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px; /* 🔹 Aumenta el tamaño del icono */
+    margin: 20px 0;
+}
+/* Icono de cámara */
+.perfil-cambiar-foto {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -10px; /* Ajusta la posición más cerca del avatar */
+    font-size: 22px;
+    color: #95c11f;
+    cursor: pointer;
+    position: relative;
+}
+
+.perfil-cambiar-foto i {
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+    border: 2px solid #f7f7f7;
+}
+
+.perfil-cambiar-foto:hover {
+    color: #95c11f;
+}
+
+/* 🔹 Info al lado del avatar */
+.perfil-info-header {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 🏷 Nombre de usuario */
+.perfil-info-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #2d3436;
+}
+
+/* 📋 Información */
+.perfil-info {
+    margin-top: 20px;
+}
+
+/* 📌 Cada elemento */
+.perfil-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 6px;
+    background: #f8f9fa;
+    margin-bottom: 8px;
+}
+
+/* 🎨 Íconos */
+.perfil-item i {
+    font-size: 1.2rem;
+    color: #95c11f;
+}
+
+/* 🏷 Etiquetas */
+.perfil-label {
+    font-weight: bold;
+    color: #2d3436;
+}
+
+.perfil-container {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.perfil-sidebar {
+    width: 25%;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar elementos horizontalmente */
+    text-align: center;
+    justify-content: center; /* Centrar verticalmente */
+}
+
+.perfil-sidebar h3 {
+    margin-bottom: 15px;
+}
+
+.perfil-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.perfil-sidebar li {
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.perfil-sidebar li.active,
+.perfil-sidebar li:hover {
+    background: #95c11f;
+    color: white;
+}
+
+.perfil-content {
+    flex-grow: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.perfil-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.perfil-info-header {
+    flex: 1;
+    text-align: center;
+}
+
+.perfil-opciones {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.perfil-item i {
+    margin-right: 10px;
+    color: #95c11f;
+    font-size: 20px;
+}
+
+.perfil-label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.perfil-usuario {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+

@@ -1,0 +1,10 @@
+
+
+/* Cambiar color del header del modal */
+.header-verde .p-dialog-header {
+  background-color: #96c11f !important; /* Verde del header */
+  color: white !important;             /* Color del texto */
+  font-weight: bold;                   /* Negrita para resaltar el texto */
+  text-align: center;                  /* Centrar el texto */
+  border-radius: 12px 12px 0 0;        /* Bordes redondeados en la parte superior */
+}

@@ -1,0 +1,460 @@
+/* Estilos específicos para el modal de Registro de Usuario */
+
+.registro-usuario-modal .info-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .registro-usuario-modal .info-box {
+    background-color: #e6f4ea;
+    border-left: 4px solid #28a745;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  .registro-usuario-modal .info-icon {
+    font-size: 1.5rem;
+    color: #28a745;
+    margin-right: 0.75rem;
+  }
+  
+  .registro-usuario-modal .info-text {
+    font-size: 0.95rem;
+    color: #495057;
+    margin: 0;
+  }
+  
+  .registro-usuario-modal .field-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .registro-usuario-modal .field-label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #495057;
+  }
+  
+  .registro-usuario-modal .p-inputgroup {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .registro-usuario-modal .p-inputgroup-addon.clickable {
+    cursor: pointer;
+  }
+  
+  .registro-usuario-modal .p-inputgroup-addon .plus-icon {
+    color: #007ad9;
+  }
+  
+  .registro-usuario-modal .person-card {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+    margin-top: 1rem;
+  }
+  
+  .registro-usuario-modal .person-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #495057;
+    text-align: center;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #28a745;
+    padding-bottom: 0.5rem;
+  }
+  .registro-usuario-modal .person-details {
+    font-size: 1rem;
+    color: #495057;
+  }
+  .registro-usuario-modal .detail-item {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .registro-usuario-modal .detail-item .icon {
+    color: #28a745;
+    font-size: 1.2rem;
+  }
+  .registro-usuario-modal .icon-container {
+    background-color: #e6f4ea;
+    border-radius: 50%;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+  }
+  .registro-usuario-modal .detail-label {
+    font-weight: bold;
+    color: #343a40;
+    margin-right: 0.5rem;
+  }
+  
+  .registro-usuario-modal .detail-value {
+    color: #495057;
+    font-weight: 500;
+  }
+  
+  .registro-usuario-modal .confirmation-message {
+    margin-top: 1rem;
+    font-weight: bold;
+    color: #495057;
+    text-align: center;
+  }
+  
+  .registro-usuario-modal .confirmation-message .highlight {
+    color: #28a745;
+  }
+  
+  .registro-usuario-modal .footer-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  
+
+  
+
+/* Estilos específicos para el modal de Crear Usuario */
+
+.crear-usuario-modal .info-section {
+    margin-bottom: 1.5rem;
+  }
+  
+  .crear-usuario-modal .info-box {
+    background-color: #e6f4ea;
+    border-left: 4px solid #28a745;
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .crear-usuario-modal .info-icon {
+    font-size: 1.2rem;
+    color: #28a745;
+    margin-right: 0.5rem;
+  }
+  
+  .crear-usuario-modal .info-text {
+    font-size: 0.9rem;
+    color: #495057;
+    margin: 0;
+  }
+  
+  .crear-usuario-modal .field-section {
+    margin-bottom: 1rem;
+  }
+  
+  .crear-usuario-modal .field-label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #495057;
+  }
+  
+  .crear-usuario-modal .p-inputgroup {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #ced4da;
+  }
+  
+  .crear-usuario-modal .p-inputgroup-addon {
+    background-color: #e6f4ea;
+    color: #28a745;
+  }
+  
+  .crear-usuario-modal .p-inputgroup input[pInputText],
+  .crear-usuario-modal .p-multiselect {
+    border: none;
+    padding: 0.5rem;
+  }
+  
+  .crear-usuario-modal .p-inputgroup-addon.clickable {
+    cursor: pointer;
+  }
+  
+  .crear-usuario-modal .footer-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  .footer-buttons .p-button-success {
+    background-color: #28a745;
+    border: none;
+  }
+  
+  .footer-buttons .p-button-success:hover {
+    background-color: #218838;
+  }
+  
+  .footer-buttons .p-button-secondary {
+    background-color: #6c757d;
+    border: none;
+  }
+  
+  .footer-buttons .p-button-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+/* Estilos específicos para el modal de Roles Asignados */
+
+/* Descripción introductoria */
+.roles-asignados-modal .intro-section {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+
+
+.roles-asignados-modal .info-tip {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.roles-asignados-modal .info-icon {
+  color: #17a2b8;
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Sección de carga */
+.roles-asignados-modal .loading-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.roles-asignados-modal .loading-text {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #495057;
+}
+
+/* Lista de roles */
+.roles-asignados-modal .roles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+/* Cada ítem de rol */
+.roles-asignados-modal .role-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto hover */
+.roles-asignados-modal .role-item:hover { 
+  background-color: #e6f4ea;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Icono en cada rol */
+.roles-asignados-modal .role-icon {
+  color: #28a745;
+  font-size: 1.2rem;
+}
+
+/* Label de cada rol */
+.roles-asignados-modal .role-label {
+  font-size: 1rem;
+  color: #495057;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+/* Botones del footer */
+.roles-asignados-modal .footer-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.footer-buttons .p-button-success {
+  background-color: #28a745;
+}
+
+.footer-buttons .p-button-success:hover {
+  background-color: #218838;
+}
+
+.footer-buttons .p-button-secondary {
+  background-color: #6c757d;
+}
+
+.footer-buttons .p-button-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Estilos específicos para el modal de Editar Usuario */
+.editar-usuario-modal {
+  padding: 1rem;
+}
+
+/* Título del modal */
+.editar-usuario-modal .p-dialog-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #28a745;
+}
+
+/* Sección de introducción */
+.editar-usuario-modal .intro-section {
+  background-color: #e6f4ea;
+  border-left: 4px solid #28a745;
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.editar-usuario-modal .intro-icon {
+  font-size: 1.5rem;
+  color: #28a745;
+  margin-right: 0.75rem;
+}
+
+.editar-usuario-modal .intro-text {
+  font-size: 1rem;
+  color: #495057;
+  margin: 0;
+}
+
+/* Grupo de inputs */
+.editar-usuario-modal .p-field {
+  margin-bottom: 1.5rem;
+}
+
+/* Labels para los inputs */
+.editar-usuario-modal .p-field label {
+  display: block;
+  font-weight: bold;
+  color: #495057;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Grupo de inputs con iconos */
+.editar-usuario-modal .p-inputgroup {
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+/* Efecto hover en el input group */
+.editar-usuario-modal .p-inputgroup:hover {
+  border-color: #28a745;
+  box-shadow: 0 0 8px rgba(40, 167, 69, 0.2);
+}
+
+/* Iconos dentro del input group */
+.editar-usuario-modal .p-inputgroup .p-inputgroup-addon {
+  background-color: #e6f4ea;
+  color: #28a745;
+  border-right: 1px solid #ced4da;
+}
+
+/* Clickable icon */
+.editar-usuario-modal .p-inputgroup-addon.clickable {
+  cursor: pointer;
+}
+
+/* Inputs */
+.editar-usuario-modal .p-inputtext-sm {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 0;
+  font-size: 1rem;
+}
+
+/* Efecto focus en los inputs */
+.editar-usuario-modal .p-inputtext-sm:focus {
+  outline: none;
+}
+
+/* Estilo para inputs deshabilitados */
+.editar-usuario-modal .p-inputtext-sm:disabled {
+  background-color: #f5f5f5;
+  color: #6c757d;
+}
+
+/* Botones del footer */
+.editar-usuario-modal .footer-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* Botón Actualizar */
+.editar-usuario-modal .p-button-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.editar-usuario-modal .p-button-success:hover {
+  background-color: #218838;
+}
+
+/* Botón Cancelar */
+.editar-usuario-modal .p-button-secondary {
+  background-color: #6c757d;
+  border: none;
+}
+
+.editar-usuario-modal .p-button-secondary:hover {
+  background-color: #5a6268;
+}
+
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.password-tooltip {
+  position: absolute;
+  top: 100%; /* Justo debajo del input */
+  left: 0;
+  width: 100%; /* Igual al input */
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  overflow-y: auto;
+  max-height: 150px; /* Evita que sea muy largo */
+}
+  
+  

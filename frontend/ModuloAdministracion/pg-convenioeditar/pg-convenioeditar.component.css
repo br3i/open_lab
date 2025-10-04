@@ -1,0 +1,116 @@
+/* Estructura principal */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;  /* Permite que los elementos se ajusten automáticamente */
+    gap: 5px;  /* Espacio entre los campos */
+    margin-bottom: 0.5rem;  /* Separación entre filas */
+    align-items: center; /* Alinea todos los elementos hijos verticalmente */
+  }
+  
+  .form-field {
+    flex: 1 1 calc(50% - 1rem);
+    /* En pantallas grandes, ocupa el 50% menos el gap */
+    box-sizing: border-box;
+    /* Respeta el padding en el ancho */
+  }
+  
+  .col-auto {
+    flex: 0 0 auto; /* Tamaño del label ajustado al contenido */
+  }
+  
+  .col {
+    flex: 1; /* El autocompletar ocupa el espacio restante */
+  }
+  
+  @media (max-width: 768px) {
+    .form-field {
+      flex: 1 1 100%;
+      /* En pantallas pequeñas, ocupa todo el ancho */
+    }
+  
+    .select-sm {
+      width: 100%;
+      /* Ocupa todo el ancho en pantallas pequeñas */
+    }
+  
+  }
+  
+  /* Inputs y campos */
+  .form-field input,
+  .form-field select,
+  .form-field textarea,
+  p-calendar {
+    width: 90%;
+    /* Ocupa todo el ancho del contenedor */
+    padding: 0.5rem;
+    box-sizing: border-box;
+    /* Ajusta el tamaño con el padding */
+  }
+  
+  /* Textareas */
+  .form-field textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  /* Etiquetas */
+  .form-field label {
+    margin-bottom: 8px;
+    display: block;
+    /* Hace que las etiquetas estén encima del campo */
+  }
+  
+  .form-label {
+    margin-bottom: 0; /* Elimina márgenes predeterminados del label */
+    margin-top: 10px; /* Ajusta este valor según necesites */
+  }
+  
+  
+  /* Contenido centrado */
+  .centered-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .centered-text {
+    text-align: left;
+  }
+  
+  /* Contenedor principal */
+  .card {
+    max-width: 100%;
+    padding: 1rem;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+  
+  /* Contenedor para el select */
+  .select-container {
+    display: flex;
+    flex-direction: column;
+    /* Asegura que el label y el select estén en columna */
+    width: 100%;
+    /* Asegura que el contenedor sea responsivo */
+  }
+  
+  /* Estilo reducido para el select */
+  .select-sm {
+    width: 20px;
+    /* Define un ancho fijo */
+    max-width: 30%;
+    /* Asegura que no exceda el ancho del contenedor */
+    padding: 0.25rem;
+    /* Reduce el espacio interno */
+    font-size: 0.875rem;
+    /* Reduce el tamaño de la fuente */
+    box-sizing: border-box;
+    /* Considera el padding en el ancho total */
+  }
+  
+  
+  

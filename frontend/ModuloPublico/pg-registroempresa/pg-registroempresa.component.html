@@ -1,0 +1,432 @@
+<div class="row">
+  <div class="grid nested-grid">
+    <div class="col-2">
+      <div class="formgrid grid text-center">
+        <div class="field col">
+          <p-image [src]="imageSrc" [preview]="true" alt="Image" width="150"
+            *ngIf="blSubirFoto==false">
+            <ng-template pTemplate="indicator">
+              <i class="pi pi-check"></i>
+            </ng-template>
+
+          </p-image>
+          <p-image [src]="strFoto" [preview]="true" alt="Image" width="150" *ngIf="blSubirFoto==true">
+            <ng-template pTemplate="indicator">
+              <i class="pi pi-check"></i>
+            </ng-template>
+
+          </p-image>
+          <p-fileUpload styleClass="custom-green-button-guardar" mode="basic" name="demo[]" accept="image/*"
+            url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onBasicUploadAuto($event)" [auto]="true"
+            chooseLabel="Subir logo">
+          </p-fileUpload>
+
+        </div>
+      </div>
+
+      <div class="text-center p-3 border-round-sm font-bold custom-button" style="
+              border: 1px solid #a1c74f;
+              margin-top: 10px;
+              height: 82%;
+              box-sizing: border-box; background-color: #a1c74f
+            ">
+      </div>
+    </div>
+
+    <div class="col-10">
+      <div class="col-12">
+        <div class="text-center p-3 border-round-sm font-bold " style="background-color: #a1c74f;color: white;">
+          INFORMACIÓN DE LA EMPRESA
+        </div>
+      </div>
+
+      <div class="formgrid grid" style="margin-left: 10px; margin-right: 10px">
+        <div class="field col">
+          <label for="firstname1">Razón Social</label>
+          <input id="firstname1" type="text" pattern="[0-9]" maxlength="50"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            [(ngModel)]="empresa_strnombre" />
+        </div>
+      </div>
+      <div class="formgrid grid" style="margin-left: 10px; margin-right: 10px">
+        <div class="field col">
+          <label for="strRuc">RUC</label>
+          <input id="strRuc" type="text" maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            [(ngModel)]="strRuc" (blur)="validarRuc()" />
+        </div>
+       
+        <form [formGroup]="formFecha" class="field col">
+          <div class="field col">
+            <label for="empresa_dtfechacreacion">Fecha de Creación </label>
+            <br>
+            <p-calendar id="empresa_dtfechacreacion" formControlName="empresa_dtfechacreacion" [showIcon]="true"
+              dateFormat="dd/mm/yy" [maxDate]="fechaActual">
+            </p-calendar>
+          </div>
+
+        </form>
+     
+     
+      </div>
+      <div class="formgrid grid" style="margin-left: 10px; margin-right: 10px">
+        <div class="field col">
+          <label for="lastname6">Tipo de empresa</label>
+          <select [(ngModel)]="strTipoEmpresa"
+            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 38px;"> 
+            <option *ngFor="let tipoempresa of lsListadoTipoEmpresa" [ngValue]="tipoempresa.idtipoempresa">
+              {{ tipoempresa.strnombretipo }}
+            </option>
+          </select>
+        </div>
+
+        <div class="field col">
+          <label for="lastname6">Actividad Económica</label>
+          <textarea id="observaciones" type="text" maxlength="200" pInputText [(ngModel)]="strActividad"
+            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 38px;">
+          </textarea>
+        </div>
+
+      </div>
+      <div class="formgrid grid" style="margin-left: 10px; margin-right: 10px">
+        <div class="field col">
+          <label for="firstname5">Correo Electrónico Principal</label>
+          <input id="firstname5" type="email"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            [(ngModel)]="strCorreo1" />
+        </div>
+        <div class="field col">
+          <label for="firstname5">Correo Electrónico Secundario (Opcional)</label>
+          <input id="firstname5" type="email"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            [(ngModel)]="strCorreo2" />
+        </div>
+      </div>
+      <div class="formgrid grid" style="margin-left: 10px; margin-right: 10px">
+        <div class="field col">
+          <label for="lastname6">Celular Principal</label>
+          <input id="lastname6" type="text" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            [(ngModel)]="strCelular1" />
+        </div>
+
+        <div class="field col">
+          <label for="lastname6">Celular Secundario (Opcional)</label>
+          <input id="lastname6" type="text" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            [(ngModel)]="strCelular2" />
+        </div>
+      </div>
+      <div class="formgrid grid" style="margin-left: 10px; margin-right: 10px">
+        <!-- Provincias -->
+        <div class="field col">
+          <label for="provincias">Provincias</label>
+          <p-autoComplete id="provincias" [(ngModel)]="selectedProvincia" (ngModelChange)="onProvinciaChange()"
+            (completeMethod)="filtrarProvincias($event)" [dropdown]="true" [showClear]="true"
+            (onClear)="onProvinciaClear()" [suggestions]="provinciasFiltradas" [field]="'oustrnombre'"
+            placeholder="Seleccione una provincia">
+          </p-autoComplete>
+        </div>
+
+        <!-- Cantones -->
+        <div class="field col">
+          <label for="cantones">Cantones</label>
+          <p-autoComplete id="cantones" [(ngModel)]="selectedCanton" (ngModelChange)="onCantonChange()"
+            (completeMethod)="filtrarCantones($event)" [dropdown]="true" [showClear]="true" (onClear)="onCantonClear()"
+            [suggestions]="cantonesFiltrados" [field]="'oustrnombre'" placeholder="Seleccione un cantón"
+            [disabled]="!selectedProvincia">
+          </p-autoComplete>
+        </div>
+
+        <!-- Parroquias -->
+        <div class="field col">
+          <label for="parroquias">Parroquias</label>
+          <p-autoComplete id="parroquias" [(ngModel)]="selectedParroquia" (completeMethod)="filtrarParroquias($event)"
+            [dropdown]="true" [showClear]="true" [suggestions]="parroquiasFiltradas" [field]="'oustrnombre'"
+            placeholder="Seleccione una parroquia" [disabled]="!selectedCanton">
+          </p-autoComplete>
+        </div>
+
+        <div class="field col">
+          <label for="firstname5">Dirección</label>
+          <input id="firstname5" type="text"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+            [(ngModel)]="strDireccion" />
+        </div>
+
+      </div>
+
+      <div class="col-12">
+        <!-- Título centrado y con padding consistente -->
+        <div class="text-center p-3 border-round-sm font-bold " style="background-color: #a1c74f;color: white;">
+          INFORMACIÓN DEL REPRESENTANTE LEGAL
+        </div>
+
+        <!-- Contenedor principal representante legal -->
+        <div class="formgrid grid" style="margin-left: 10px; margin-right: 10px">
+          <div class="field col-12">
+            <label for="cedula" style="display: block; margin-bottom: 5px">Cédula</label>
+            <input id="cedula" type="text" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+              placeholder="Ingresar la cédula" [(ngModel)]="strCedulaRepresentante" (input)="limpiarCampos()"
+              (blur)="validarCedulaBuscarPersona()" style="width: 250px" />
+          </div>
+
+
+          <div class="field col-6">
+            <label for="nombre">Nombres</label>
+            <input id="nombre" type="text"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              [(ngModel)]="strNombreRepresentante" [disabled]="!camposEditables" placeholder="Ingresar nombres" />
+          </div>
+
+          <div class="field col-6">
+            <label for="apellidos">Apellidos</label>
+            <input id="apellidos" type="text"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              [(ngModel)]="strApellidosRepresentante" [disabled]="!camposEditables" placeholder="Ingresar apellidos" />
+          </div>
+
+
+
+          <div class="field col-6">
+            <label for="correo">Correo Electrónico</label>
+            <input id="correo" type="email"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              [(ngModel)]="strCorreoRepresentante" placeholder="Ingresar correo electrónico" />
+          </div>
+
+          <div class="field col-6">
+            <label for="celular">Celular</label>
+            <input id="celular" type="text" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              [(ngModel)]="strCelularRepresentante" placeholder="Ingresar número de celular" />
+          </div>
+
+          <div>
+
+            <label>Documento que acredita la representación legal</label>
+            <p class="informative-text">
+              Adjunte un documento en formato PDF que compruebe la relación del representante legal con la empresa.
+            </p>
+            <p-button icon="pi pi-plus" (click)="mostrarModalAgregarDocumento()" label="Agregar Documento"
+              styleClass="custom-green-button-guardar"></p-button>
+          </div>
+        </div>
+
+        <!-- Modal para subir documento -->
+        <p-dialog header="Subir documento" [(visible)]="ModalDocumento" [modal]="true" [closable]="true"
+          [style]="{ width: '600px' }" class="general-modal">
+
+          <ng-template pTemplate="content">
+            <div class="modal-header">
+              <p class="modal-subtitle">Proporcione los detalles del documento</p>
+            </div>
+
+            <form [formGroup]="formGroup" class="form-container">
+              <!-- Nombre del Documento -->
+              <div class="field-row">
+                <div class="field">
+                  <label for="nombreDocumento" class="field-label">Nombre del Documento</label>
+                  <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">
+                      <i class="pi pi-tag"></i>
+                    </span>
+                    <input id="nombreDocumento" formControlName="nombreDocumento" maxlength="100"
+                      placeholder="Ejemplo: Oficio de respaldo" class="p-inputtext p-component input-text" />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="descripcionDocumento" class="field-label">Descripción (opcional)</label>
+                  <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">
+                      <i class="pi pi-align-left"></i>
+                    </span>
+                    <textarea maxlength="150" id="descripcionDocumento" formControlName="descripcionDocumento"
+                      placeholder="Añada una descripción breve" class="p-inputtext p-component input-text"
+                      rows="3"></textarea>
+                  </div>
+                </div>
+
+                <!-- Subir Archivo -->
+
+                <div class="field">
+                  <label for="archivo" class="field-label">Subir Archivo</label>
+                  <div class="upload-container" (click)="activarSelector()" (drop)="manejarArchivo($event)"
+                    (dragover)="permitirDrop($event)" [class.upload-success]="this.archivoSeleccionado?.name">
+                    <input id="archivo" type="file" accept="application/pdf" class="input-file-hidden"
+                      (change)="seleccionarArchivo($event)" />
+                    <p class="upload-text" *ngIf="!this.archivoSeleccionado?.name">
+                      <i class="pi pi-upload"></i> Arrastre y suelte un archivo aquí o haga clic para subir
+                    </p>
+                    <p class="upload-success-text" *ngIf="this.archivoSeleccionado?.name">
+                      <i class="pi pi-file-pdf"></i> {{ this.archivoSeleccionado?.name }}
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </ng-template>
+          <!-- Botones -->
+          <ng-template pTemplate="footer">
+            <div class="footer-buttons">
+              <br>
+              <p-button icon="pi pi-save" (click)="agregarDocumento()" label="Guardar"
+                styleClass="custom-green-button-guardar"></p-button>
+
+              <p-button label="Cancelar" icon="pi pi-times" title="Cancelar" styleClass="custom-button-cancelar "
+                type="button" (click)="cerrarModal('ModalDocumento')"></p-button>
+            </div>
+          </ng-template>
+
+        </p-dialog>
+
+
+        <p-table *ngIf="documentoAnexo" [value]="[documentoAnexo]" class="mt-3">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Número de Documento</th>
+              <th>Nombre del Documento</th>
+              <th>Descripción</th>
+              <th>Acciones</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-documento>
+            <tr>
+              <td>1</td> <!-- Siempre habrá un solo documento -->
+              <td>{{ documento.emp_anexo_strnombre }}</td>
+              <td>{{ documento.emp_anexo_strdescripcion }}</td>
+              <td>
+                <button type="button" pButton icon="pi pi-eye" (click)="visualizarDocumento()"
+                  class="p-button-info"></button>
+                <button type="button" pButton icon="pi pi-trash" (click)="eliminarDocumento()"
+                  class="p-button-danger"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+
+        <!-- ------------------------------------------------------- -->
+
+        <div style="margin-left: 10px; margin-right: 10px; margin-top: 30px">
+          <div class="field col comentario-section">
+            <label for="comentario" class="comentario-label">Razón para unirse al Banco de Alimentos</label>
+            <p class="comentario-descripcion">
+              Comparta con nosotros cómo su contribución como donante puede
+              generar un impacto positivo en la comunidad.
+            </p>
+            <textarea id="comentario" rows="4" maxlength="300"
+              placeholder="Explique brevemente su motivación para ser parte de esta causa." class="comentario-textarea"
+              [(ngModel)]="strComentarios">
+              </textarea>
+            <br />
+            <br />
+            <label for="firstname15" class="comentario-label">Términos y Carta Compromiso</label>
+            <div class="field col">
+              <div class="formgroup-inline">
+                <div class="field-checkbox">
+                  <input type="checkbox" id="terminos" [(ngModel)]="blAcertarTerminos" />
+                  <p for="">Aceptar términos y condiciones</p>
+                </div>
+                <div class="field-checkbox">
+                  <input type="checkbox" id="carta" [(ngModel)]="blAcertarCarta" />
+                  <p for="carta">Aceptar carta de compromiso</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="col-8">
+      <div class="text-center p-3 border-round-sm font-bold"></div>
+    </div>
+    <div class="col-4">
+      <p-button type="button" icon="pi pi-save" title="Registrar Empresa" label="Registrar" styleClass="custom-green-button-guardar"
+        (click)="RegistrarEmpresa()"></p-button>
+    </div>
+  </div>
+
+</div>
+
+<p-dialog header="Registro Exitoso" [(visible)]="ModalRegistroExitoso" [modal]="true"
+  [style]="{ width: '40vw', borderRadius: '12px', boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)' }"
+  [contentStyle]="{ padding: '1.5rem', backgroundColor: '#ffffff' }" [draggable]="false" [resizable]="false"
+  styleClass="header-verde" (onHide)="reiniciarFormulario('RegistroExitoso')">
+
+  <ng-template pTemplate="content">
+    <div class="modal-content">
+      <p>
+        Su solicitud ha sido registrada exitosamente. Nos pondremos en contacto en los próximos días a través del correo
+        electrónico proporcionado. </p>
+      <p>
+        Por favor, manténgase atento a su bandeja de entrada. </p>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <br>
+      <p-button label="Cerrar" icon="pi pi-times" styleClass="custom-red-button-cancelar"
+        (click)="reiniciarFormulario('RegistroExitoso')"></p-button>
+
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-dialog header="Aviso" [(visible)]="ModalDonanteActivo" [modal]="true"
+  [style]="{ width: '40vw', borderRadius: '12px', boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)' }"
+  [contentStyle]="{ padding: '1.5rem', backgroundColor: '#ffffff' }" [draggable]="false" [resizable]="false"
+  styleClass="header-verde" (onHide)="reiniciarFormulario('ModalDonanteActivo')">
+
+  <ng-template pTemplate="content">
+    <div class="modal-content">
+      <p>
+        {{ empresa_strnombre}}, actualmente forma parte de nuestra comunidad de donantes activos en el Banco de
+        Alimentos Riobamba.
+      </p>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <br>
+      <p-button label="Cerrar" icon="pi pi-times" styleClass="custom-red-button-cancelar"
+        (click)="reiniciarFormulario('ModalDonanteActivo')"></p-button>
+
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-dialog header="Aviso" [(visible)]="ModalTipoEntidad" [modal]="true"
+  [style]="{ width: '40vw', borderRadius: '12px', boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)' }"
+  [contentStyle]="{ padding: '1.5rem', backgroundColor: '#ffffff' }" [draggable]="false" [resizable]="false"
+  styleClass="header-verde" (onHide)="reiniciarFormulario('ModalDonanteActivo')">
+
+  <ng-template pTemplate="content">
+    <div class="modal-content">
+      <p>
+        <p>
+          {{ empresa_strnombre }}, actualmente forma parte del Banco de Alimentos Riobamba como una <strong>FUNDACIÓN</strong>.
+        </p>
+        <p>
+          En caso de tener alguna inquietud o confusión con su registro anterior, por favor acérquese a nuestras instalaciones.
+        </p>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <br>
+      <p-button label="Cerrar" icon="pi pi-times" styleClass="custom-red-button-cancelar"
+        (click)="reiniciarFormulario('ModalTipoEntidad')"></p-button>
+
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-toast></p-toast>

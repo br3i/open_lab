@@ -1,0 +1,72 @@
+<div class="perfil-container">
+    <!-- Barra lateral -->
+    <div class="perfil-sidebar">
+        <h3>Información</h3>
+        <div class="perfil-avatar">
+            <i class="pi pi-user"></i>
+        </div>
+        
+        <div class="perfil-cambiar-foto" (click)="seleccionarFoto()">
+            <i class="pi pi-camera" title="Cambiar foto de perfil"></i>
+            <input type="file" accept="image/*" id="fotoPerfil" (change)="cambiarFotoPerfil($event)" hidden>
+        </div>
+
+    </div>
+
+    <!-- Contenido de la información -->
+    <div class="perfil-content">
+        <div class="perfil-header">
+            
+            <div class="perfil-info-header">
+                <h2>{{ usuario.nombres }} {{ usuario.apellidos }}</h2>
+                <small>{{ usuario.rol }}</small>
+            </div>
+            <div class="perfil-usuario">
+                <span>{{ usuario.ouusuario_strnombre }}</span>
+            </div>
+            <p-button icon="pi pi-ellipsis-h" class="perfil-opciones"></p-button>
+        </div>
+
+        <!-- Sección de Información General -->
+        <div>
+            <div class="perfil-item">
+                <i class="pi pi-id-card"></i>
+                <span class="perfil-label">Nombres:</span>
+                <span>{{ usuario.ounombres }}</span>
+            </div>
+
+            <div class="perfil-item">
+                <i class="pi pi-id-card"></i>
+                <span class="perfil-label">Apellidos:</span>
+                <span>{{ usuario.ouapellidos }}</span>
+            </div>
+            
+            <div class="perfil-item">
+                <i class="pi pi-id-card"></i>
+                <span class="perfil-label">Cédula:</span>
+                <span>{{ usuario.ouusuario_strnombre }}</span>
+            </div>
+
+            <div class="perfil-item">
+                <i class="pi pi-map-marker"></i>
+                <span class="perfil-label">Dirección:</span>
+                <span>{{ usuario.oudireccion }}</span>
+            </div>
+
+            <div class="perfil-item">
+                <i class="pi pi-envelope"></i>
+                <span class="perfil-label">Correo:</span>
+                <span>{{ usuario.oucorreo1 }}</span>
+            </div>
+        </div>
+
+        <!-- Sección de Información de Contacto -->
+        <div>
+            <div class="perfil-item">
+                <i class="pi pi-phone"></i>
+                <span class="perfil-label">Celular:</span>
+                <span>{{ usuario.celular }}</span>
+            </div>
+        </div>
+    </div>
+</div>

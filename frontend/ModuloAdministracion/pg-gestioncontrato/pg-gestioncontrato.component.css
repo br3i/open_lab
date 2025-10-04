@@ -1,0 +1,6 @@
+.boton-ayuda-fijo {
+  position: fixed;
+  bottom: 50px; /* cambia de top a bottom */
+  right: 40px;
+  z-index: 9999;
+}

@@ -1,0 +1,274 @@
+<div class="card separador-componentes">
+    <p-toolbar>
+        <div class="p-toolbar-group-center">
+            <p><b>GESTIÓN DE CONVENIOS DEL BANCO DE ALIMENTOS</b></p>
+        </div>
+    </p-toolbar>
+
+    <div class="card seleccion-tipo-donante mb-4">
+        <h5><i class="pi pi-user"></i> Seleccione un tipo de donante</h5>
+        <div class="form-row mt-3 align-items-center">
+            <div class="col-auto d-flex align-items-center">
+                <label class="mr-2 bold-label">Tipo de donante:</label>
+                <p-dropdown [options]="ListadoTiposDonantes" [(ngModel)]="selectedTipoDonante"
+                    optionLabel="tipodonante_strnombre" placeholder="Seleccione un tipo de donante"
+                    (onChange)="CargarConvenios()">
+                </p-dropdown>
+            </div>
+        </div>
+
+        <div *ngIf="selectedTipoDonante" class="form-row mt-3">
+            <span><strong>Descripción:</strong>
+                {{ selectedTipoDonante?.tipodonante_strdescripcion || 'Descripción del tipo de donante' }}
+            </span>
+        </div>
+    </div>
+
+    <div class="titulo-convenios" *ngIf="selectedTipoDonante">
+        LISTADO DE LOS CONVENIOS DE {{ selectedTipoDonante.tipodonante_strnombre }}
+    </div>
+
+    <div style="display: flex; justify-content: flex-end;">
+        <p-button type="button" icon="pi pi-plus" styleClass="custom-green-button-guardar" label="Nuevo"
+            (click)="RedireccionarFormulario()">
+        </p-button>
+    </div>
+
+
+    <div *ngIf="selectedTipoDonante">
+        <p-table #dt [value]="listadoConvenioFiltrado" *ngIf="!datosCargando" [rows]="10" [paginator]="true"
+            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+            [tableStyle]="{ 'min-width': '75rem' }" [(selection)]="selectedConvenios" [rowHover]="true"
+            dataKey="convenio.ouidconvenio"
+            currentPageReportTemplate="Página {first} - {last} de {totalRecords} convenios"
+            [showCurrentPageReport]="true">
+            <ng-template pTemplate="caption">
+                <div class="p-field" style="display: flex; justify-content: flex-end;">
+                    <div class="p-inputgroup" style="max-width: 300px;">
+                        <span class="p-inputgroup-addon">
+                            <i class="pi pi-search"></i>
+                        </span>
+                        <input type="text"
+                            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                            pInputText placeholder="Buscar por donador o representante"
+                            (input)="filtrarConvenio($event)" />
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="ouconvenio_dtfecharegistro" style="font-size: 12px; width: 10%;">FECHA
+                        <p-sortIcon field="ouconvenio_dtfecharegistro"></p-sortIcon>
+                    </th>
+                    <th style="font-size: 12px; width: 15%;">RESOLUCIÓN</th>
+                    <th style="font-size: 12px; width: 25%;">CONVENIO</th>
+                    <th style="font-size: 12px; width: 20%;">DONADOR</th>
+                    <th style="font-size: 12px; width: 20%;">REPRESENTANTE LEGAL</th>
+                    <th style="font-size: 12px; width: 10%;">ACCIONES</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-convenio>
+                <tr>
+                    <td>{{convenio.ouconvenio_dtfecharegistro | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ convenio.ouconvenio_strdescripcion }}</td>
+                    <td>{{ convenio.ouconvenio_strtitulo }}</td>
+
+                    <!-- Donador -->
+                    <td>
+                        <ng-container
+                            *ngIf="convenio.ouconvenio_idtipodonante === personaNatural || (selectedTipoDonante?.idtipodonante === 0 && convenio.representante?.idpersona && !convenio.empresa)">
+                            <strong>NOMBRES:</strong>
+                            {{ convenio.representante?.nombres }} {{ convenio.representante?.apellidos }}<br />
+                            <strong>CÉDULA:</strong> {{ convenio.representante?.documento }}<br />
+                            <strong>CELULAR:</strong> {{ convenio.representante?.celular1 }}<br />
+                            <strong>CORREO:</strong> {{ convenio.representante?.correo1 }}
+                        </ng-container>
+
+                        <!-- Persona Jurídica -->
+                        <ng-container
+                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idempresa)">
+                            <strong>EMPRESA:</strong> {{ convenio.empresa?.empresa_strnombre }}<br />
+                            <strong>RUC:</strong> {{ convenio.empresa?.strdocumento }}<br />
+                            <strong>CELULAR:</strong> {{ convenio.empresa?.empresa_strcelular1 }}<br />
+                            <strong>CORREO:</strong> {{ convenio.empresa?.empresa_strcorreo1 }}
+                        </ng-container>
+                    </td>
+
+                    <!-- Representante Legal -->
+                    <td>
+                        <ng-container
+                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idempresa)">
+                            <strong>NOMBRES:</strong>
+                            {{ convenio.representante?.ourepresentante_nombres + ' ' +
+                            convenio.representante?.ourepresentante_apellidos}}
+                            <br />
+                            <strong>CÉDULA:</strong>
+                            {{ convenio.representante?.ourepresentante_cedula }}<br />
+                            <strong>CELULAR:</strong>
+                            {{ convenio.representante?.ourepresentante_celular }}<br />
+                            <strong>CORREO:</strong>
+                            {{ convenio.representante?.ourepresentante_correo }}
+                        </ng-container>
+                    </td>
+
+                    <!-- Acciones -->
+                    <td>
+                        <p-button type="button" icon="pi pi-eye" styleClass="p-button-text" pTooltip="Ver información"
+                            tooltipPosition="top" (click)="SelecionarConvenio(convenio)">
+                        </p-button>
+                        <p-button type="button" icon="pi pi-pencil" styleClass="p-button-text"
+                            pTooltip="Editar información" tooltipPosition="top"
+                            (click)="EditarConvenio(convenio)"></p-button>
+                        <p-button type="button" icon="pi pi-power-off" styleClass="p-button-text"
+                            pTooltip="Cambiar estado" tooltipPosition="top"
+                            (click)="ModalCambiarEstado(convenio)"></p-button>
+
+                        <ng-container
+                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idempresa)">
+
+                            <p-button type="button" icon="pi pi-download" styleClass="p-button-text"
+                                (click)="descargarContrato(convenio)" pTooltip="Descargar Convenio"
+                                tooltipPosition="top">
+                            </p-button>
+                        </ng-container>
+                    </td>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="summary">
+                TOTAL CONVENIOS {{ listadoconvenios ? listadoconvenios.length : 0 }}.
+            </ng-template>
+        </p-table>
+    </div>
+
+</div>
+
+<div>
+    <p-dialog header="Detalles del Convenio" [(visible)]="visibleInformacionConvenio" [modal]="true"
+        [style]="{ width: '50vw', borderRadius: '12px', boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.2)' }"
+        [contentStyle]="{ padding: '2rem', backgroundColor: '#f9f9f9' }" [draggable]="false" [resizable]="false"
+        class="informacion-modal">
+
+        <ng-template pTemplate="header">
+            <h2 class="text-xl font-bold section-title">Información del Convenio</h2>
+        </ng-template>
+
+        <ng-template pTemplate="content">
+            <!-- Información del Convenio -->
+            <div class="info-section">
+                <h3 class="section-title">Información del Convenio</h3>
+                <div class="info-item">
+                    <p><label>Resolución:</label> {{ datosConvenio?.ouconvenio_strdescripcion }}</p>
+                    <p><label>Título:</label> {{ datosConvenio?.ouconvenio_strtitulo }}</p>
+                    <p><label>Objetivo:</label> {{ datosConvenio?.ouconvenio_strobjetivo }}</p>
+                </div>
+                <br>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <p><label>Fecha de Inicio:</label> {{ datosConvenio?.ouconvenio_dtfechainicio | date }}</p>
+                    </div>
+                    <div class="info-item">
+                        <p><label>Fecha de Fin:</label> {{ datosConvenio?.ouconvenio_dtfechafin | date }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section"
+                *ngIf="datosConvenio?.ouconvenio_idtipodonante == personaNatural || (selectedTipoDonante?.idtipodonante == 0 && datosConvenio?.representante?.idpersona)">
+                <h3 class="section-title"><i class="pi pi-user"></i> Información del Donante</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <p><label>Nombre Completo:</label> {{ datosConvenio?.representante?.nombres }} {{
+                            datosConvenio?.representante?.apellidos }}
+                        </p>
+                    </div>
+                    <div class="info-item">
+                        <p><label>Cédula:</label> {{ datosConvenio?.representante?.documento }}</p>
+                    </div>
+                    <div class="info-item">
+                        <p><label>Correo Electrónico:</label> {{datosConvenio?.representante?.correo1 }}</p>
+                    </div>
+                    <div class="info-item">
+                        <p><label>Celular:</label> {{ datosConvenio?.representante?.celular1 }}</p>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="info-section" *ngIf="datosConvenio?.ouconvenio_idtipodonante == personaJuridica">
+                <div class="info-section">
+                    <h3 class="section-title"><i class="pi pi-user"></i> Información del Representante Legal</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <p><label>Nombre Completo:</label> {{ datosConvenio?.representante?.ourepresentante_nombres
+                                }} {{
+                                datosConvenio?.representante?.ourepresentante_apellidos }}
+                            </p>
+                        </div>
+                        <div class="info-item">
+                            <p><label>Cédula:</label> {{ datosConvenio?.representante?.ourepresentante_cedula }}</p>
+                        </div>
+                        <div class="info-item">
+                            <p><label>Correo Electrónico:</label> {{datosConvenio?.representante?.ourepresentante_correo
+                                }}</p>
+                        </div>
+                        <div class="info-item">
+                            <p><label>Celular:</label> {{ datosConvenio?.representante?.ourepresentante_celular }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Información de la Empresa -->
+                <div class="info-section">
+                    <h3 class="section-title">Información de la Empresa</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <p><label>Nombre de la Empresa:</label> {{ datosConvenio?.empresa?.empresa_strnombre }}</p>
+                        </div>
+                        <div class="info-item">
+                            <p><label>RUC:</label> {{ datosConvenio?.empresa?.strdocumento }}</p>
+                        </div>
+                        <div class="info-item">
+                            <p><label>Correo Electrónico:</label> {{datosConvenio?.empresa?.empresa_strcorreo1 }}</p>
+
+                        </div>
+                        <div class="info-item">
+                            <p><label>Celular:</label> {{ datosConvenio?.empresa?.empresa_strcelular1 }}</p>
+                        </div>
+                        <div class="info-item">
+                            <p><label>Dirección:</label> {{ datosConvenio?.empresa?.empresa_strdireccion }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+            <p-button severity="success" label="Aceptar" icon="pi pi-check"
+                (click)="CerrarModal('ModalInformacion')"></p-button>
+        </ng-template>
+    </p-dialog>
+</div>
+
+<p-dialog header="Previsualización del Contrato" [(visible)]="visiblepdfContrato" [modal]="true"
+    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+        <span class="text-xl font-bold">GENERACIÓN DOCUMENTO</span>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <div class="grid nested-grid">
+            <div class="col-12">
+                <div class="formgrid grid text-center">
+                    <div class="field col">
+                        <div class="text-center col-md-12 col-sm-12 col-xs-12" style="height: 450px;overflow: auto;">
+                            <iframe width="100%" height="100%" zoom_in="50%" [src]="strArchivoreporte64"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

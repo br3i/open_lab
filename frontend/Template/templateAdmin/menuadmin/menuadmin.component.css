@@ -1,0 +1,129 @@
+  /* Estilos generales para el menú */
+  .menu-lateral {
+    background-color: #fff;  /* Fondo claro para el menú */
+    font-family: 'Arial', sans-serif;  /* Tipo de letra */
+    font-size: 1rem;  /* Tamaño de letra de 1rem */
+    padding: 1rem;
+    border-right: 3px solid #95c11f6b; /* Borde lateral del menú */
+    width: 225px;  /* Ancho fijo del menú */
+    height: 100%;
+    border-radius: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave para el menú */
+    list-style-type: none;  /* Elimina los puntos de la lista */
+  }
+
+  /* Estilos para los enlaces en el menú */
+  .menu-lateral a {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    position: relative;
+    outline: 0 none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    transition: background-color 0.2s, box-shadow 0.2s;
+  }
+
+  /* Estilo al pasar el mouse */
+  .menu-lateral a:hover {
+    background-color: #95c11f3d; /* Fondo suave al pasar el mouse */
+    color: #000000; /* Cambio de color del texto */
+    font-weight: bold; /* Negrita en el texto */
+  }
+
+  /* Enlace activo */
+  .menu-lateral a.active-menu-item {
+    background-color: #95c11f; /* Fondo cuando está activo */
+    color: #fff;  /* Texto blanco cuando está activo */
+    font-weight: bold;
+  }
+
+  .menu-lateral a.active-main-item {
+    background-color: #e0e0e0; /* Gris más fuerte */
+    color: #000;
+    font-weight: bold;
+  }
+
+  /* Íconos del menú */
+  .menu-lateral .layout-menuitem-icon {
+    margin-right: 0.5rem;
+  }
+
+  /* Estilo de la flechita de los submenús */
+  .menu-lateral .layout-submenu-toggler {
+    font-size: 75%;
+    margin-left: auto;
+    transition: transform 0.2s;
+  }
+
+  /* Elimina los puntos en las opciones de la lista */
+  .menu-lateral ul {
+    padding-left: 0;  /* Elimina el padding de la lista */  
+  }
+
+  /* Elimina los bullets en las opciones del menú */
+  .menu-lateral li {
+    list-style-type: none;  /* Elimina los bullets de las opciones del menú */
+  }
+
+  /* Estilos adicionales para el submenú */
+  .menu-lateral .submenu {
+    padding-left: 1.5rem;       /* Sangría del submenú */
+  }
+  
+  /* Animación para el submenú */
+  .menu-lateral .p-submenu > .p-submenu-list {
+    display: none;  /* Inicia oculto */
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  /* Cuando el submenú está activo (expandidos) */
+  .menu-lateral .p-submenu.p-active > .p-submenu-list {
+    display: block;  /* Muestra el submenú */
+  }
+
+  /* Estilos cuando el submenú se expande */
+  .menu-lateral .p-submenu.p-active > .p-submenu-toggler {
+    transform: rotate(90deg);  /* Rotar la flecha */
+  }
+
+  /* Estilo para ocultar el submenú por defecto */
+.submenu {
+  display: none;
+  padding-left: 1rem; /* Sangría para los submenús */
+}
+
+/* Mostrar submenú cuando está expandido */
+.submenu.expanded { 
+  display: block;
+}
+
+/* Estilo para la flecha */
+.layout-submenu-toggler {
+  font-size: 0.8rem;
+  margin-left: auto;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+
+/* Rotar la flecha cuando el submenú está expandido */
+.layout-submenu-toggler.expanded {
+  transform: rotate(180deg);
+}
+
+
+/* Estilo para los enlaces activos en el menú */
+.menu-lateral a.active-menu-item {
+  background-color: #95c11f;
+  color: #fff; 
+  font-weight: bold; 
+}
+
+/* Estilo para los submenús activos */
+.submenu a.active-submenu-item {
+  background-color: #95c11f; 
+  color: #fff;  
+  font-weight: bold; 
+}

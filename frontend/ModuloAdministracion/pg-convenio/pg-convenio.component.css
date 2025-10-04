@@ -1,0 +1,50 @@
+label {
+        white-space: nowrap; /* Evita que el texto del label se divida en varias líneas */
+    margin-right: 0.5rem; /* Espacio entre el label y el dropdown */
+}
+
+.p-inputtext {
+    margin-top: 0.5rem; /* Espacio entre los elementos */
+}
+
+.bold-label {
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Mantiene el fondo blanco del primer card */
+.card.separador-componentes {
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Fondo gris bajito para la sección de Selección de Tipo de Donante */
+.card.seleccion-tipo-donante {
+    background-color: #f9f9f9; /* Gris bajito */
+    border: 1px solid #ddd; /* Borde sutil */
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Espaciado entre secciones */
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+.titulo-convenios {
+    display: flex; /* Para usar propiedades de flexbox */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    text-align: center; /* Asegura que el texto esté centrado */
+    text-transform: uppercase; /* Convierte todo el texto a mayúsculas */
+    font-weight: bold; /* Negrita para destacar */
+    font-size: 1.2rem; /* Tamaño de fuente ajustado */
+    margin: 1rem 0; /* Espaciado vertical */
+    height: 3rem; /* Opcional: asegura altura consistente */
+    background-color: #f9f9f9; /* Fondo gris claro opcional */
+    border: 1px solid #ddd; /* Borde opcional para separar visualmente */
+    border-radius: 4px; /* Bordes redondeados opcionales */
+}

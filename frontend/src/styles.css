@@ -1,0 +1,793 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-indigo/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
+@import "~primeng/resources/themes/saga-blue/theme.css";
+@import "~primeng/resources/primeng.min.css";
+@import "~primeicons/primeicons.css";
+
+/* Demos */
+@import "assets/styles/flags/flags.css";
+@import "assets/styles/badges.css";
+@import "assets/styles/code.css";
+@import "assets/styles/layout.css";
+
+.contentenedor-principal {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+}
+
+#wrapper {
+  padding-left: 0;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.main-container-app {
+  display: flex;
+}
+
+#content-wrapper {
+  width: 100%;
+  overflow-y: auto;
+  height: 100%;
+  padding: 0;
+  /* No se agrega padding global aquí */
+  min-width: 0;
+  background-color: var(--color-bg);
+}
+
+/* Estilo específico para el contenedor del tabview */
+#tabview-container {
+  margin-top: 0;
+  /* Pegado al breadcrumb */
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tabview-custom {
+  padding: 1rem;
+  /* Padding interno del TabView */
+}
+
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-color: #95c11f !important;
+  color: #95c11f !important;
+}
+
+.p-menubar {
+  gap: 20px;
+  background-color: #ffffff;
+  border-bottom: 3px solid #95c11f6b;
+  border-radius: 0 !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  -ms-border-radius: 0 !important;
+  -o-border-radius: 0 !important;
+}
+
+.p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-link {
+  padding: 10px 15px !important;
+}
+
+.p-menubar img {
+  height: 35px !important;
+}
+
+.p-slidemenu {
+  width: auto !important;
+  border-right: 2px solid #95c11f6b;
+  border-radius: 0 !important;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+}
+
+.p-slidemenu .p-menuitem-link:not(.p-disabled):hover {
+  background: #95c11f3d;
+}
+
+.layout-menu {
+  height: 100%;
+}
+
+
+.content-slide {
+  display: flex;
+  height: 100%;
+}
+
+.p-toolbar {
+  padding: 5px 15px !important;
+  border-radius: 0 !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  -ms-border-radius: 0 !important;
+  -o-border-radius: 0 !important;
+
+}
+
+.separador-componentes {
+  display: flex;
+  gap: 25px;
+}
+
+@media (min-width: 992px) {
+  #content-wrapper {
+    position: relative;
+    top: 0;
+  }
+}
+
+
+
+
+.footer {
+  grid-area: footer;
+  background: #96c11f;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  bottom: 0;
+  font-size: 11px;
+}
+
+.footer img {
+  height: 25px;
+}
+
+.p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-link:not(.p-disabled):hover {
+  background: #95c11f3d;
+}
+
+
+/* Estilo específico para agregar margen entre los íconos y los textos en este componente */
+.icon-margin {
+  margin-right: 8px;
+}
+
+/* Estilos generales para los modales */
+.general-modal {
+  font-family: Arial, sans-serif;
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.p-datatable-sm {
+  border: 2px solid rgb(209, 213, 209) !important;
+  /* Estilo del borde verde */
+  border-radius: 5px;
+  /* Opcional: bordes redondeados */
+}
+
+
+.modal-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 1rem;
+}
+
+.field-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.field-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input-text,
+.textarea,
+.input-style {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  border: 1px solid var(--input-border-color, #96c11f);
+  /* Borde configurable */
+  transition: box-shadow 0.3s ease;
+}
+
+.input-style:focus {
+  outline: none;
+  box-shadow: 0 0 4px var(--input-border-color, #96c11f);
+  border: 1px solid var(--input-border-focus-color, #96c11f);
+}
+
+
+/* Estilo para el contenedor de subida */
+.upload-container {
+  text-align: center;
+  padding: 20px;
+  border: 2px dashed #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.upload-container:hover {
+  background-color: #f9f9f9;
+}
+
+.upload-text {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.upload-container.dragover {
+  border-color: #96c11f;
+  background-color: #e9f7ef;
+}
+
+.upload-text {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  /* Espaciado uniforme para botones */
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+/* Iconos con estilo dinámico */
+.color-iconos {
+  background-color: var(--icon-bg-color, #e9f7ef);
+  /* Fondo configurable */
+  color: var(--icon-color, #96c11f);
+  /* Color del icono configurable */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Ocultar el input file */
+.input-file-hidden {
+  display: none;
+}
+
+/* Cambiar icono y texto al pasar el mouse */
+.upload-container:hover .upload-text {
+  color: #96c11f;
+}
+
+
+.comentario-section {
+  background-color: #f8f9fa;
+  /* Fondo gris claro */
+  padding: 15px;
+  border-radius: 8px;
+  /* Bordes redondeados */
+  margin-top: 20px;
+}
+
+.comentario-label {
+  font-weight: bold;
+  color: #333;
+  font-size: 12px;
+  margin-bottom: 10px;
+  display: block;
+  /* Asegura que esté encima del input */
+}
+
+.comentario-descripcion {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.comentario-textarea {
+  width: 100%;
+  resize: none;
+  /* Evita que se redimensione */
+  font-size: 14px;
+  color: #333;
+  padding: 10px;
+  border: 1px solid #d3d3d3;
+  border-radius: 5px;
+  outline: none;
+}
+
+.comentario-textarea:focus {
+  border-color: #3b82f6;
+  /* Color de borde al enfocar */
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+}
+
+.subtema {
+  background-color: #f8f9fa;
+  /* Fondo gris claro */
+  padding: 3px;
+  border-radius: 2.5px;
+  /* Bordes redondeados */
+  margin-top: 5px;
+  text-align: center;
+}
+
+/* Estilos específicos para el modal de Nueva Persona */
+.nueva-persona-modal .intro-section {
+  margin-bottom: 1.5rem;
+}
+
+.nueva-persona-modal .intro-text {
+  font-size: 1rem;
+  color: #495057;
+  background-color: #f1f8f4;
+  padding: 1rem;
+  border-left: 4px solid #28a745;
+  border-radius: 8px;
+}
+
+/* Estilos generales para los campos */
+.nueva-persona-modal .p-field {
+  margin-bottom: 1.5rem;
+}
+
+/* Estilo de las etiquetas */
+.nueva-persona-modal label {
+  font-weight: bold;
+  color: #495057;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+/* Grupo de entrada con íconos */
+.nueva-persona-modal .p-inputgroup {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+/* Estilo del addon (íconos) */
+.nueva-persona-modal .p-inputgroup-addon {
+  background-color: #e9f7ef;
+  border: 1px solid #c3e6cb;
+  color: #28a745;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tamaño de los íconos */
+.nueva-persona-modal .p-inputgroup-addon i {
+  font-size: 1.2rem;
+}
+
+/* Estilos para los inputs */
+.nueva-persona-modal input {
+  border: 1px solid #ced4da;
+  padding: 0.5rem;
+  font-size: 0.95rem;
+  border-radius: 0px;
+  box-shadow: none;
+  transition: all 0.3s;
+}
+
+/* Efecto hover y focus en inputs */
+.nueva-persona-modal input:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.25);
+  outline: none;
+}
+
+/* Dropdowns (Selects) */
+.nueva-persona-modal .p-dropdown {
+  border-radius: 8px;
+  box-shadow: none;
+  transition: all 0.3s;
+}
+
+/* Hover y foco en dropdowns */
+.nueva-persona-modal .p-dropdown:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.25);
+}
+
+/* Botones en el footer */
+.nueva-persona-modal .footer-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+
+
+.titulo-tabla {
+  text-transform: uppercase;
+  /* Convertir texto a mayúsculas */
+  font-weight: bold;
+  /* Texto en negrita */
+  text-align: center;
+  /* Centrar el texto */
+  font-size: 20px;
+  /* Tamaño del texto (ajústalo según tus necesidades) */
+  margin: 10px 0;
+  /* Espaciado superior e inferior */
+}
+
+/* Estilo para seelcion de tipo donante*/
+
+
+.intro-text {
+  font-size: 1rem;
+  color: #495057;
+  background-color: #f1f8f4;
+  padding: 1rem;
+  border-left: 4px solid #28a745;
+  border-radius: 8px;
+}
+
+/* General */
+.text-primary {
+  color: #28a745;
+  font-size: 12px;
+
+}
+
+.section-title {
+  color: #333232;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 12px;
+
+}
+
+.info-section {
+  font-size: 12px;
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  font-size: 12px;
+
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 12px;
+}
+
+.info-item label {
+  font-weight: bold;
+  font-size: 12px;
+  color: #333;
+}
+
+.info-item span {
+  color: #555;
+  font-size: 12px;
+
+}
+
+.informacion-modal {
+  font-size: 12px;
+}
+
+
+.custom-green-button-guardar {
+  background-color: #96c11f !important;
+  /* Fondo verde claro */
+  color: rgb(255, 255, 255) !important;
+  /* Texto negro */
+  border: 1px solid #96c11f !important;
+  /* Borde verde */
+  border-radius: 4px;
+  /* Borde redondeado */
+}
+
+/* Botón Cancelar */
+
+.custom-red-button-cancelar {
+  background-color: #d32f2f !important;
+  border: none;
+  color: #fff;
+}
+
+.custom-red-button-cancelar-cancelar:hover {
+  background-color: #d32f2f !important;
+}
+
+
+
+.custom-light-gray-button {
+  background-color: #d3d3d3 !important;
+  /* Gris claro */
+  color: #000 !important;
+  /* Texto negro para contraste */
+  border: none !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.custom-light-gray-button:hover {
+  background-color: #c0c0c0 !important;
+  /* Un poco más oscuro al pasar el mouse */
+}
+
+
+
+/* Cambia el fondo del ícono del calendario */
+p-calendar .p-datepicker-trigger {
+  background-color: #96c11f !important;
+  /* Cambia este color */
+}
+
+/* Cambiar color del ícono desplegable en p-autoComplete */
+p-autoComplete .p-autocomplete-dropdown {
+  background-color: #96c11f !important;
+  /* Cambia este color */
+  color: #ffffff !important;
+  /* Cambia el color del ícono */
+}
+
+p-autoComplete .p-autocomplete-dropdown .p-dropdown-trigger-icon {
+  color: #ffffff !important;
+  /* Cambia el color del ícono */
+}
+
+
+::ng-deep .p-accordion-header {
+  transition: background-color 0.3s ease-in-out;
+}
+
+::ng-deep .p-accordion-header:hover {
+
+  color: #95c11f !important;
+}
+
+::ng-deep .p-accordion-header a {
+  color: inherit !important;
+}
+
+/* Fuente para las tablas */
+p-table table th {
+  font-size: 11px;
+}
+
+p-table table td {
+  font-size: 11px;
+}
+
+
+/* ESTILOS PARA MODAL DE INFORMACIOND E EMPRESAS O FUNDACIONES*/
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr;
+  /* Tres columnas con proporciones diferentes */
+  grid-template-rows: auto auto auto;
+  /* Tres filas automáticas */
+  gap: 16px;
+  /* Espaciado entre columnas y filas */
+  padding: 16px;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.grid-item-span-rows {
+  grid-column: 1;
+  /* Coloca el elemento en la primera columna */
+  grid-row: span 3;
+  /* Ocupa las filas 1, 2 y 3 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Centra verticalmente el contenido */
+  gap: 8px;
+}
+
+.grid-item-span-columns {
+  grid-column: 2 / span 2;
+  /* Ocupa las columnas 2 y 3 */
+  grid-row: 2, 3;
+  /* Está en la primera fila */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.input-field {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+
+/* Encabezado del modal */
+.modal-enviar-mensaje .modal-header-content {
+  text-align: center;
+  border-bottom: 1px solid #e9e9e9;
+  margin-bottom: 0.2rem;
+  /* Reducir el margen inferior */
+  padding: 0.5rem 0;
+  /* Reducir el padding */
+}
+
+/* Título del encabezado */
+.modal-enviar-mensaje .modal-header-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #28a745;
+  margin-bottom: 0;
+}
+
+/* Destinatarios */
+/* Destinatarios */
+.modal-enviar-mensaje .form-section {
+  margin-top: 0.2rem;
+  /* Reducir el espacio superior */
+  margin-bottom: 1rem;
+  /* Ajustar el margen inferior */
+}
+
+.modal-enviar-mensaje .recipients-box {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.modal-enviar-mensaje .recipient-item {
+  padding: 8px 12px;
+  background-color: #f1f8f4;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #28a745;
+}
+
+.modal-enviar-mensaje .form-section textarea {
+  margin-top: 0.5rem;
+  /* Reducir el espacio superior del textarea */
+  margin-bottom: 1.5rem;
+  /* Ajustar el margen inferior */
+}
+
+.modal-enviar-mensaje .form-section {
+  margin-top: 0.5rem;
+  /* Reducir el espacio superior */
+}
+
+.modal-enviar-mensaje .form-label {
+  font-weight: bold;
+  color: #495057;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.modal-enviar-mensaje .input-field {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+
+
+/* Cambiar color del header del modal */
+.header-verde .p-dialog-header {
+  background-color: #96c11f !important;
+  /* Verde del header */
+  color: white !important;
+  /* Color del texto */
+  font-weight: bold;
+  /* Negrita para resaltar el texto */
+  text-align: center;
+  /* Centrar el texto */
+  border-radius: 12px 12px 0 0;
+  /* Bordes redondeados en la parte superior */
+}
+
+label {
+  font-weight: bold;
+  color: #333;
+  /* Opcional: Cambia el color para mayor contraste */
+  font-size: 1rem;
+  /* Tamaño ajustado */
+  margin-bottom: 5px;
+  /* Espaciado consistente */
+  display: block;
+  /* Asegura que esté en línea separada del input */
+}
+
+/* Márgenes del contenedor externo */
+.wizard-container {
+  margin: 0 1rem 1rem;
+}
+
+/* Padding aplicado al root del steps */
+.wizard-custom.p-steps {
+  padding: 1rem;
+}
+
+/* Quitar sombra/outline del link del step */
+.wizard-custom.p-steps .p-steps-item .p-menuitem-link {
+  box-shadow: none !important;
+}
+
+/* Paso ACTIVO (verde) */
+.wizard-custom.p-steps .p-steps-item.p-highlight .p-steps-number {
+  background: #95c11f !important;
+  border-color: #95c11f !important;
+  color: #fff !important;
+}
+.wizard-custom.p-steps .p-steps-item.p-highlight .p-steps-title {
+  color: #95c11f !important;
+  font-weight: 600;
+}
+
+/* Pasos COMPLETADOS (visitados) */
+.wizard-custom.p-steps .p-steps-item.p-steps-complete .p-steps-number {
+  background: #e9f5d9 !important;
+  border-color: #95c11f !important;
+  color: #95c11f !important;
+}
+.wizard-custom.p-steps .p-steps-item.p-steps-complete .p-steps-title {
+  color: #95c11f !important;
+}
+
+/* Línea conectora en verde cuando el paso está completo */
+.wizard-custom.p-steps .p-steps-item.p-steps-complete .p-steps-separator {
+  border-top-color: #95c11f !important;
+}
+
+/* (Opcional) subrayado bajo el título del paso activo */
+.wizard-custom.p-steps .p-steps-item.p-highlight .p-steps-title {
+  position: relative;
+}
+.wizard-custom.p-steps .p-steps-item.p-highlight .p-steps-title::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 3px;
+  background: #95c11f;
+  border-radius: 2px;
+}

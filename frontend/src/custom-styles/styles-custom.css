@@ -1,0 +1,112 @@
+/* Estilo general para pantallas pequeñas */
+@media (max-width: 768px) {
+
+  /* Oculta elementos no importantes */
+  .no-mostrar-en-mobile {
+    display: none !important;
+  }
+
+  /* Ajusta el tamaño del texto principal */
+  h1 {
+    font-size: 2rem;
+    margin-top: 30px;
+  }
+
+  /* Centra botones y reduce su tamaño */
+  button#iniciarSesion {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+
+  /* Ajusta contenedores para evitar desbordamiento */
+  .container, .row {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  /* Si hay imágenes grandes, las hacemos responsivas */
+  img.responsive-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Reduce márgenes y espaciados */
+  .mt-5 {
+    margin-top: 20px !important;
+  }
+}
+
+
+/* RESPONSIVE STYLES */
+@media (max-width: 768px) {
+
+  /* Hide decorative SVGs */
+  #rocket,
+  #rocket-smoke,
+  #clouds {
+    display: none !important;
+  }
+
+  /* Simplify toolbar */
+  .toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  /* Center highlight card */
+  .highlight-card {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Full width cards */
+  .card {
+    width: 100% !important;
+    margin: 10px 0 !important;
+  }
+
+  /* Hide terminal on small screens */
+  .terminal {
+    display: none;
+  }
+
+  /* Reduce font sizes */
+  h1, h2 {
+    font-size: 1.5rem;
+  }
+
+  /* Stack circle links horizontally if needed */
+  .card-container .circle-link {
+    margin: 4px;
+  }
+
+  /* Footer adjustments */
+  footer {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 0.9rem;
+  }
+}
+
+/* Oculta texto innecesario en móviles */
+@media (max-width: 768px) {
+  /* Oculta el texto adicional de la galería */
+  .gallery-description {
+    display: none;
+  }
+
+  /* Oculta el texto adicional del banco */
+  .bank-description {
+    display: none;
+  }
+}
+/* Reducir imagen de fondo en móviles */
+@media (max-width: 768px) {
+  .background-image {
+    width: 100%;
+    height: auto;
+  }
+}

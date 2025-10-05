@@ -88,8 +88,8 @@
 
                         <!-- Persona Jurídica -->
                         <ng-container
-                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idempresa)">
-                            <strong>EMPRESA:</strong> {{ convenio.empresa?.empresa_strnombre }}<br />
+                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idfundacion)">
+                            <strong>FUNDACIÓN:</strong> {{ convenio.empresa?.empresa_strnombre }}<br />
                             <strong>RUC:</strong> {{ convenio.empresa?.strdocumento }}<br />
                             <strong>CELULAR:</strong> {{ convenio.empresa?.empresa_strcelular1 }}<br />
                             <strong>CORREO:</strong> {{ convenio.empresa?.empresa_strcorreo1 }}
@@ -99,7 +99,7 @@
                     <!-- Representante Legal -->
                     <td>
                         <ng-container
-                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idempresa)">
+                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idfundacion)">
                             <strong>NOMBRES:</strong>
                             {{ convenio.representante?.ourepresentante_nombres + ' ' +
                             convenio.representante?.ourepresentante_apellidos}}
@@ -126,7 +126,7 @@
                             (click)="ModalCambiarEstado(convenio)"></p-button>
 
                         <ng-container
-                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idempresa)">
+                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idfundacion)">
 
                             <p-button type="button" icon="pi pi-download" styleClass="p-button-text"
                                 (click)="descargarContrato(convenio)" pTooltip="Descargar Convenio"

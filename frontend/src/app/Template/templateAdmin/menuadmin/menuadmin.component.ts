@@ -49,49 +49,27 @@ export class MenuadminComponent implements OnInit, OnDestroy {
     1: { label: 'Inicio', icon: 'pi pi-fw pi-home', routerLink: '/dashadmin/inicio' },
     2: { label: 'Administración', icon: 'pi pi-fw pi-cog', routerLink: '/dashadmin/principaladmin' },
     3: { label: 'Organización', icon: 'pi pi-fw pi-users', routerLink: '/dashadmin/principalorganizacion' },
-    4: { label: 'Voluntarios', icon: 'pi pi-fw pi-user-plus', routerLink: '/dashadmin/principaladminvoluntario' },
     5: {
       label: 'Beneficiarios', icon: 'pi pi-heart',
       items: [
         {
           label: 'Fundación',
           icon: 'pi pi-building',
-          routerLink: '/dashadmin/principalfundacion'
-        },
-        {
-           label: 'Persona',
-           icon: 'pi pi-user ',
-           routerLink: '/dashadmin/principaldonantepersona'
+          routerLink: '/dashadmin//principalempresa'
         }
       ]
     },
-    6: { label: 'Donaciones', icon: 'pi pi-fw pi-heart', routerLink: '/dashadmin/principalrecepciondonacion' },
-    7: {
-      label: 'Donantes', icon: 'pi pi-users',
-      items: [
-        {
-          label: 'Empresa',
-          icon: 'pi pi-building',
-          routerLink: '/dashadmin/principalempresa'
-        },
-        {
-          label: 'Persona',
-          icon: 'pi pi-user ',
-          routerLink: '/dashadmin/principaldonantepersona'
-        }
-      ]
-    },
-    8: { label: 'Contratos', icon: 'pi pi-fw pi-file', routerLink: '/dashadmin/principalconvenio' },
-    9: { label: 'Reportes', icon: 'pi pi-fw pi-chart-line', routerLink: '/dashadmin/principalreporte' },
-    10: { label: 'Seguridad', icon: 'pi pi-fw pi-lock', routerLink: '/dashadmin/principalseguridad' }
+    7: { label: 'Contratos', icon: 'pi pi-fw pi-file', routerLink: '/dashadmin/principalconvenio' },
+    8: { label: 'Reportes', icon: 'pi pi-fw pi-chart-line', routerLink: '/dashadmin/principalreporte' },
+    9: { label: 'Seguridad', icon: 'pi pi-fw pi-lock', routerLink: '/dashadmin/principalseguridad' }
   };
 
   opcionesPorRol = {
-    [this.variablesRoles.Administrador]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    [this.variablesRoles.TecnicoAdmin]: [4, 5, 6, 7, 8, 9],
+    [this.variablesRoles.Administrador]: [1, 2, 3, 5, 7, 8, 9],
+    [this.variablesRoles.TecnicoAdmin]: [ 5, 7, 8, 9],
     [this.variablesRoles.Practicante]: [6, 9],
-    [this.variablesRoles.TecnicoOperativo]: [5, 6, 9],
-    [this.variablesRoles.Voluntario]: [6, 9],
+    [this.variablesRoles.TecnicoOperativo]: [5, 9],
+    [this.variablesRoles.Voluntario]: [ 9],
 
   };
 

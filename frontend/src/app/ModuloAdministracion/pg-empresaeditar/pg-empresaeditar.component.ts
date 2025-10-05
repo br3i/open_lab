@@ -82,7 +82,7 @@ export class PgEmpresaeditarComponent implements OnInit {
   /////
 
   public datosEmpresa: any; // Objeto del convenio recibido
-  public idEmpresa: number | null = null;
+  public idFundacion: number | null = null;
   public idCargo = this.parametros.tipoCargo.REPRESENTANTE_LEGAL;
   public datosRepresentanteEmpresa: any;
   public datosEmpresaForm: any = {}; // Propiedad para los datos de la empresa
@@ -181,7 +181,7 @@ export class PgEmpresaeditarComponent implements OnInit {
 
 
       const datosAnexo = await new Promise<any>(resolve =>
-        this.servicioscentral.ObtenerAnexoDadoIdEmpresa(this.datosEmpresaForm.idempresa).subscribe(translated => resolve(translated))
+        this.servicioscentral.ObtenerAnexoDadoIdEmpresa(this.datosEmpresaForm.idfundacion).subscribe(translated => resolve(translated))
       );
 
       if (!datosAnexo || datosAnexo.success !== true || !datosAnexo.datos || !datosAnexo.datos.length) {
@@ -508,7 +508,7 @@ export class PgEmpresaeditarComponent implements OnInit {
     };
 
     const objEmpresa = {
-      idempresa: null,
+      idfundacion: null,
       idtipoempresa: this.strTipoEmpresa,
       empresa_strnombre: this.empresa_strnombre,
       empresa_dtfechacreacion: this.formFecha.value.empresa_dtfechacreacion || new Date('1900-01-01'),
@@ -526,7 +526,7 @@ export class PgEmpresaeditarComponent implements OnInit {
       strruc: this.strRuc,
       tipodocumento: null,
       strtiponombre: null,
-      idtipoentidad: this.parametros.tiposEntidad.EMPRESA
+      idtipoentidad: this.parametros.tiposEntidad.FUNDACIÓN
     };
 
     const objEmpresaAnexo = {

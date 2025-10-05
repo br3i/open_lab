@@ -743,8 +743,8 @@
           <label for="sexo">Sexo</label>
           <p-dropdown
             [options]="[
-              { label: 'MASCULINO', value: '1' },
-              { label: 'FEMENINO', value: '2' }
+              { label: 'MASCULINO', value: 1 },
+              { label: 'FEMENINO', value: 2 }
             ]"
             [(ngModel)]="nuevaPersona.sexo"
             placeholder="Seleccione el sexo"
@@ -752,37 +752,7 @@
             appendTo="body"
           ></p-dropdown>
         </div>
-        <div class="p-field">
-          <label for="idetnia">Etnia</label>
-          <p-dropdown
-            [options]="[
-              { label: 'NINGUNA', value: '1' },
-              { label: 'MESTIZO', value: '2' },
-              { label: 'INDÍGENA', value: '3' },
-              { label: 'MONTUBIO', value: '4' },
-              { label: 'PRIVADA', value: '5' }
-            ]"
-            [(ngModel)]="nuevaPersona.idetnia"
-            placeholder="Seleccione la etnia"
-            [style]="{ width: '100%' }"
-            appendTo="body"
-          ></p-dropdown>
-        </div>
-        <div class="p-field">
-          <label for="idestadocivil">Estado Civil</label>
-          <p-dropdown
-            [options]="[
-              { label: 'NINGUNA', value: '1' },
-              { label: 'SOLTERO', value: '2' },
-              { label: 'CASADO', value: '3' },
-              { label: 'DIVORCIADO', value: '4' }
-            ]"
-            [(ngModel)]="nuevaPersona.idestadocivil"
-            placeholder="Seleccione el estado civil"
-            [style]="{ width: '100%' }"
-            appendTo="body"
-          ></p-dropdown>
-        </div>
+
       </div>
     </div>
   </ng-template>

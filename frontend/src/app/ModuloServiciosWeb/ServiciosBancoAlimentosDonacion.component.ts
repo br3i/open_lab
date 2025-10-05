@@ -63,17 +63,17 @@ export class ServiciosWebDonacion {
   }
 
   //Sucursales empresa
-  ListadoSucursalEmpresa(idEmpresa: any) {
+  ListadoSucursalEmpresa(idFundacion: any) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    let parametros = "/" + idEmpresa;
+    let parametros = "/" + idFundacion;
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaempresa/ListadoSucursalEmpresa' + parametros)
   }
 
-  ListadoSucursalDadoIdEmpresaActivo(idEmpresa: any) {
+  ListadoSucursalDadoIdEmpresaActivo(idFundacion: any) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    let parametros = "/" + idEmpresa;
+    let parametros = "/" + idFundacion;
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaempresa/ListadoSucursalEmpresaActivos' + parametros)
   }
 
@@ -87,10 +87,10 @@ export class ServiciosWebDonacion {
     return this.hpptclient.post<any>(this.urlServiciosBancoAlimentos + '/rutaprocesodonacion/IngresarDonacionDetalle', contenido)
   }
 
-  ListadoDonacionIdEmpresa(idEmpresa: any) {
+  ListadoDonacionIdEmpresa(idFundacion: any) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    let parametros = "/" + idEmpresa;
+    let parametros = "/" + idFundacion;
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaprocesodonacion/ListadoDonacionIdEmpresa' + parametros)
   }
 
@@ -122,10 +122,10 @@ export class ServiciosWebDonacion {
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaprocesodonacion/DetalleDonacionPersonaId' + parametros)
   }
 
-  GrupoDonacionEmpresa(idEmpresa: any, idEstadoDonacion: any) {
+  GrupoDonacionEmpresa(idFundacion: any, idEstadoDonacion: any) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    let parametros = "/" + idEmpresa + "/" + idEstadoDonacion;
+    let parametros = "/" + idFundacion + "/" + idEstadoDonacion;
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaprocesodonacion/GrupoDonacionEmpresa' + parametros)
   }
 

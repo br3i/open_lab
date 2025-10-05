@@ -13,9 +13,9 @@ export class PgPrincipalempresaComponent implements OnInit {
   tabs = [
     { label: 'Tipo de empresa', path: 'tipoempresa' },
     { label: 'Tipo de solicitud', path: 'tiposolicitud' },
-    { label: 'Solicitud de empresas', path: 'empresapendiente' },
-    { label: 'Empresas aceptadas', path: 'empresaaceptado' },
-    { label: 'Empresas rechazadas', path: 'empresarechazado' },
+    { label: 'Solicitud de fundaciones', path: 'empresapendiente' },
+    { label: 'Fundaciones aceptadas', path: 'empresaaceptado' },
+    { label: 'Fundaciones rechazadas', path: 'empresarechazado' },
     { label: 'Registro de empresa', path: 'registroempresa' }
   ];
 

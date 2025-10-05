@@ -108,7 +108,7 @@ export class PgRegistroempresaComponent implements OnInit {
   }
 
   async ngOnInit() {
-    await this.ListadoTipoEmpresa();
+   await this.ListadoTipoEmpresa();
     await this.cargarProvincias();
   }
 
@@ -125,6 +125,7 @@ export class PgRegistroempresaComponent implements OnInit {
     const data = await new Promise<any>(resolve => this.servicioscentral.ListadoTipoEmpresaActivos().subscribe(translated => { resolve(translated) }));
     if (data.success) {
       this.lsListadoTipoEmpresa = data.datos;
+      console.log("DATOS ", this.lsListadoTipoEmpresa)
     }
   }
 
@@ -144,6 +145,8 @@ export class PgRegistroempresaComponent implements OnInit {
     this.provincias = await this.funcionescompartidas.obtenerUbicaciones('PROVINCIAS');
     this.provinciasFiltradas = [...this.provincias];
   }
+
+  
 
   // Carga cantones según la provincia seleccionada
   async cargarCantones() {
@@ -292,7 +295,7 @@ export class PgRegistroempresaComponent implements OnInit {
       });
       return;
     }
-    const idTipoEntidad = this.parametros.tiposEntidad.EMPRESA;
+    const idTipoEntidad = this.parametros.tiposEntidad.FUNDACIÓN;
     const dataEmpresa = data.datos[0];
 
     if (dataEmpresa.ouidtipoentidad == idTipoEntidad) {
@@ -490,7 +493,7 @@ export class PgRegistroempresaComponent implements OnInit {
     };
 
     const objEmpresa = {
-      idempresa: null,
+      idfundacion: null,
       idtipoempresa: this.strTipoEmpresa,
       empresa_strnombre: this.empresa_strnombre,
       empresa_dtfechacreacion: this.formFecha.value.empresa_dtfechacreacion || new Date('1900-01-01'),
@@ -508,7 +511,7 @@ export class PgRegistroempresaComponent implements OnInit {
       strruc: this.strRuc,
       tipodocumento: null,
       strtiponombre: null,
-      idtipoentidad: this.parametros.tiposEntidad.EMPRESA
+      idtipoentidad: this.parametros.tiposEntidad.FUNDACIÓN
     };
 
     const objEmpresaAnexo = {

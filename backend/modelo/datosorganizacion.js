@@ -123,7 +123,7 @@ module.exports.ActualizarDatosOrganizacionEstado = async function (idDatosOrgani
 //Listado de personal activos en el BAR segun los cargos
 module.exports.ListadoPersonalDadoIdCargoActivos = async function (idCargo) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_organizacion_personal($1, $2, $3, $4, $5 ,$6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_organizacion_personal($1, $2, $3, $4, $5 ,$6,$7,$8)'
   var listaParametros = ['LSET', null, null, idCargo, null, null, true, null]
   try {
 
@@ -142,7 +142,7 @@ module.exports.ListadoPersonalDadoIdCargoActivos = async function (idCargo) {
 
 module.exports.ListadoPersonal = async function () {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_organizacion_personal($1, $2, $3, $4, $5 ,$6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_organizacion_personal($1, $2, $3, $4, $5 ,$6,$7,$8)'
   var listaParametros = ['LST', null, null, null, null, null, null, null]
   try {
 
@@ -161,7 +161,7 @@ module.exports.ListadoPersonal = async function () {
 
 module.exports.BuscarPersonalIdPersona = async function (idPersona) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_organizacion_personal($1, $2, $3, $4, $5 ,$6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_organizacion_personal($1, $2, $3, $4, $5 ,$6,$7,$8)'
   var listaParametros = ['BIP', null, idPersona, null, null, null, null, null]
   try {
 
@@ -180,7 +180,7 @@ module.exports.BuscarPersonalIdPersona = async function (idPersona) {
 
 module.exports.BuscarPersonalIdPersonal= async function (idPersonal) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_organizacion_personal($1, $2, $3, $4, $5 ,$6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_organizacion_personal($1, $2, $3, $4, $5 ,$6,$7,$8)'
   var listaParametros = ['UNO', idPersonal, null, null, null, null, null, null]
   try {
 
@@ -199,7 +199,7 @@ module.exports.BuscarPersonalIdPersonal= async function (idPersonal) {
 
 module.exports.InsertarPersonalBar = async function (client, objPersonal) {
   const sentencia = `
-    SELECT * FROM central.f_central_organizacion_personal($1, $2, $3, $4, $5, $6, $7, $8)
+    SELECT * FROM public.f_central_organizacion_personal($1, $2, $3, $4, $5, $6, $7, $8)
   `;
 
   const parametros = ['IN', null, objPersonal.idpersona, objPersonal.idcargo, objPersonal.strdescripcion1, objPersonal.strdescripcion2, null, null ];
@@ -219,7 +219,7 @@ module.exports.InsertarPersonalBar = async function (client, objPersonal) {
 };
 
 module.exports.ActualizarPersonalBar = async function (objPersonal) {
-  const sentencia = 'SELECT * FROM central.f_central_organizacion_personal($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
+  const sentencia = 'SELECT * FROM public.f_central_organizacion_personal($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)';
   const listaParametros = [
     'UP',
     objPersonal.idPersonal,
@@ -243,7 +243,7 @@ module.exports.ActualizarPersonalBar = async function (objPersonal) {
 
 module.exports.ActualizarEstadoPersonalBar = async function (idPersonal, blEstado) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_organizacion_personal($1, $2, $3, $4, $5 ,$6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_organizacion_personal($1, $2, $3, $4, $5 ,$6,$7,$8)'
   var listaParametros = ['UPE', idPersonal, null, null, null, null, blEstado
 
   ]

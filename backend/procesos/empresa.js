@@ -10,7 +10,7 @@ module.exports.IngresarSolicitudEmpresa = async function (objPersona, objEmpresa
   try {
     let cedula = objPersona.documento || null;
     let strRuc = objEmpresa.strruc || null;
-    let idPersona, idEmpresa, idRepresentante;
+    let idPersona, idFundacion, idRepresentante;
 
     // 1. Validar si la persona existe
     const personaExistente = await modelocentral.EncontrarPersonaDadoCedula(
@@ -36,17 +36,17 @@ module.exports.IngresarSolicitudEmpresa = async function (objPersona, objEmpresa
     // 2. Validar si la empresa existe
     const empresaExistente = await modeloempresa.EncontrarEmpresaRuc(strRuc);
     if (empresaExistente && empresaExistente.data.length > 0) {
-      idEmpresa = Number(empresaExistente.data[0].ouidempresa);
+      idFundacion = Number(empresaExistente.data[0].ouidempresa);
       //Actualizar datos empresa
-      objEmpresa.idempresa = idEmpresa;
+      objEmpresa.idfundacion = idFundacion;
       const empresaActualizar = await modeloempresa.ActualizarEmpresa(client, objEmpresa);
       if (!empresaActualizar || !empresaActualizar.data || empresaActualizar.data.length === 0) {
         throw new Error("Fallo en la actualización de datos de la empresa.");
       }
       // 2.1 Validar representante legal
-      const representanteExistente = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idEmpresa, tipoCargo.REPRESENTANTE_LEGAL);
+      const representanteExistente = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idFundacion, tipoCargo.REPRESENTANTE_LEGAL);
       if (!representanteExistente || !representanteExistente.data || representanteExistente.data.length === 0) {
-        const nuevoRepresentante = await modeloempresa.RegistrarRepresentante(client, idPersona, idEmpresa, tipoCargo.REPRESENTANTE_LEGAL);
+        const nuevoRepresentante = await modeloempresa.RegistrarRepresentante(client, idPersona, idFundacion, tipoCargo.REPRESENTANTE_LEGAL);
 
         if (!nuevoRepresentante || !nuevoRepresentante.data || nuevoRepresentante.data.length === 0) {
           throw new Error("Fallo en el registro del representante legal.");
@@ -65,14 +65,14 @@ module.exports.IngresarSolicitudEmpresa = async function (objPersona, objEmpresa
       if (!objEmpresaAnexo.emp_anexo_strruta) {
         throw new Error("El campo de ruta no puede estar vacío para actualizar el anexo.");
       }
-      objEmpresaAnexo.emp_anexo_idempresa = idEmpresa;
+      objEmpresaAnexo.emp_anexo_idempresa = idFundacion;
       const actualizarAnexo = await modeloempresa.ActualizarEmpresaAnexo(client, objEmpresaAnexo);
       if (!actualizarAnexo || actualizarAnexo.data.length === 0) {
         throw new Error("Fallo al actualizar el anexo de la empresa.");
       }
 
       // 3. Registrar nueva solicitud
-      objSolicitud.idempresa = idEmpresa;
+      objSolicitud.idfundacion = idFundacion;
       objSolicitud.idrepresentante = idRepresentante;
       const nuevaSolicitud = await modeloempresa.NuevaSolicitudEmpresa(client, objSolicitud);
       if (!nuevaSolicitud || nuevaSolicitud.data.length === 0) {
@@ -87,14 +87,14 @@ module.exports.IngresarSolicitudEmpresa = async function (objPersona, objEmpresa
         throw new Error("Fallo en el registro de la empresa.", nuevaEmpresa);
       }
 
-      idEmpresa = nuevaEmpresa.data[0].ouidempresa;
+      idFundacion = nuevaEmpresa.data[0].ouidempresa;
 
       // Definir objSucursal antes de asignar propiedades
       let objSucursal = {
-        idempresa: idEmpresa,
+        idfundacion: idFundacion,
         sucursal_strnombre: 'Matríz',
         sucursal_strdescripcion: 'Establecimiento principal donde se recolectarán los alimentos destinados a donaciones y se coordinarán visitas técnicas para garantizar el cumplimiento de los objetivos del convenio.',
-        idubicacion: idEmpresa,
+        idubicacion: idFundacion,
         sucursal_strdireccion: objEmpresa.empresa_strdireccion
       };
 
@@ -108,7 +108,7 @@ module.exports.IngresarSolicitudEmpresa = async function (objPersona, objEmpresa
         throw new Error("El campo ruta no puede estar vacío para registrar el anexo."
         );
       }
-      objEmpresaAnexo.emp_anexo_idempresa = idEmpresa;
+      objEmpresaAnexo.emp_anexo_idempresa = idFundacion;
       const nuevoAnexo = await modeloempresa.CrearEmpresaAnexo(client, objEmpresaAnexo);
       if (!nuevoAnexo || nuevoAnexo.data.length === 0) {
         throw new Error("Fallo en el registro del anexo.");
@@ -133,7 +133,7 @@ module.exports.ActualizarEmpresaRepresentante = async function (objPersona, objE
   try {
     let cedula = objPersona.documento || null;
     let strRuc = objEmpresa.strruc || null;
-    let idPersona, idEmpresa, idRepresentante;
+    let idPersona, idFundacion, idRepresentante;
 
     // 1. Validar si la persona existe
     const personaExistente = await modelocentral.EncontrarPersonaDadoCedula(cedula);
@@ -156,17 +156,17 @@ module.exports.ActualizarEmpresaRepresentante = async function (objPersona, objE
     // 2. Validar si la empresa existe
     const empresaExistente = await modeloempresa.EncontrarEmpresaRuc(strRuc);
     if (empresaExistente && empresaExistente.data.length > 0) {
-      idEmpresa = Number(empresaExistente.data[0].ouidempresa);
+      idFundacion = Number(empresaExistente.data[0].ouidempresa);
       //Actualizar datos empresa
-      objEmpresa.idempresa = idEmpresa;
+      objEmpresa.idfundacion = idFundacion;
       const empresaActualizar = await modeloempresa.ActualizarEmpresa(client, objEmpresa);
       if (!empresaActualizar || !empresaActualizar.data || empresaActualizar.data.length === 0) {
         throw new Error("Fallo en la actualización de datos de la empresa.");
       }
       // 2.1 Validar representante legal
-      const representanteExistente = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idEmpresa, tipoCargo.REPRESENTANTE_LEGAL);
+      const representanteExistente = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idFundacion, tipoCargo.REPRESENTANTE_LEGAL);
       if (!representanteExistente || !representanteExistente.data || representanteExistente.data.length === 0) {
-        const nuevoRepresentante = await modeloempresa.RegistrarRepresentante(client, idPersona, idEmpresa, tipoCargo.REPRESENTANTE_LEGAL);
+        const nuevoRepresentante = await modeloempresa.RegistrarRepresentante(client, idPersona, idFundacion, tipoCargo.REPRESENTANTE_LEGAL);
         if (!nuevoRepresentante || !nuevoRepresentante.data || nuevoRepresentante.data.length === 0) {
           throw new Error("Fallo en el registro del representante legal.");
         }
@@ -184,7 +184,7 @@ module.exports.ActualizarEmpresaRepresentante = async function (objPersona, objE
       if (!objEmpresaAnexo.emp_anexo_strruta) {
         throw new Error("El campo de ruta no puede estar vacío para actualizar el anexo.");
       }
-      objEmpresaAnexo.emp_anexo_idempresa = idEmpresa;
+      objEmpresaAnexo.emp_anexo_idempresa = idFundacion;
       const actualizarAnexo = await modeloempresa.ActualizarEmpresaAnexo(client, objEmpresaAnexo);
       if (!actualizarAnexo || actualizarAnexo.data.length === 0) {
         throw new Error("Fallo al actualizar el anexo de la empresa.");
@@ -213,7 +213,7 @@ module.exports.IngresarPersonalEmpresa = async function (objPersona) {
   const client = await iniciarTransaccion();
 
   try {
-    let idEmpresa = objPersona.idempresa;
+    let idFundacion = objPersona.idfundacion;
     let idCargo = objPersona.idcargo;
     let cedula = objPersona.documento || null;
 
@@ -239,10 +239,10 @@ module.exports.IngresarPersonalEmpresa = async function (objPersona) {
     }
 
     // 2.1 Validar representante legal
-    const representanteExistente = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idEmpresa, idCargo);
+    const representanteExistente = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idFundacion, idCargo);
     if (!representanteExistente || !representanteExistente.data || representanteExistente.data.length === 0
     ) {
-      const nuevoRepresentante = await modeloempresa.RegistrarRepresentante(client, idPersona, idEmpresa, idCargo);
+      const nuevoRepresentante = await modeloempresa.RegistrarRepresentante(client, idPersona, idFundacion, idCargo);
       if (!nuevoRepresentante || !nuevoRepresentante.data || nuevoRepresentante.data.length === 0
       ) {
         console.error("Error: Fallo en el registro del representante legal.");
@@ -324,7 +324,7 @@ module.exports.IngresarSolicitudFundacion = async function (objPersona, objCoord
     let cedulaCoordinador = objPersona.documento || null;
 
     let strRuc = objEmpresa.strruc || null;
-    let idPersona, idPersonaCoordinador, idEmpresa, idRepresentante;
+    let idPersona, idPersonaCoordinador, idFundacion, idRepresentante;
 
     // 1. Validar si existe el representante legal como persona
     const personaExistente = await modelocentral.EncontrarPersonaDadoCedula(
@@ -371,17 +371,17 @@ module.exports.IngresarSolicitudFundacion = async function (objPersona, objCoord
     // 2. Validar si la fundación existe
     const empresaExistente = await modeloempresa.EncontrarEmpresaRuc(strRuc);
     if (empresaExistente && empresaExistente.data.length > 0) {
-      idEmpresa = empresaExistente.data[0].ouidempresa;
+      idFundacion = empresaExistente.data[0].ouidempresa;
       //Actualizar datos empresa
-      objEmpresa.idempresa = idEmpresa;
+      objEmpresa.idfundacion = idFundacion;
       const empresaActualizar = await modeloempresa.ActualizarEmpresa(client, objEmpresa);
       if (!empresaActualizar || !empresaActualizar.data || empresaActualizar.data.length === 0) {
         throw new Error("Fallo en la actualización de datos de la empresa.");
       }
       // 2.1 Validar representante legal
-      const representanteExistente = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idEmpresa, tipoCargo.REPRESENTANTE_LEGAL);
+      const representanteExistente = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idFundacion, tipoCargo.REPRESENTANTE_LEGAL);
       if (!representanteExistente || !representanteExistente.data || representanteExistente.data.length === 0) {
-        const nuevoRepresentante = await modeloempresa.RegistrarRepresentante(client, idPersona, idEmpresa, tipoCargo.REPRESENTANTE_LEGAL);
+        const nuevoRepresentante = await modeloempresa.RegistrarRepresentante(client, idPersona, idFundacion, tipoCargo.REPRESENTANTE_LEGAL);
 
         if (!nuevoRepresentante || !nuevoRepresentante.data || nuevoRepresentante.data.length === 0) {
           throw new Error("Fallo en el registro del representante legal.");
@@ -398,9 +398,9 @@ module.exports.IngresarSolicitudFundacion = async function (objPersona, objCoord
 
       // Validar coordinador de la fundación
       if (cedulaCoordinador && cedulaCoordinador !== "0") {
-        const coordinadorExistente = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idEmpresa, tipoCargo.REPRESENTANTE_LEGAL);
+        const coordinadorExistente = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idFundacion, tipoCargo.REPRESENTANTE_LEGAL);
         if (!coordinadorExistente || !coordinadorExistente.data || coordinadorExistente.data.length === 0) {
-          const nuevoRepresentante = await modeloempresa.RegistrarRepresentante(client, idPersona, idEmpresa, tipoCargo.REPRESENTANTE_LEGAL);
+          const nuevoRepresentante = await modeloempresa.RegistrarRepresentante(client, idPersona, idFundacion, tipoCargo.REPRESENTANTE_LEGAL);
 
           if (!nuevoRepresentante || !nuevoRepresentante.data || nuevoRepresentante.data.length === 0) {
             throw new Error("Fallo en el registro del coordinador.");
@@ -426,7 +426,7 @@ module.exports.IngresarSolicitudFundacion = async function (objPersona, objCoord
         if (!anexo.emp_anexo_strruta) {
           throw new Error("El campo de ruta no puede estar vacío para actualizar el anexo.");
         }
-        anexo.emp_anexo_idempresa = idEmpresa;
+        anexo.emp_anexo_idempresa = idFundacion;
         const actualizarAnexo = await modeloempresa.ActualizarEmpresaAnexo(client, anexo);
         if (!actualizarAnexo || actualizarAnexo.data.length === 0) {
           throw new Error("Fallo al actualizar el anexo de la empresa.");
@@ -434,7 +434,7 @@ module.exports.IngresarSolicitudFundacion = async function (objPersona, objCoord
       }
 
       // 3. Registrar nueva solicitud
-      objSolicitud.idempresa = idEmpresa;
+      objSolicitud.idfundacion = idFundacion;
       objSolicitud.idrepresentante = idRepresentante;
 
       const nuevaSolicitud = await modeloempresa.NuevaSolicitudEmpresa(client, objSolicitud);
@@ -450,7 +450,7 @@ module.exports.IngresarSolicitudFundacion = async function (objPersona, objCoord
       if (!nuevaEmpresa || nuevaEmpresa.data.length === 0) {
         throw new Error("Fallo en el registro de la empresa 1.", nuevaEmpresa);
       }
-      idEmpresa = nuevaEmpresa.data[0].ouidempresa;
+      idFundacion = nuevaEmpresa.data[0].ouidempresa;
 
       // 4.1 Registrar anexos de empresa
       if (!Array.isArray(objEmpresaAnexos) || objEmpresaAnexos.length === 0) {
@@ -460,7 +460,7 @@ module.exports.IngresarSolicitudFundacion = async function (objPersona, objCoord
         if (!anexo.emp_anexo_strruta) {
           throw new Error("El campo de ruta no puede estar vacío para registrar el anexo.");
         }
-        anexo.emp_anexo_idempresa = idEmpresa;
+        anexo.emp_anexo_idempresa = idFundacion;
         const nuevoAnexo = await modeloempresa.CrearEmpresaAnexo(client, anexo);
         if (!nuevoAnexo || nuevoAnexo.data.length === 0) {
           throw new Error("Fallo en el registro del anexo.");

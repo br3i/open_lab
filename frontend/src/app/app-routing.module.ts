@@ -40,7 +40,7 @@ import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
-
+import { PgContratoFormularioComponent } from './ModuloAdministracion/pg-contratoformulario/pg-contratoformulario.component';
 
 const routes: Routes = [
   {
@@ -179,6 +179,11 @@ const routes: Routes = [
           {
             path: 'listadocontratos',
             component: PgContratoComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'ingresoformulario',
+            component: PgContratoFormularioComponent,
             canActivate: [AuthGuard]
           },
           {

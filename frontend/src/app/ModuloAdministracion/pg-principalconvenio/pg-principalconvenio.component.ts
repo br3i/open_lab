@@ -21,6 +21,8 @@ ngOnInit(): void {
     this.selectedOption = 2;
   } else if (currentPath.includes('/gestioncontrato')) {
     this.selectedOption = 3;
+  } else if (currentPath.includes('/ingresoformulario')) {
+    this.selectedOption = 4;
   } else if (
     currentPath.includes('/convenionuevo') ||
     currentPath.includes('/convenioeditar')
@@ -46,6 +48,9 @@ ngOnInit(): void {
         break;
       case 3:
         this.router.navigate([`${this.basePath}/gestioncontrato`]);
+        break;
+      case 4:
+        this.router.navigate([`${this.basePath}/ingresoformulario`]);
         break;
       default:
         this.router.navigate([`${this.basePath}/listadoconvenios`]);

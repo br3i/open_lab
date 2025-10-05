@@ -65,6 +65,10 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { TreeModule } from 'primeng/tree';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TimelineModule } from 'primeng/timeline';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { PgPrincipalempresaComponent } from './ModuloAdministracion/pg-principalempresa/pg-principalempresa.component';
 import { PgTipoempresaComponent } from './ModuloAdministracion/pg-tipoempresa/pg-tipoempresa.component';
@@ -100,7 +104,7 @@ import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
 import { PgPanelNaturalComponent } from './ModuloAdministracion/pg-panel-natural/pg-panel-natural.component';
-
+import { PgContratoFormularioComponent } from './ModuloAdministracion/pg-contratoformulario/pg-contratoformulario.component';
 
 registerLocaleData(localeEs);
 
@@ -150,6 +154,7 @@ registerLocaleData(localeEs);
     PgPersonalorganizacionComponent,
     PgPrincipalorganizacionComponent,
     PgPanelNaturalComponent,
+    PgContratoFormularioComponent,
 
   ],
   imports: [
@@ -180,7 +185,11 @@ registerLocaleData(localeEs);
     OverlayPanelModule
     ,
     TimelineModule,
-    ChartModule
+    ChartModule,
+    InputNumberModule,
+    ProgressBarModule,
+    InputTextareaModule,
+    TooltipModule
   ],
   providers: [FuncionesCompartidasServicio, MessageService, SpinnerService, { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true }, { provide: LOCALE_ID, useValue: 'es-ES' }],// Agrega el interceptor HTTP],
   bootstrap: [AppComponent]

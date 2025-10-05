@@ -158,6 +158,9 @@ registerLocaleData(localeEs);
     PgIndicadorComponent,
 
     PgPanelNaturalComponent,
+    PgPrincipaladminComponent,
+    PgFormularioreporteComponent,
+    PgPanelProgresoComponent
 
   ],
   imports: [

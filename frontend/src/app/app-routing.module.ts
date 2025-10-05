@@ -43,7 +43,6 @@ import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-prin
 
 import { PgPanelProgresoComponent } from './ModuloAdministracion/pg-panel-progreso/pg-panel-progreso.component';
 
-import { PgPanelProgresoComponent } from './ModuloAdministracion/pg-panel-progreso/pg-panel-progreso.component';
 
 import { PgPrincipalindicadorComponent } from './ModuloAdministracion/pg-principalindicador/pg-principalindicador.component';
 import { PgIndicadorComponent } from './ModuloAdministracion/pg-indicador/pg-indicador.component';

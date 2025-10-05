@@ -5,7 +5,7 @@ import { Injectable } from "@angular/core";
 })
 
 export class VariablesRoles {
-    Administrador: number = 13;
+    Administrador: number = 1;
     Beneficiario: number = 33;
     Recolector: number = 10;
     Director: number = 31;

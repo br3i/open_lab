@@ -90,6 +90,7 @@ import { PgPerfilComponent } from './ModuloSeguridad/pg-perfil/pg-perfil.compone
 import { AvatarModule } from 'primeng/avatar';
 
 import { PgEmpresaeditarComponent } from './ModuloAdministracion/pg-empresaeditar/pg-empresaeditar.component';
+import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 
 
 registerLocaleData(localeEs);
@@ -132,6 +133,7 @@ registerLocaleData(localeEs);
     PgPerfilComponent,
 
     PgEmpresaeditarComponent,
+      ModuloPagoComponent,
  
   ],
   imports: [

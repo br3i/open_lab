@@ -1,0 +1,53 @@
+<p-toast></p-toast>
+
+<div class="progress-panel p-4">
+  <h2 class="text-2xl font-bold mb-4">Progreso de Proyectos</h2>
+
+  <div *ngFor="let proyecto of proyectos" class="mb-4">
+    <p-card [ngClass]="{'project-completed': proyecto.progreso === 100}">
+
+      <ng-template pTemplate="title">
+        <div class="card-title-container">
+          <span class="project-name">{{ proyecto.nombre }}</span>
+          <span class="foundation-name">{{ proyecto.fundacion }}</span>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="subtitle">
+        {{ proyecto.indicadoresCompletados }} de {{ proyecto.indicadores.length }} KPI's completados
+      </ng-template>
+
+      <div class="project-content">
+        <div class="progress-section">
+          <div class="custom-progress-bar-container">
+            <div
+              class="custom-progress-bar"
+              [ngStyle]="{ width: (proyecto.progreso ?? 0) + '%', backgroundColor: getColor(proyecto.progreso ?? 0) }"
+            ></div>
+          </div>
+          <span class="progress-label font-semibold">{{ proyecto.progreso }}%</span>
+        </div>
+
+        <div *ngIf="proyecto.progreso === 100" class="completion-section mt-4">
+          <p-divider></p-divider>
+          <div class="flex justify-content-between align-items-center">
+            <span class="font-semibold text-green-600">
+              <i class="pi pi-check-circle mr-2"></i>¡Proyecto completado!
+            </span>
+            <button pButton type="button" label="Facturar" icon="pi pi-file-export" class="p-button-sm" (click)="facturarProyecto(proyecto)"></button>
+          </div>
+        </div>
+
+        <p-divider></p-divider>
+
+        <h4 class="font-semibold mb-2">Detalle de KPI's del proyecto:</h4>
+        <ul class="list-none p-0 m-0">
+          <li *ngFor="let indicador of proyecto.indicadores" class="flex justify-content-between align-items-center mb-2">
+            <span>{{ indicador.nombre }}</span>
+            <p-tag [severity]="getSeverity(indicador.estado)" [value]="indicador.estado"></p-tag>
+          </li>
+        </ul>
+      </div>
+    </p-card>
+  </div>
+</div>

@@ -41,6 +41,8 @@ import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
 
+import { PgPanelProgresoComponent } from './ModuloAdministracion/pg-panel-progreso/pg-panel-progreso.component';
+
 
 const routes: Routes = [
   {
@@ -211,6 +213,7 @@ const routes: Routes = [
           { path: 'reportedonacion', component: ReportedonacionComponent },
           { path: 'multi', component: PgDashboardMultiComponent },
           { path: 'dashboard-natural', component: PgPanelNaturalComponent },
+          { path: 'progreso', component: PgPanelProgresoComponent },
           { path: '', redirectTo: 'reportedonacion', pathMatch: 'full' }
         ]
       },

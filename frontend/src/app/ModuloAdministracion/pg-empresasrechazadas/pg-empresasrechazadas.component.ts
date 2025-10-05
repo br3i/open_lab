@@ -57,7 +57,7 @@ export class PgempresarechazadaComponent implements OnInit {
 
   async ListadoInformacion() {
     const idTipoSolicitud = this.parametros.tiposSolicitud.RECHAZADO; // Ejemplo: Solicitud de donación
-    const idTipoEntidad = this.parametros.tiposEntidad.FUNDACIÓN;
+    const idTipoEntidad = this.parametros.tiposEntidad.EMPRESA;
     const data = await new Promise<any>(resolve => this.servicios.ListadoSolicitudEmpresas(idTipoSolicitud, idTipoEntidad).subscribe(translated => { resolve(translated) }));
     if (data.success) {
       this.lsListado = data.datos.sort((a: any, b: any) => {

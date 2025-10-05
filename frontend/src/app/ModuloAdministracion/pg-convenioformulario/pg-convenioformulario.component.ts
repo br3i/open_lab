@@ -259,7 +259,7 @@ export class PgConvenioFormularioComponent implements OnInit {
 
   async ListarEmpresas() {
     const idTipoSolicitud = this.parametros.tiposSolicitud.ACEPTADO;
-    const idTipoEntidad = this.parametros.tiposEntidad.FUNDACIÓN;
+    const idTipoEntidad = this.parametros.tiposEntidad.EMPRESA;
     try {
       const data = await new Promise<any>(resolve => this.servicios.ListadoEmpresasAceptadasActivas(idTipoSolicitud, idTipoEntidad).subscribe(translated => { resolve(translated) }));
       if (data.success) {

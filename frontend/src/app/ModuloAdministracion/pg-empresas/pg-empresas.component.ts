@@ -75,7 +75,7 @@ export class PgempresaComponent implements OnInit {
 
   async ListadoInformacion() {
     const idTipoSolicitud = this.parametros.tiposSolicitud.PENDIENTE;
-    const idTipoEntidad = this.parametros.tiposEntidad.FUNDACIÓN;
+    const idTipoEntidad = this.parametros.tiposEntidad.EMPRESA;
     const data = await new Promise<any>(resolve => this.servicios.ListadoSolicitudEmpresas(idTipoSolicitud, idTipoEntidad).subscribe(translated => { resolve(translated) }));
     if (data.success) {
       this.lsListado = data.datos;

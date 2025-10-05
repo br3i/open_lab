@@ -526,7 +526,7 @@ export class PgEmpresaeditarComponent implements OnInit {
       strruc: this.strRuc,
       tipodocumento: null,
       strtiponombre: null,
-      idtipoentidad: this.parametros.tiposEntidad.FUNDACIÓN
+      idtipoentidad: this.parametros.tiposEntidad.EMPRESA
     };
 
     const objEmpresaAnexo = {

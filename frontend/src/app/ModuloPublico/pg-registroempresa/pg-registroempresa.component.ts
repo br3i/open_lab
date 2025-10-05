@@ -295,7 +295,7 @@ export class PgRegistroempresaComponent implements OnInit {
       });
       return;
     }
-    const idTipoEntidad = this.parametros.tiposEntidad.FUNDACIÓN;
+    const idTipoEntidad = this.parametros.tiposEntidad.EMPRESA;
     const dataEmpresa = data.datos[0];
 
     if (dataEmpresa.ouidtipoentidad == idTipoEntidad) {
@@ -320,7 +320,7 @@ export class PgRegistroempresaComponent implements OnInit {
       }
 
     } else {
-      if (dataEmpresa.ouidtipoentidad == this.parametros.tiposEntidad.FUNDACION) {
+      if (dataEmpresa.ouidtipoentidad == this.parametros.tiposEntidad.EMPRESA) {
         this.empresa_strnombre = dataEmpresa.ouempresa_strnombre || "";
         this.ModalTipoEntidad = true;
       }
@@ -493,7 +493,7 @@ export class PgRegistroempresaComponent implements OnInit {
     };
 
     const objEmpresa = {
-      idfundacion: null,
+      idempresa: null,
       idtipoempresa: this.strTipoEmpresa,
       empresa_strnombre: this.empresa_strnombre,
       empresa_dtfechacreacion: this.formFecha.value.empresa_dtfechacreacion || new Date('1900-01-01'),
@@ -511,7 +511,7 @@ export class PgRegistroempresaComponent implements OnInit {
       strruc: this.strRuc,
       tipodocumento: null,
       strtiponombre: null,
-      idtipoentidad: this.parametros.tiposEntidad.FUNDACIÓN
+      idtipoentidad: this.parametros.tiposEntidad.EMPRESA
     };
 
     const objEmpresaAnexo = {

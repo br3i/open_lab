@@ -40,7 +40,8 @@ import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
-
+import { PgPrincipaladminComponent } from './ModuloAdministracion/pg-principaladmin/pg-principaladmin.component';
+import { PgFormularioreporteComponent } from './ModuloAdministracion/pg-formularioreporte/pg-formularioreporte.component';
 
 const routes: Routes = [
   {
@@ -221,6 +222,14 @@ const routes: Routes = [
         children: [
           { path: '', redirectTo: 'pg-perfil', pathMatch: 'full' }, // Redirección por defecto
           { path: "pg-perfil", component: PgPerfilComponent },
+        ],
+      },
+      {
+        path: 'principaladmin',
+        component: PgPrincipaladminComponent,
+        canActivate: [AuthGuard],
+        children: [
+          { path: "pg-formularioreporte", component: PgFormularioreporteComponent },
         ],
       },
     ]

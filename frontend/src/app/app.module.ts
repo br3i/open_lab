@@ -66,7 +66,6 @@ import { TreeModule } from 'primeng/tree';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TimelineModule } from 'primeng/timeline';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { ProgressBarModule } from 'primeng/progressbar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TooltipModule } from 'primeng/tooltip';
 
@@ -197,8 +196,7 @@ registerLocaleData(localeEs);
     InputNumberModule,
     ProgressBarModule,
     InputTextareaModule,
-    TooltipModule,
-    ProgressBarModule
+    TooltipModule
   ],
   providers: [FuncionesCompartidasServicio, MessageService, SpinnerService, { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true }, { provide: LOCALE_ID, useValue: 'es-ES' }],// Agrega el interceptor HTTP],
   bootstrap: [AppComponent]

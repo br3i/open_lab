@@ -3,6 +3,7 @@ const router = express.Router();
 const Request = require("request");
 const modelotermino = require('../../modelo/terminos');
 const reportesprocesos = require('./reportesprocesos');
+const modeloreporte = require('../../modelo/reporte');
 
 
 router.post('/pdfSolicitudVoluntarioss', async function (req, res) {
@@ -106,3 +107,14 @@ router.get('/pdfCartaAceptacion/:idPersona/:strCedula', async (req, res) => {
 });
 
 module.exports = router;
+
+// Endpoint para datos de dashboard
+router.get('/dashboard', async (req, res) => {
+    try {
+        const resultado = await modeloreporte.DashboardTotales();
+        return res.json({ success: true, datos: resultado.data });
+    } catch (err) {
+        console.error('Error endpoint /dashboard:', err);
+        return res.status(500).json({ success: false, mensaje: err.message });
+    }
+});

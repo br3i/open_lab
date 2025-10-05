@@ -1,0 +1,60 @@
+<div class="dashboard-multi">
+  <div class="kpis" style="display:flex; gap:12px;">
+    <div class="panel">
+      <h4>Total usuarios</h4>
+      <div class="value">{{ totalUsuarios }}</div>
+    </div>
+    <div class="panel">
+      <h4>Perfiles activos</h4>
+      <div class="value">{{ totalPerfilesActivos }}</div>
+    </div>
+  </div>
+
+  <div style="display:flex; gap:12px; margin-top:12px;">
+    <div style="flex:1; background:#fff; padding:12px; border-radius:6px;">
+      <h5>Usuarios por rol</h5>
+      <div style="height:220px;"><canvas #chartRoles></canvas></div>
+    </div>
+    <div style="flex:1; background:#fff; padding:12px; border-radius:6px;">
+      <h5>Personas por género</h5>
+      <div style="height:220px;"><canvas #chartGenero></canvas></div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px; display:flex; gap:12px;">
+    <div style="flex:1; background:#fff; padding:12px; border-radius:6px;">
+      <h5>Tabla - Usuarios recientes</h5>
+      <table style="width:100%;">
+        <thead><tr><th>ID</th><th>Nombre</th><th>Rol</th><th>Creado</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let u of usuariosRecientes"><td>{{u.id}}</td><td>{{u.nombre}}</td><td>{{u.rol}}</td><td>{{u.creado}}</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="width:320px; background:#fff; padding:12px; border-radius:6px;">
+      <h5>Árbol</h5>
+      <p-tree [value]="treeNodes"></p-tree>
+    </div>
+  </div>
+
+  <div style="margin-top:12px; display:flex; gap:12px;">
+    <div style="flex:1; background:#fff; padding:12px; border-radius:6px;">
+      <h5>Lista</h5>
+      <ul>
+        <li *ngFor="let u of usuariosRecientes">{{u.nombre}} - {{u.rol}}</li>
+      </ul>
+    </div>
+
+    <div style="width:320px; background:#fff; padding:12px; border-radius:6px;">
+      <h5>File upload</h5>
+      <p-fileUpload name="demo[]" [customUpload]="true" (uploadHandler)="onFileUpload($event)"></p-fileUpload>
+    </div>
+  </div>
+
+  <!-- OverlayPanel: use template reference and onHide instead of two-way binding -->
+  <p-overlayPanel #op (onHide)="overlayVisible = false">
+    <div style="padding:8px">Overlay content</div>
+  </p-overlayPanel>
+
+</div>

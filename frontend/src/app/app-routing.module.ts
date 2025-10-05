@@ -227,13 +227,21 @@ const routes: Routes = [
           { path: "pg-perfil", component: PgPerfilComponent },
         ],
       },
-            {
+      {
+        path: 'principaladmin',
+        component: PgPrincipaladminComponent,
+        canActivate: [AuthGuard],
+        children: [
+          { path: "pg-formularioreporte", component: PgFormularioreporteComponent },
+        ],
+      },
+      {
         path: 'principalindicador',
         component: PgPrincipalindicadorComponent,
         canActivate: [AuthGuard],
         children: [
           { path: 'indicador', component: PgIndicadorComponent },
-          
+
           { path: '', redirectTo: 'indicador', pathMatch: 'full' }
         ]
       },

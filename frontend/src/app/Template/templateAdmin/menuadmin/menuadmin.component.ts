@@ -67,7 +67,7 @@ export class MenuadminComponent implements OnInit, OnDestroy {
   };
 
   opcionesPorRol = {
-    [this.variablesRoles.Administrador]: [1, 2, 3, 5, 7, 8, 9],
+    [this.variablesRoles.Administrador]: [1, 2, 3, 5, 7, 8, 9,10],
     [this.variablesRoles.TecnicoAdmin]: [5, 7, 8, 9],
     [this.variablesRoles.Practicante]: [2, 9],
     [this.variablesRoles.TecnicoOperativo]: [5, 9],

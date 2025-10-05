@@ -33,7 +33,7 @@ import { PgEmpresaeditarComponent } from './ModuloAdministracion/pg-empresaedita
 import { PgRegistroempresaComponent } from './ModuloPublico/pg-registroempresa/pg-registroempresa.component';
 
 import { PgInicioComponent } from './ModuloAdministracion/pg-inicio/pg-inicio.component';
-
+import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
@@ -61,10 +61,15 @@ const routes: Routes = [
         component: PgPublicloginComponent
       },
       {
+        path: 'pago',
+        component: ModuloPagoComponent
+      },
+      {
         path: '',
         redirectTo: 'inicio',
         pathMatch: 'full'
-      }
+      },
+      
 
     ]
   },

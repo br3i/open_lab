@@ -30,7 +30,7 @@
               "src/custom-styles/styles-custom.css"
             ],
 
-            "scripts": []
+            "scripts": ["src/assets/js/indexPagoPlux.js"]
           },
           "configurations": {
             "production": {

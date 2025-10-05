@@ -12,7 +12,8 @@ export class PgPrincipalreporteComponent implements OnInit { // <-- Añadido OnI
 
       tabs = [
       { label: 'Reporte de Donaciones', path: 'reportedonacion' },
-      { label: 'Dashboard Natural', path: 'dashboard-natural' },
+      { label: 'Reporte natural', path: 'dashboard-natural' },
+      { label: 'Progreso proyectos', path: 'progreso' },
     ];
         constructor(private router: Router) { }
 

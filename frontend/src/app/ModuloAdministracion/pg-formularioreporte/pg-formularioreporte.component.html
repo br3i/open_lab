@@ -1,0 +1,74 @@
+<div class="container">
+	<p-toast></p-toast>
+	<h2>Mis proyectos</h2>
+	<p class="muted">Cada tarjeta representa un proyecto ficticio asociado al usuario. Haz click en la flecha para expandir y completar KPIs.</p>
+
+	<div class="projects">
+			<div class="card" *ngFor="let p of projects" [ngStyle]="{ 'border-left': '6px solid ' + (p.color || '#1976d2') }">
+				<div class="card-header" [ngStyle]="{ 'background': 'linear-gradient(90deg, #fff, ' + (p.color || '#1976d2') + '11)' }">
+					<div class="title" [style.color]="p.color">{{p.name}}</div>
+											<button class="toggle" (click)="toggle(p)" aria-label="expandir proyecto">
+												<i class="pi pi-fw" [ngClass]="p.expanded ? 'pi-chevron-down' : 'pi-chevron-right'" [ngStyle]="{ color: p.color || '#1976d2' }" aria-hidden="true"></i>
+											</button>
+				</div>
+
+			<div class="card-body" *ngIf="p.expanded">
+				<form class="kpi-form" (ngSubmit)="saveProject(p)">
+								<div class="kpi-row" *ngFor="let k of p.kpis">
+									<div class="kpi-card">
+										<div class="kpi-meta">
+											<div class="kpi-icon"><i class="pi pi-chart-bar"></i></div>
+											<div class="kpi-info">
+                                            <div class="kpi-name">{{ k.name }}</div>
+                                            <div class="kpi-meta-line">
+                                                <div class="kpi-axis badge">{{ k.axis }}</div>
+                                                <div class="kpi-target">Meta: {{ k.target || 'No definida' }}</div>
+                                            </div>
+                                            </div>
+										</div>
+
+										<div class="kpi-controls">
+											<div class="input-row">
+												<div class="input-left">
+													<label>Valor</label>
+													<input class="input-number" type="number" step="any" [(ngModel)]="k.value" name="{{p.id}}_{{k.id}}_val" />
+												</div>
+												<div class="input-right">
+													<div class="progress" [style.borderColor]="p.color || '#1976d2'">
+														<div class="progress-bar" [style.width]="getPercent(p,k) + '%'" [style.background]="p.color || '#1976d2'"></div>
+													</div>
+													<div class="percent">{{ getPercent(p,k) }}%</div>
+												</div>
+											</div>
+											<label>Descripción</label>
+											<textarea class="desc" rows="2" [(ngModel)]="k.description" name="{{p.id}}_{{k.id}}_desc"></textarea>
+										</div>
+									</div>
+								</div>
+
+								<div class="actions">
+									<button type="button" class="btn secondary" (click)="resetProject(p)">Reset</button>
+									<button type="button" class="btn primary" [ngStyle]="{ 'background': p.color }" (click)="saveProject(p)">Guardar</button>
+								</div>
+				</form>
+			</div>
+
+							<div class="card-footer" *ngIf="!p.expanded">
+								<ng-container *ngIf="p.saved; else unsaved">
+									<div class="summary">
+										<div class="summary-header">{{p.kpis.length}} KPIs — ejes: {{ getAxes(p) }}</div>
+										<div class="summary-list">
+											<div class="summary-item" *ngFor="let k of p.kpis">
+												<div class="s-name">{{k.name}}</div>
+												<div class="s-val">{{k.value !== null && k.value !== undefined ? k.value : '-'}}</div>
+											</div>
+										</div>
+									</div>
+								</ng-container>
+								<ng-template #unsaved>
+									<small>{{p.kpis.length}} KPIs — ejes: {{ getAxes(p) }}</small>
+								</ng-template>
+							</div>
+		</div>
+	</div>
+</div>

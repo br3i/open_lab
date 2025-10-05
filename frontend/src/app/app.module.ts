@@ -91,7 +91,7 @@ import { FuncionesCompartidasServicio } from './ModuloHerramientas/funcionesComp
 import { PgPrincipalperfilComponent } from './ModuloSeguridad/pg-principalperfil/pg-principalperfil.component';
 import { PgPerfilComponent } from './ModuloSeguridad/pg-perfil/pg-perfil.component';
 import { AvatarModule } from 'primeng/avatar';
-
+import { ChartModule } from 'primeng/chart';
 import { PgEmpresaeditarComponent } from './ModuloAdministracion/pg-empresaeditar/pg-empresaeditar.component';
 import { PgDashboardMultiComponent } from './ModuloAdministracion/pg-principalreporte/pg-dashboard-multi/pg-dashboard-multi.component';
 import { PgPrincipalreporteComponent } from './ModuloAdministracion/pg-principalreporte/pg-principalreporte.component';
@@ -101,6 +101,9 @@ import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-perso
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
 import { PgPrincipalindicadorComponent } from './ModuloAdministracion/pg-principalindicador/pg-principalindicador.component';
 import { PgIndicadorComponent } from './ModuloAdministracion/pg-indicador/pg-indicador.component';
+import { PgPanelNaturalComponent } from './ModuloAdministracion/pg-panel-natural/pg-panel-natural.component';
+import { PgPrincipaladminComponent } from './ModuloAdministracion/pg-principaladmin/pg-principaladmin.component';
+import { PgFormularioreporteComponent } from './ModuloAdministracion/pg-formularioreporte/pg-formularioreporte.component';
 
 
 registerLocaleData(localeEs);
@@ -153,6 +156,10 @@ registerLocaleData(localeEs);
     PgPrincipalindicadorComponent,
     PgIndicadorComponent,
  
+    PgPanelNaturalComponent,
+    PgPrincipaladminComponent,
+    PgFormularioreporteComponent,
+
   ],
   imports: [
     BrowserModule, ReactiveFormsModule,
@@ -181,9 +188,10 @@ registerLocaleData(localeEs);
     TreeModule,
     OverlayPanelModule
     ,
-    TimelineModule
+    TimelineModule,
+    ChartModule
   ],
   providers: [FuncionesCompartidasServicio, MessageService, SpinnerService, { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true }, { provide: LOCALE_ID, useValue: 'es-ES' }],// Agrega el interceptor HTTP],
   bootstrap: [AppComponent]
 })
-export class AppModule { }  
+export class AppModule { }

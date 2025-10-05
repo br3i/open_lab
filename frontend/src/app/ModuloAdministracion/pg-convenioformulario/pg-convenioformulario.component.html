@@ -132,13 +132,13 @@
                         <label for="empresa" class="form-label">Seleccionar Empresa:</label>
                     </div>
                     <div class="col">
-                        <p-button styleClass="custom-green-button-guardar" label="Listado de Empresas" icon="pi pi-briefcase"
+                        <p-button styleClass="custom-green-button-guardar" label="Listado de Fundaciones" icon="pi pi-briefcase"
                             (click)="ModalListadoDonante()">
                         </p-button>
                     </div>
                 </div>
 
-                <p-dialog header="Lista de Empresas" [resizable]="false" [modal]="true" [maximizable]="true"
+                <p-dialog header="Lista de Fundaciones" [resizable]="false" [modal]="true" [maximizable]="true"
                     appendTo="body" [(visible)]="dialogDonanteVisible" [style]="{width: '50vw'}"
                     [contentStyle]="{height: '300px'}">
                     <div class="flex justify-content-end align-items-center mb-4">
@@ -154,7 +154,7 @@
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 4rem"></th>
-                                <th>EMPRESA</th>
+                                <th>FUNDACIÓN</th>
                                 <th>RUC</th>
                             </tr>
                         </ng-template>

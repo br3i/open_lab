@@ -2,7 +2,7 @@ const { Pool } = require('pg');
 const CONFIGCENTRALIZADA = require('./../config/databaseCentral');
 
 // Define la base de datos para este archivo
-const DATABASE_NAME = 'db_banco_alimento';
+const DATABASE_NAME = 'railway';
 
 // Inicializa el pool para la base de datos definida
 const pool = new Pool({ ...CONFIGCENTRALIZADA, database: DATABASE_NAME });

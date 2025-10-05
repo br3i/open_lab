@@ -7,9 +7,9 @@ export class ParametrosConfigurablesService {
 
   constructor() { }
 
-    // Tipos de Entidad (empresas, fundaciones, etc.)
+    // Tipos de Entidad (fundaciones, fundaciones, etc.)
     tiposEntidad = {
-      EMPRESA: 1,       // ID para empresas
+      FUNDACIÓN: 1,       // ID para fundaciones
       FUNDACION: 2,     // ID para fundaciones  
     };
   

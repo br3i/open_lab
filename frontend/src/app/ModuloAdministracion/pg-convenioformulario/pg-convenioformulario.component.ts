@@ -259,17 +259,17 @@ export class PgConvenioFormularioComponent implements OnInit {
 
   async ListarEmpresas() {
     const idTipoSolicitud = this.parametros.tiposSolicitud.ACEPTADO;
-    const idTipoEntidad = this.parametros.tiposEntidad.EMPRESA;
+    const idTipoEntidad = this.parametros.tiposEntidad.FUNDACIÓN;
     try {
       const data = await new Promise<any>(resolve => this.servicios.ListadoEmpresasAceptadasActivas(idTipoSolicitud, idTipoEntidad).subscribe(translated => { resolve(translated) }));
       if (data.success) {
         this.listadoEmpresa = data.datos;
         this.listadoEmpresaFiltrado = [...this.listadoEmpresa];
       } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar la lista de empresas.' });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar la lista de fundaciones.' });
       }
     } catch (error) {
-      console.error('Error al listar empresas', error);
+      console.error('Error al listar fundaciones', error);
     }
   }
 

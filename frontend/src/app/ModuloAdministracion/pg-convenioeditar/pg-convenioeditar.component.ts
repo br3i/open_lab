@@ -26,7 +26,7 @@ export class PgConvenioeditarComponent implements OnInit {
   public datosConvenio: any; // Objeto del convenio recibido
 
   public idTipoDonante: any = null;
-  public idDonante: any = null; //Almacena el id del donate este puede ser idempresa o idpersonadonante
+  public idDonante: any = null; //Almacena el id del donate este puede ser idfundacion o idpersonadonante
   public idCoordinadorDon : any = null;
   public datosEmpresa: any;
   public datosRepresentanteEmpresa: any;

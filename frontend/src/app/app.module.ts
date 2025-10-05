@@ -91,6 +91,8 @@ import { AvatarModule } from 'primeng/avatar';
 
 import { PgEmpresaeditarComponent } from './ModuloAdministracion/pg-empresaeditar/pg-empresaeditar.component';
 import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
+import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
+import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
 
 
 registerLocaleData(localeEs);
@@ -133,7 +135,9 @@ registerLocaleData(localeEs);
     PgPerfilComponent,
 
     PgEmpresaeditarComponent,
-      ModuloPagoComponent,
+    ModuloPagoComponent,
+    PgPersonalorganizacionComponent,
+    PgPrincipalorganizacionComponent,
  
   ],
   imports: [

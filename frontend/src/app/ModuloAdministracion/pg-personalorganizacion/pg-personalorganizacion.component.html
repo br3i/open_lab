@@ -1,0 +1,359 @@
+<div class="card separador-componentes">
+  <p-toast></p-toast>
+  <p-toolbar>
+
+    <div class="p-toolbar-group-center">
+      <p><b>ADMINISTRACIÓN DEL PERSONAL</b></p>
+    </div>
+
+    <div class="p-toolbar-group-end">
+      <p-button type="button" icon="pi pi-plus" styleClass="custom-green-button-guardar" label="Nuevo"
+        (click)="ModalNuevaPersona()">
+      </p-button>
+    </div>
+
+
+  </p-toolbar>
+  <p-table [value]="lsPersonal" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '10rem' }" styleClass="p-datatable-sm"
+    currentPageReportTemplate="Mostrar {first} - {last} de {totalRecords} usuarios" [rowsPerPageOptions]="[10, 25, 50]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Cedula</th>
+        <th>Telefono</th>
+        <th>Correo</th>
+        <th>Cargo</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-personal>
+      <tr>
+        <td>{{ personal.ounombres }}</td>
+        <td>{{ personal.ouapellidos }}</td>
+        <td>{{ personal.oudocumento }}</td>
+        <td>{{ personal.oucelular1 }}</td>
+        <td>{{ personal.oucorreo1 }}</td>
+        <td>{{ personal.oustrnombrecargo }}</td>
+        <td>
+          <p-tag *ngIf="personal.ouorg_personal_blestado" severity="success" value="Activo"></p-tag>
+          <p-tag *ngIf="!personal.ouorg_personal_blestado" severity="danger" value="Desactivado"></p-tag>
+        </td>
+        <td>
+          <p-button type="button" icon="pi pi-eye" styleClass="p-button-text"
+            (click)="mostrarModalVerDatos(personal)"></p-button>
+          <p-button type="button" icon="pi pi-pencil" styleClass="p-button-text"
+            (click)="mostrarModalEditarDatos(personal)"></p-button>
+
+
+          <p-button type="button" icon="pi pi-power-off" styleClass="p-button-text"
+            (click)="mostrarModalCambioEstado(personal)"></p-button>
+
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog header="Nuevo Personal" [(visible)]="visibleNuevaPersona" [modal]="true" [style]="{
+    width: '50vw',
+    maxWidth: '600px',
+    borderRadius: '12px',
+    boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.2)'
+  }" [contentStyle]="{ padding: '1.5rem', backgroundColor: '#ffffff' }" [draggable]="false" [resizable]="false"
+  styleClass="header-verde"   class="nueva-persona-modal"
+>
+  <ng-template pTemplate="content">
+    <!-- Descripción introductoria -->
+    <div class="intro-section">
+      <p class="intro-text">
+        Complete los siguientes datos para registrar un nuevo miembro del equipo.
+      </p>
+    </div>
+
+    <div class="p-fluid grid form-grid">
+      <!-- Columna 1 -->
+      <div class="col-12 md:col-6">
+        <div class="p-field">
+          <label for="documento">Cédula</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-id-card"></i>
+            </span>
+            <input id="cedula" type="text" pattern="[0-9]" maxlength="10"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary"
+              placeholder="Ingresar la cédula" [(ngModel)]="strCedula" (blur)="validarCedulaBuscarPersona()"
+              style="width: 250px" />
+          </div>
+        </div>
+
+        <div class="p-field">
+          <label for="nombres">Nombres</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-user"></i>
+            </span>
+            <input id="nombre" type="text"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              [(ngModel)]="strNombre" [disabled]="!camposEditables" placeholder="Ingresar nombres" />
+          </div>
+        </div>
+
+        <div class="p-field">
+          <label for="correo1">Correo Principal</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-envelope"></i>
+            </span>
+            <input id="correo" type="email"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              [(ngModel)]="strCorreo" placeholder="Ingresar correo electrónico" />
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="celular1">Celular Principal</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-phone"></i>
+            </span>
+            <input id="celular" type="text"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              [(ngModel)]="strCelular" placeholder="Ingresar número de celular" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna 2 -->
+
+      <div class="col-12 md:col-6">
+        <div class="p-field">
+          <label for="cargo">Cargo</label>
+          <select [(ngModel)]="nuevaPersona.idcargo"
+            class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+            style="appearance: auto; height: 38px;">
+            <option *ngFor="let cargo of lsCargos" [ngValue]="cargo.ouidcargo">
+              {{ cargo.oustrnombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="p-field">
+          <label for="apellidos">Apellidos</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-user"></i>
+            </span>
+            <input id="apellidos" type="text"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              [(ngModel)]="strApellidos" [disabled]="!camposEditables" placeholder="Ingresar apellidos" />
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="correo1">Correo Secundario</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-envelope"></i>
+            </span>
+            <input id="correo" type="email"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              [(ngModel)]="strCorreoSecundario" placeholder="Ingresar correo electrónico" />
+          </div>
+        </div>
+
+        <div class="p-field">
+          <label for="celular1">Celular Secundario</label>
+          <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-phone"></i>
+            </span>
+            <input id="celular" type="text"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+              [(ngModel)]="strCelularSecundario" placeholder="Ingresar número de celular" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-field">
+      <label for="descripcion1">Descripción</label>
+      <textarea id="descripcion1" rows="3" cols="30" [(ngModel)]="strDescripcion1"
+        placeholder="Ingrese la primera descripción" style="width: 100%"></textarea>
+    </div>
+  </ng-template>
+
+  <!-- Botones en el footer -->
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons">
+      <p-button label="Guardar" icon="pi pi-save" styleClass="custom-green-button-guardar" (click)="guardarRegistro()"></p-button>
+      <p-button label="Cancelar" icon="pi pi-times" styleClass="custom-red-button-cancelar"
+        (click)="cerrarModal('ModalNuevaPersona')"></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-dialog [(visible)]="visibleModalCambioEstado" [modal]="true" [closable]="false"
+  [style]="{ width: '400px', borderRadius: '12px', boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.15)' }"
+  [contentStyle]="{ padding: '2rem', backgroundColor: '#ffffff', textAlign: 'center' }" class="estado-modal">
+  <ng-template pTemplate="content">
+    <div class="estado-content">
+      <i class="pi pi-exclamation-triangle" style="font-size: 3rem; color: red; margin-bottom: 1rem;"></i>
+      <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem;">
+      <p>¿Estás seguro de que deseas cambiar el estado de este registro?</p>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <div class="footer-buttons" style="display: flex; justify-content: center; gap: 0.5rem;">
+      <p-button icon="pi pi-check" label="Aceptar" styleClass="custom-green-button-guardar"
+        (click)="cambiarEstadoPersonal(idPersonalSeleccionado, estadoActualSeleccionado)"></p-button>
+
+      <p-button icon="pi pi-times" label="Cancelar" styleClass="custom-red-button-cancelar"
+        (click)="cerrarModal('ModalCambioEstado')"></p-button>
+    </div>
+  </ng-template>
+
+</p-dialog>
+
+
+<p-dialog header="Detalle del Registro" [(visible)]="visibleModalVerDatos" [modal]="true"
+  [style]="{ width: '60vw', 'border-radius': '12px', 'box-shadow': '0 4px 8px rgba(0, 0, 0, 0.2)' }" [closable]="true"
+  [draggable]="false" [resizable]="false" [contentStyle]="{ padding: '1.5rem', 'background-color': '#ffffff' }"
+  styleClass="header-verde">
+  <div class="p-fluid grid">
+    <!-- Primera columna -->
+    <div class="col-12 md:col-6">
+      <div class="p-field">
+        <label class="font-bold">Cédula:</label>
+        <input type="text" pInputText [value]="datosSeleccionados?.oudocumento || 'N/A'" disabled
+          class="input-readonly" />
+      </div>
+      <div class="p-field">
+        <label class="font-bold">Nombres:</label>
+        <input type="text" pInputText [value]="datosSeleccionados?.ounombres || 'N/A'" disabled
+          class="input-readonly" />
+      </div>
+
+      <div class="p-field">
+        <label class="font-bold">Correo Principal:</label>
+        <input type="email" pInputText [value]="datosSeleccionados?.oucorreo1 || 'N/A'" disabled
+          class="input-readonly" />
+      </div>
+      <div class="p-field">
+        <label class="font-bold">Teléfono:</label>
+        <input type="text" pInputText [value]="datosSeleccionados?.oucelular1 || 'N/A'" disabled
+          class="input-readonly" />
+      </div>
+
+    </div>
+
+    <!-- Segunda columna -->
+    <div class="col-12 md:col-6">
+      <div class="p-field">
+        <label class="font-bold">Cargo:</label>
+        <input type="text" pInputText [value]="datosSeleccionados?.oustrnombrecargo || 'N/A'" disabled
+          class="input-readonly" />
+      </div>
+      <div class="p-field">
+        <label class="font-bold">Apellidos:</label>
+        <input type="text" pInputText [value]="datosSeleccionados?.ouapellidos || 'N/A'" disabled
+          class="input-readonly" />
+      </div>
+      <div class="p-field">
+        <label class="font-bold">Correo Secundario:</label>
+        <input type="email" pInputText [value]="datosSeleccionados?.oucorreo2 || 'N/A'" disabled
+          class="input-readonly" />
+      </div>
+      <div class="p-field">
+        <label class="font-bold">Celular Secundario:</label>
+        <input type="text" pInputText [value]="datosSeleccionados?.oucelular2 || 'N/A'" disabled
+          class="input-readonly" />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Descripción ocupando todo el ancho -->
+  <div class="p-field col-12">
+    <label class="font-bold">Descripción:</label>
+    <textarea rows="3" pInputTextarea [value]="datosSeleccionados?.ouorg_personal_strdescripcion || 'Sin descripción'"
+      disabled class="textarea-readonly"></textarea>
+  </div>
+
+  <!-- Botón de cerrar -->
+  <div class="p-d-flex p-jc-center p-mt-4">
+    <p-button label="Cerrar" icon="pi pi-times" styleClass="p-button-rounded p-button-secondary"
+      (click)="cerrarModal('ModalVerDatos')"></p-button>
+  </div>
+</p-dialog>
+
+<p-dialog header="Editar Datos del Personal" [(visible)]="visibleModalEditarDatos" [modal]="true"
+  [style]="{ width: '55vw', 'border-radius': '12px', 'box-shadow': '0 4px 8px rgba(0, 0, 0, 0.2)' }" [closable]="true"
+  [draggable]="false" [resizable]="false" [contentStyle]="{ padding: '1.5rem', 'background-color': '#ffffff' }"
+  styleClass="header-verde">
+  <div class="p-fluid grid">
+    <!-- Primera columna -->
+    <div class="col-12 md:col-6">
+      <div class="p-field">
+        <label for="cedula">Cédula:</label>
+        <input type="text" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="cedula"
+          pInputText [value]="datosEditar?.oudocumento || 'N/A'" disabled class="input-readonly" />
+      </div>
+      <div class="p-field">
+        <label for="nombres">Nombres:</label>
+        <input type="text" id="nombres" pInputText [(ngModel)]="datosEditar.ounombres" placeholder="Ingrese nombres" />
+      </div>
+      <div class="p-field">
+        <label for="correo1">Correo Principal:</label>
+        <input type="email" id="correo1" pInputText [(ngModel)]="datosEditar.oucorreo1"
+          placeholder="Ingrese correo principal" />
+      </div>
+      <div class="p-field">
+        <label for="telefono1">Celular Principal:</label>
+        <input type="text" id="telefono1" pInputText [(ngModel)]="datosEditar.oucelular1"
+          placeholder="Ingrese Celular Principal" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+          maxlength="10" />
+      </div>
+    </div>
+
+    <!-- Segunda columna -->
+    <div class="col-12 md:col-6">
+      <div class="p-field">
+        <label for="cargo">Cargo:</label>
+        <p-dropdown id="cargo" [options]="lsCargos" [(ngModel)]="cargoSeleccionado"
+          placeholder="Seleccione un cargo"></p-dropdown>
+      </div>
+      <div class="p-field">
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" pInputText [(ngModel)]="datosEditar.ouapellidos"
+          placeholder="Ingrese apellidos" />
+      </div>
+      <div class="p-field">
+        <label for="correo2">Correo Secundario:</label>
+        <input type="email" id="correo2" pInputText [(ngModel)]="datosEditar.oucorreo2"
+          placeholder="Ingrese correo secundario" />
+      </div>
+      <div class="p-field">
+        <label for="telefono2">Celular Secundario:</label>
+        <input type="text" id="telefono2" pInputText [(ngModel)]="datosEditar.oucelular2"
+          placeholder="Ingrese Celular Secundario" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+          maxlength="10" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Descripción -->
+  <div class="p-field col-12">
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" rows="3" pInputTextarea [(ngModel)]="datosEditar.ouorg_personal_strdescripcion"
+      placeholder="Ingrese descripción"></textarea>
+  </div>
+
+  <!-- Botones -->
+  <div class="botones-finales">
+    <p-button label="Guardar" icon="pi pi-check" styleClass="p-button-rounded p-button-success"
+      (click)="guardarDatosEditar()"></p-button>
+    <p-button label="Cancelar" icon="pi pi-times" styleClass="p-button-rounded p-button-secondary"
+      (click)="cerrarModal('ModalEditarDatos')"></p-button>
+  </div>
+</p-dialog>

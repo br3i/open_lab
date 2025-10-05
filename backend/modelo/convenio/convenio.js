@@ -327,10 +327,10 @@ module.exports.ActualizarConvenioAnexoEstado = async function (idConvenioAnexo, 
 }
   
 //Revisar 
-module.exports.ObtenerContratoDadoIdempresa = async function (idEmpresa) {
+module.exports.ObtenerContratoDadoIdempresa = async function (idFundacion) {
   var sentencia;
   sentencia = 'SELECT * FROM contrato.f_central_tb_contrato_empresa($1, $2, $3, $4, $5 ,$6 ,$7, $8)'
-  var listaParametros = ['UNO', null, idEmpresa, null, null, null, null, null]
+  var listaParametros = ['UNO', null, idFundacion, null, null, null, null, null]
   try {
 
     if (sentencia != "") {

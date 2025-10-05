@@ -96,14 +96,14 @@
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaempresa/ListadoCargoEmpresaActivos')
   }
 
-  ActualizarEstadoEmpresa(idempresa:any ,empresa_blestado:any){
+  ActualizarEstadoEmpresa(idfundacion:any ,empresa_blestado:any){
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    let parametros = "/" + idempresa + "/" + empresa_blestado;
+    let parametros = "/" + idfundacion + "/" + empresa_blestado;
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaempresa/ActualizarEstadoEmpresa' + parametros)
   }
 
-  //Listado para Empresas/fundacion segun el tipo solicitud
+  //Listado para Fundaciones/fundacion segun el tipo solicitud
   ListadoSolicitudEmpresas(idTipoSolicitud:any,idTipoEntidad:any) {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
@@ -125,10 +125,10 @@
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutapersonas/ObtenerPersonaFoto' + parametros)
   }
 
-  ObtenerAnexoDadoIdEmpresa(idEmpresa:any){
+  ObtenerAnexoDadoIdEmpresa(idFundacion:any){
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    let parametros = "/" + idEmpresa;
+    let parametros = "/" + idFundacion;
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaempresa/ObtenerAnexoDadoIdEmpresa' + parametros)
   }
 
@@ -404,24 +404,24 @@ ActualizarEstadoPersonal(idPersona:any,blEstado:any) {
   return this.hpptclient.put<any>(this.urlServiciosBancoAlimentos + '/rutadatosorganizacion/ActualizarEstadoPersonal'+ parametros, null, { headers })
 }
 
-ListadoRepresentantesEmpresaActivos(idempresa:any) {
+ListadoRepresentantesEmpresaActivos(idfundacion:any) {
   let headers = new HttpHeaders();
   headers.append('Content-Type', 'application/json');
-  let parametros = "/" + idempresa;
+  let parametros = "/" + idfundacion;
   return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaempresa/ListadoRepresentantesEmpresaActivos'+ parametros)
 }
 
-ObtenerRepresentanteAnonimo(idPersona:any, idEmpresa:any, idCargo: any) {
+ObtenerRepresentanteAnonimo(idPersona:any, idFundacion:any, idCargo: any) {
   let headers = new HttpHeaders();
   headers.append('Content-Type', 'application/json');
-  let parametros = "/" + idPersona + "/" + idEmpresa + "/" + idCargo;
+  let parametros = "/" + idPersona + "/" + idFundacion + "/" + idCargo;
   return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaempresa/ObtenerRepresentanteAnonimo'+ parametros)
 }
 
-IngresarAnonimoEmpresa(idPersona:any, idEmpresa:any, idCargo: any) {
+IngresarAnonimoEmpresa(idPersona:any, idFundacion:any, idCargo: any) {
   let headers = new HttpHeaders();
   headers.append('Content-Type', 'application/json');
-  let parametros = "/" + idPersona + "/" + idEmpresa + "/" + idCargo;
+  let parametros = "/" + idPersona + "/" + idFundacion + "/" + idCargo;
   return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaempresa/IngresarAnonimoEmpresa'+ parametros)
 }
 
@@ -439,17 +439,17 @@ RegistarConvenioContrato(contenido: any) {
 
 //servicios para editar convenio
 
-ObtenerEmpresaDadoId(idEmpresa: any) {
+ObtenerEmpresaDadoId(idFundacion: any) {
   let headers = new HttpHeaders();
   headers.append('Content-Type', 'application/json');
-  let parametros = "/" + idEmpresa;
+  let parametros = "/" + idFundacion;
   return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaempresa/ObtenerEmpresaDadoId' + parametros)
 }
 
-ObtenerRepresentanteEmpresa(idRepresentante:any,idEmpresa: any, idCargo: number | null = null) {
+ObtenerRepresentanteEmpresa(idRepresentante:any,idFundacion: any, idCargo: number | null = null) {
   let headers = new HttpHeaders();
   headers.append('Content-Type', 'application/json');
-  let parametros = "/" + idRepresentante+"/" + idEmpresa +"/" + idCargo;
+  let parametros = "/" + idRepresentante+"/" + idFundacion +"/" + idCargo;
   return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaempresa/ObtenerRepresentanteId' + parametros)
 }
     
@@ -460,7 +460,7 @@ ObtenerConvenioDadoId(idConvenio: any) {
   return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaconvenio/ObtenerConvenioDadoId' + parametros)
 }
 
-//Registar a personal de las empresas donadoras
+//Registar a personal de las fundaciones donadoras
 
   NuevoPersonalEmpresa(contenido: any) {
     return this.hpptclient.post<any>(this.urlServiciosBancoAlimentos + '/rutaempresa/IngresarPersonalEmpresa', contenido)

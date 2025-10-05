@@ -35,6 +35,8 @@ import { PgRegistroempresaComponent } from './ModuloPublico/pg-registroempresa/p
 import { PgInicioComponent } from './ModuloAdministracion/pg-inicio/pg-inicio.component';
 import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 
+import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
+import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
 
 
 const routes: Routes = [
@@ -87,7 +89,23 @@ const routes: Routes = [
         component: PgInicioComponent,
         canActivate: [AuthGuard]
       },
-
+      {
+        path: 'principalorganizacion',
+        component: PgPrincipalorganizacionComponent,
+        canActivate: [AuthGuard],
+        children: [
+          {
+            path: 'personal',
+            component: PgPersonalorganizacionComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: '',
+            redirectTo: 'personal',
+            pathMatch: 'full'
+          }
+        ]
+      },
       {
         path: 'principalempresa',
         component: PgPrincipalempresaComponent,

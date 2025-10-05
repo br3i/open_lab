@@ -99,17 +99,23 @@ export class FuncionesCompartidasServicio {
     itemsFiltrados.length = 0;
   }
 
-  // Carga ubicaciones desde el backend
+  
   async obtenerUbicaciones(tipo: string, idPadre: number | null = null): Promise<any[]> {
-    try {
-
-      const data = await new Promise<any>((resolve) => this.serviciosVarios.ListarUbicaciones(tipo, idPadre).subscribe((translated) => resolve(translated)) );
-      return data.success ? data.datos : [];
-    } catch (error) {
-      console.error(`Error al obtener ${tipo}:`, error);
-      return [];
-    }
+  try {
+    const data = await new Promise<any>((resolve, reject) => {
+      this.serviciosVarios.ListarUbicaciones(tipo, idPadre).subscribe({
+        next: resolve,
+        error: reject
+      });
+    });
+    // fuerza array
+    return Array.isArray(data?.datos) ? data.datos : [];
+  } catch (error) {
+    console.error(`Error al obtener ${tipo}:`, error);
+    return [];
   }
+}
+
 
 
     // Carga detalle ubicacion desde el backend

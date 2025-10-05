@@ -694,11 +694,11 @@ router.get('/ActualizarConvenioInstitucionEstado/:idConvenioInstitucion/:conv_in
 
 //revisar esto es para imprimir el contrato en relacion a lainstitución
 
-router.get('/ObtenerConvenioEmpresa/:idempresa', async (req, res) => {
-    const idempresa = req.params.idempresa;
+router.get('/ObtenerConvenioEmpresa/:idfundacion', async (req, res) => {
+    const idfundacion = req.params.idfundacion;
     try {
 
-        var listado = await modeloconvenio.ObtenerConvenioDadoIdempresa(idempresa);
+        var listado = await modeloconvenio.ObtenerConvenioDadoIdempresa(idfundacion);
         if (listado.data.length > 0) {
             return res.json({
                 success: true,
@@ -760,7 +760,7 @@ router.get('/pdfConvenioEmpresa/:rucEmpresa', async (req, res) => {
         const representante = datosRepresentante.data[0];
 
         // Obtener datos del convenio
-        var datosConvenio = await modeloconvenio.ObtenerConvenioDadoIdempresa(empresa.idempresa);
+        var datosConvenio = await modeloconvenio.ObtenerConvenioDadoIdempresa(empresa.idfundacion);
 
         if (!datosConvenio || datosConvenio.data.length === 0) {
             return res.json({

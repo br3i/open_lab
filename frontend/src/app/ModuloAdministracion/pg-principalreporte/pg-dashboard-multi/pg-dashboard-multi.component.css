@@ -1,0 +1,16 @@
+.dashboard-multi {
+    padding: 12px;
+}
+
+.panel {
+    background: #fff;
+    padding: 12px;
+    border-radius: 6px;
+    width: 160px;
+    text-align: center
+}
+
+.value {
+    font-size: 24px;
+    font-weight: 700
+}

@@ -19,10 +19,10 @@ import { DashboardpublicoComponent } from './Template/templatePublico/dashboardp
 import { PortadainicialComponent } from './Template/templatePublico/portadainicial/portadainicial.component';
 import { SpinnerService } from './ModuloServiciosWeb/spinner.service';
 import { SpinnerInterceptor } from './ModuloServiciosWeb/InterceptorServicios.service';
-import {  SpinnerComponent } from './ModuloServiciosWeb/spinner.component';
+import { SpinnerComponent } from './ModuloServiciosWeb/spinner.component';
 import { CommonModule } from '@angular/common';
 import { MenuModule } from 'primeng/menu';
-import { BadgeModule } from 'primeng/badge';  
+import { BadgeModule } from 'primeng/badge';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 
@@ -62,6 +62,9 @@ import { DividerModule } from 'primeng/divider';
 import { ToastModule } from 'primeng/toast';
 import { ImageModule } from 'primeng/image';
 import { FileUploadModule } from 'primeng/fileupload';
+import { TreeModule } from 'primeng/tree';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { TimelineModule } from 'primeng/timeline';
 
 import { PgPrincipalempresaComponent } from './ModuloAdministracion/pg-principalempresa/pg-principalempresa.component';
 import { PgTipoempresaComponent } from './ModuloAdministracion/pg-tipoempresa/pg-tipoempresa.component';
@@ -69,8 +72,8 @@ import { PgTiposolicitudComponent } from './ModuloAdministracion/pg-tiposolicitu
 import { PgPublicempresaComponent } from './ModuloPublico/pg-publicempresa/pg-publicempresa.component';
 import { PgRegistroempresaComponent } from './ModuloPublico/pg-registroempresa/pg-registroempresa.component';
 import { PgempresaComponent } from './ModuloAdministracion/pg-empresas/pg-empresas.component';
-import { PgempresaaceptadaComponent} from './ModuloAdministracion/pg-empresasaceptadas/pg-empresasaceptadas.component';
-import { PgempresarechazadaComponent} from './ModuloAdministracion/pg-empresasrechazadas/pg-empresasrechazadas.component';
+import { PgempresaaceptadaComponent } from './ModuloAdministracion/pg-empresasaceptadas/pg-empresasaceptadas.component';
+import { PgempresarechazadaComponent } from './ModuloAdministracion/pg-empresasrechazadas/pg-empresasrechazadas.component';
 import { PgContratoComponent } from './ModuloAdministracion/pg-contrato/pg-contrato.component';
 import { PgConvenioComponent } from './ModuloAdministracion/pg-convenio/pg-convenio.component';
 import { PgPrincipalconvenioComponent } from './ModuloAdministracion/pg-principalconvenio/pg-principalconvenio.component';
@@ -90,6 +93,9 @@ import { PgPerfilComponent } from './ModuloSeguridad/pg-perfil/pg-perfil.compone
 import { AvatarModule } from 'primeng/avatar';
 
 import { PgEmpresaeditarComponent } from './ModuloAdministracion/pg-empresaeditar/pg-empresaeditar.component';
+import { PgDashboardMultiComponent } from './ModuloAdministracion/pg-principalreporte/pg-dashboard-multi/pg-dashboard-multi.component';
+import { PgPrincipalreporteComponent } from './ModuloAdministracion/pg-principalreporte/pg-principalreporte.component';
+import { ReportedonacionComponent } from './ModuloAdministracion/pg-principalreporte/reportedonacion/reportedonacion.component';
 
 
 registerLocaleData(localeEs);
@@ -107,7 +113,7 @@ registerLocaleData(localeEs);
     HeaderadminComponent,
     MenuadminComponent,
     DashboardadminComponent,
-  
+
     PgPrincipalempresaComponent,
     PgTipoempresaComponent,
     PgTiposolicitudComponent,
@@ -132,32 +138,41 @@ registerLocaleData(localeEs);
     PgPerfilComponent,
 
     PgEmpresaeditarComponent,
- 
+    PgDashboardMultiComponent,
+    PgPrincipalreporteComponent,
+    ReportedonacionComponent,
+
   ],
   imports: [
-    BrowserModule,ReactiveFormsModule,
+    BrowserModule, ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    FormsModule,SpinnerModule,
-    CardModule,PanelMenuModule,TabViewModule,TableModule,ProgressSpinnerModule,AccordionModule,TagModule,ImageModule,AutoCompleteModule,
-    InputTextModule,ToolbarModule,ButtonModule,MenubarModule,SlideMenuModule,DialogModule,DividerModule,ToastModule,FileUploadModule,DialogModule,
+    FormsModule, SpinnerModule,
+    CardModule, PanelMenuModule, TabViewModule, TableModule, ProgressSpinnerModule, AccordionModule, TagModule, ImageModule, AutoCompleteModule,
+    InputTextModule, ToolbarModule, ButtonModule, MenubarModule, SlideMenuModule, DialogModule, DividerModule, ToastModule, FileUploadModule, DialogModule,
     ConfirmDialogModule,
     MessageModule,
     ButtonModule,
     ToastModule, DropdownModule, TreeTableModule, CalendarModule,
-    MultiSelectModule,StepsModule,
-    CheckboxModule,InputSwitchModule,
+    MultiSelectModule, StepsModule,
+    CheckboxModule, InputSwitchModule,
     DropdownModule,
     TieredMenuModule,
     AvatarModule,
     CommonModule,
     PanelModule,
-    MenuModule, 
-    BadgeModule, 
+    MenuModule,
+    BadgeModule,
     BreadcrumbModule
+    ,
+    // PrimeNG modules used by the dashboard multi component
+    TreeModule,
+    OverlayPanelModule
+    ,
+    TimelineModule
   ],
-  providers: [FuncionesCompartidasServicio,MessageService,SpinnerService,{ provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true} , {provide: LOCALE_ID, useValue: 'es-ES' } ],// Agrega el interceptor HTTP],
+  providers: [FuncionesCompartidasServicio, MessageService, SpinnerService, { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true }, { provide: LOCALE_ID, useValue: 'es-ES' }],// Agrega el interceptor HTTP],
   bootstrap: [AppComponent]
 })
 export class AppModule { }  

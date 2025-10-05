@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "BancoAlimentos": {
+    "FundacionFavorita": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -63,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "BancoAlimentos:build:production"
+              "browserTarget": "FundacionFavorita:build:production"
             },
             "development": {
-              "browserTarget": "BancoAlimentos:build:development"
+              "browserTarget": "FundacionFavorita:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -74,7 +74,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "BancoAlimentos:build"
+            "browserTarget": "FundacionFavorita:build"
           }
         },
         "test": {

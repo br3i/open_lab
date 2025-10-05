@@ -45,7 +45,7 @@ var http = require('http');
 var https = require('https');
 
 const port = 3001;
-const url = '/wsalimentos'
+const url = '/backend'
 
 //Cors Middleware
 app.use((req, res, next) => {
@@ -107,5 +107,5 @@ app.use(express.json({ limit: '50mb' }));//convierte en objeto js
 app.use(express.urlencoded({ extended: false }));//procesa datos de formularios(en otros modulos extended true)
 
 http.createServer(app.listen(port, () => {
-    console.log("Servicios Banco Alimentos ejecutado con exito: ", port)
+    console.log("Servicios Fundacion Favorita ejecutado con exito: ", port)
 }))

@@ -50,8 +50,10 @@
 }
 
 #header .logo img {
-  max-height: 1210px; /* Ajustar tamaño del logo */
+  max-height: 90px;
+  max-width: 100px;
 }
+
 .logo img {
   width: 1100px; /* Ajusta el ancho del logo */
   height: 2500px; /* Mantiene la proporción del logo */

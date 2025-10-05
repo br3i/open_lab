@@ -41,6 +41,12 @@ import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
 import { PgContratoFormularioComponent } from './ModuloAdministracion/pg-contratoformulario/pg-contratoformulario.component';
+import { PgPanelProgresoComponent } from './ModuloAdministracion/pg-panel-progreso/pg-panel-progreso.component';
+
+import { PgPrincipalindicadorComponent } from './ModuloAdministracion/pg-principalindicador/pg-principalindicador.component';
+import { PgIndicadorComponent } from './ModuloAdministracion/pg-indicador/pg-indicador.component';
+import { PgPrincipaladminComponent } from './ModuloAdministracion/pg-principaladmin/pg-principaladmin.component';
+import { PgFormularioreporteComponent } from './ModuloAdministracion/pg-formularioreporte/pg-formularioreporte.component';
 
 const routes: Routes = [
   {
@@ -216,6 +222,7 @@ const routes: Routes = [
           { path: 'reportedonacion', component: ReportedonacionComponent },
           { path: 'multi', component: PgDashboardMultiComponent },
           { path: 'dashboard-natural', component: PgPanelNaturalComponent },
+          { path: 'progreso', component: PgPanelProgresoComponent },
           { path: '', redirectTo: 'reportedonacion', pathMatch: 'full' }
         ]
       },
@@ -235,6 +242,16 @@ const routes: Routes = [
         children: [
           { path: "pg-formularioreporte", component: PgFormularioreporteComponent },
         ],
+      },
+      {
+        path: 'principalindicador',
+        component: PgPrincipalindicadorComponent,
+        canActivate: [AuthGuard],
+        children: [
+          { path: 'indicador', component: PgIndicadorComponent },
+
+          { path: '', redirectTo: 'indicador', pathMatch: 'full' }
+        ]
       },
     ]
   }

@@ -8,6 +8,8 @@ interface KpiItem {
   value: number | null;
   description: string;
   target?: number | null;
+  reportHistory?: { mes: number; anio: number; valor: number }[];
+  reportFrequency?: number;
 }
 
 interface ProjectItem {
@@ -17,6 +19,13 @@ interface ProjectItem {
   kpis: KpiItem[];
   saved?: boolean;
   color?: string;
+  startDate?: Date;
+  endDate?: Date;
+  reportFrequency?: number;
+
+  // NUEVO: archivos para mock
+  files?: File[];
+  showFileUpload?: boolean;
 }
 
 @Component({
@@ -25,28 +34,11 @@ interface ProjectItem {
   styleUrls: ['./pg-formularioreporte.component.css']
 })
 export class PgFormularioreporteComponent implements OnInit {
+
   projects: ProjectItem[] = [];
 
-  constructor(private messageService: MessageService) { }
-
-  private axes = [
-    'Equidad de genero',
-    'Nutrición',
-    'Ambiente',
-    'Educación',
-    'Emprendimiento'
-  ];
-
-  // Palette used to visually identify each project
-  private palette = [
-    '#1976d2', // blue
-    '#43a047', // green
-    '#f57c00', // orange
-    '#8e24aa', // purple
-    '#e53935', // red
-    '#00acc1'  // teal
-  ];
-
+  private axes = ['Equidad de genero', 'Nutrición', 'Ambiente', 'Educación', 'Emprendimiento'];
+  private palette = ['#1976d2', '#43a047', '#f57c00', '#8e24aa', '#e53935', '#00acc1'];
   private indicadores = [
     'Instituciones públicas capacitadas',
     'Profesores capacitados',
@@ -59,77 +51,77 @@ export class PgFormularioreporteComponent implements OnInit {
     'Horas de capacitación estudiantes'
   ];
 
-  private estimateTargetFromIndicator(ind: string): number {
-    const s = ind.toLowerCase();
-    // heuristics: return plausible targets depending on indicator type
-    if (s.includes('horas')) return 1000 + Math.floor(Math.random() * 4000); // hours
-    if (s.includes('profesor') || s.includes('profesores')) return 50 + Math.floor(Math.random() * 450); // teachers
-    if (s.includes('instituciones')) return 5 + Math.floor(Math.random() * 200); // institutions
-    if (s.includes('padres')) return 50 + Math.floor(Math.random() * 1000);
-    if (s.includes('estudiantes') || s.includes('niño') || s.includes('niños') || s.includes('mujeres') || s.includes('hombres')) return 100 + Math.floor(Math.random() * 5000);
-    if (s.includes('capacit')) return 100 + Math.floor(Math.random() * 2000);
-    // fallback
-    return 100 + Math.floor(Math.random() * 1000);
-  }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.generateFakeProjects();
     this.loadSavedProjects();
   }
 
-  private uid(prefix = ''): string {
-    return prefix + Math.random().toString(36).slice(2, 9);
-  }
+  private uid(prefix = ''): string { return prefix + Math.random().toString(36).slice(2, 9); }
+  private pick<T>(arr: T[]): T { return arr[Math.floor(Math.random() * arr.length)]; }
 
-  private pick<T>(arr: T[]): T {
-    return arr[Math.floor(Math.random() * arr.length)];
+  private estimateTargetFromIndicator(ind: string): number {
+    const s = ind.toLowerCase();
+    if (s.includes('horas')) return 1000 + Math.floor(Math.random() * 4000);
+    if (s.includes('profesor')) return 50 + Math.floor(Math.random() * 450);
+    if (s.includes('instituciones')) return 5 + Math.floor(Math.random() * 200);
+    if (s.includes('padres')) return 50 + Math.floor(Math.random() * 1000);
+    if (s.includes('estudiantes')) return 100 + Math.floor(Math.random() * 5000);
+    return 100 + Math.floor(Math.random() * 1000);
   }
 
   private generateFakeProjects() {
-    const count = 3 + Math.floor(Math.random() * 3); // 3..5 projects
+    const count = 3 + Math.floor(Math.random() * 3);
     const usedNames = new Set<string>();
 
     for (let i = 0; i < count; i++) {
-      // Choose a primary axis and indicator to base the project name on
       const mainAxis = this.pick(this.axes);
       const mainIndicator = this.pick(this.indicadores);
 
-      const shortFromIndicator = (s: string) => {
-        const stop = ['de', 'la', 'el', 'las', 'los', 'con', 'para', 'a', 'y', 'horas', 'Horas', 'Horas de', 'Horas de'];
-        const words = s.split(/\s+/).filter(w => !stop.includes(w));
-        return words.slice(0, 2).join(' ');
-      };
-
       const templates = [
-        `${mainAxis} — ${shortFromIndicator(mainIndicator)}`,
+        `${mainAxis} — ${mainIndicator}`,
         `Programa ${mainAxis} ${this.pick(['Comunitario', 'Integral', 'Sostenible', 'Educativo'])}`,
-        `Fundación ${shortFromIndicator(mainIndicator)}`,
-        `Iniciativa ${mainAxis} de ${this.pick(['Impacto', 'Apoyo', 'Desarrollo'])}`,
-        `${shortFromIndicator(mainIndicator)} y ${this.pick(['Bienestar', 'Formación', 'Inclusión'])}`
+        `Fundación ${mainIndicator.split(' ').slice(0, 2).join(' ')}`,
+        `Iniciativa ${mainAxis} de ${this.pick(['Impacto', 'Apoyo', 'Desarrollo'])}`
       ];
 
       let name = this.pick(templates);
       let attempts = 0;
       while (usedNames.has(name) && attempts < 10) {
-        name = this.pick(templates) + (attempts === 0 ? '' : ` ${attempts}`);
+        name = this.pick(templates) + (attempts ? ` ${attempts}` : '');
         attempts++;
       }
       usedNames.add(name);
 
-      // assign random number of kpis
-      const kCount = 3 + Math.floor(Math.random() * 5); // 3..7 kpis
+      const projectStart = new Date(2025, Math.floor(Math.random() * 6), 1);
+      const projectDurationMonths = 5 + Math.floor(Math.random() * 11);
+      const projectEnd = new Date(projectStart);
+      projectEnd.setMonth(projectStart.getMonth() + projectDurationMonths);
+
+      const projectFrequency = this.pick([1, 2, 3, 4]);
+      const totalReports = Math.floor(projectDurationMonths / projectFrequency);
+
+      const kCount = 3 + Math.floor(Math.random() * 5);
       const kpis: KpiItem[] = [];
       const usedKpis = new Set<string>();
 
       for (let k = 0; k < kCount; k++) {
         let kname = this.pick(this.indicadores);
-        // allow duplicates in different projects but try to avoid repeats inside same project
         let attempts = 0;
-        while (usedKpis.has(kname) && attempts < 10) {
-          kname = this.pick(this.indicadores);
-          attempts++;
-        }
+        while (usedKpis.has(kname) && attempts < 10) { kname = this.pick(this.indicadores); attempts++; }
         usedKpis.add(kname);
+
+        const history: { mes: number; anio: number; valor: number }[] = [];
+        for (let h = 0; h < totalReports; h++) {
+          const date = new Date(projectStart);
+          date.setMonth(date.getMonth() + h * projectFrequency);
+          history.push({
+            mes: date.getMonth() + 1,
+            anio: date.getFullYear(),
+            valor: Math.floor(Math.random() * 1000)
+          });
+        }
 
         kpis.push({
           id: this.uid('kpi_'),
@@ -137,7 +129,9 @@ export class PgFormularioreporteComponent implements OnInit {
           axis: this.pick(this.axes),
           value: null,
           description: '',
-          target: this.estimateTargetFromIndicator(kname)
+          target: this.estimateTargetFromIndicator(kname),
+          reportFrequency: projectFrequency,
+          reportHistory: history
         });
       }
 
@@ -146,92 +140,121 @@ export class PgFormularioreporteComponent implements OnInit {
         name,
         expanded: false,
         kpis,
-        color: this.pick(this.palette)
+        color: this.pick(this.palette),
+        startDate: projectStart,
+        endDate: projectEnd,
+        reportFrequency: projectFrequency,
+        files: [],
+        showFileUpload: false
       });
     }
   }
 
-  toggle(project: ProjectItem) {
-    project.expanded = !project.expanded;
-  }
+  toggle(project: ProjectItem) { project.expanded = !project.expanded; }
 
+  // --- Guardado de KPIs ---
   saveProject(project: ProjectItem) {
-    // Basic validation: ensure numeric values are numbers (allow null)
-    project.saved = true;
-    // close the project card after saving
-    project.expanded = false;
-    console.log('Guardado proyecto', project.name, project.kpis.map(k => ({ name: k.name, value: k.value, description: k.description })));
-    // persist to localStorage so the prototype keeps values across refreshes
-    try {
-      const store = JSON.parse(localStorage.getItem('pf_proyectos') || '{}');
-      store[project.id] = project;
-      localStorage.setItem('pf_proyectos', JSON.stringify(store));
-      // Mostrar notificación de éxito usando el mismo patrón del proyecto
-      try {
-        this.messageService.add({ severity: 'success', summary: 'Éxito', detail: `Datos guardados para ${project.name}` });
-      } catch (e) {
-        // si MessageService no está disponible, no bloquear
-        console.warn('No se pudo mostrar toast:', e);
-      }
-    } catch (e) {
-      // ignore storage errors in prototype
-    }
-  }
+    if (!this.needsReport(project)) return;
 
-  resetProject(project: ProjectItem) {
+    const now = new Date();
+    const mes = now.getMonth() + 1;
+    const anio = now.getFullYear();
+
     project.kpis.forEach(k => {
+      k.reportHistory = k.reportHistory || [];
+      k.reportHistory.push({ mes, anio, valor: k.value || 0 });
       k.value = null;
       k.description = '';
     });
-    project.saved = false;
-    try {
-      const store = JSON.parse(localStorage.getItem('pf_proyectos') || '{}');
-      delete store[project.id];
-      localStorage.setItem('pf_proyectos', JSON.stringify(store));
-    } catch (e) { }
+
+    project.saved = true;
+    this.messageService.add({ severity: 'success', summary: 'Éxito', detail: `Reporte guardado para ${project.name}` });
   }
 
-  private loadSavedProjects() {
-    try {
-      const store = JSON.parse(localStorage.getItem('pf_proyectos') || '{}');
-      if (!store) return;
-      this.projects.forEach(p => {
-        const saved = store[p.id];
-        if (saved && saved.kpis && Array.isArray(saved.kpis)) {
-          // merge saved values into generated kpis by name
-          for (const sk of saved.kpis) {
-            const found = p.kpis.find(x => x.name === sk.name);
-            if (found) {
-              found.value = sk.value ?? found.value;
-              found.description = sk.description ?? found.description;
-            }
-          }
-          p.saved = true;
-        }
-      });
-    } catch (e) {
-      // ignore parse errors for prototype
+  resetProject(project: ProjectItem) {
+    project.kpis.forEach(k => { k.value = null; k.description = ''; });
+    project.saved = false;
+  }
+
+  // --- Archivos mock ---
+  toggleFileUpload(project: ProjectItem) {
+    project.showFileUpload = !project.showFileUpload;
+    if (!project.files) project.files = [];
+  }
+
+  onFileSelect(event: any, project: ProjectItem) {
+    const files: FileList = event.target.files;
+    project.files = [];
+    for (let i = 0; i < files.length; i++) {
+      project.files.push(files[i]);
     }
+  }
+
+  saveFiles(project: ProjectItem) {
+    if (!project.files || project.files.length === 0) return;
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Éxito',
+      detail: `${project.files.length} archivo(s) guardado(s) correctamente`
+    });
+    project.showFileUpload = false;
+  }
+
+
+  private loadSavedProjects() {
+    // no necesitamos persistencia real para mock
   }
 
   getAxes(project: ProjectItem): string {
-    if (!project || !project.kpis) return '';
+    if (!project?.kpis) return '';
     const uniques: string[] = [];
-    for (const k of project.kpis) {
-      if (!uniques.includes(k.axis)) uniques.push(k.axis);
-    }
+    project.kpis.forEach(k => { if (!uniques.includes(k.axis)) uniques.push(k.axis); });
     return uniques.join(', ');
   }
 
-  getPercent(project: ProjectItem, kpi: KpiItem): number {
-    try {
-      if (!kpi.target || kpi.target <= 0) return 0; // si no hay meta, no calculamos
-      const cur = (kpi.value === null || kpi.value === undefined) ? 0 : Number(kpi.value);
-      const pct = Math.round((cur / kpi.target) * 100);
-      return Math.max(0, Math.min(100, pct)); // aseguramos que esté entre 0 y 100
-    } catch (e) {
-      return 0;
-    }
+  getCurrentReportMonth(project: ProjectItem, k: KpiItem): number {
+    if (!project.startDate) return 0;
+    const start = new Date(project.startDate);
+    const now = new Date();
+    return (now.getFullYear() - start.getFullYear()) * 12 + (now.getMonth() - start.getMonth()) + 1;
+  }
+
+  getLastReport(k: KpiItem) {
+    if (!k.reportHistory || k.reportHistory.length === 0) return null;
+    return k.reportHistory[k.reportHistory.length - 1];
+  }
+
+  getExpectedReports(project: ProjectItem): number {
+    if (!project.startDate || !project.endDate || !project.reportFrequency) return 0;
+    const now = new Date();
+    const end = project.endDate;
+    const current = now > end ? end : now;
+    const monthsPassed = (current.getFullYear() - project.startDate.getFullYear()) * 12 + (current.getMonth() - project.startDate.getMonth()) + 1;
+    return Math.floor(monthsPassed / project.reportFrequency);
+  }
+
+  needsReport(project: ProjectItem): boolean {
+    const expected = this.getExpectedReports(project);
+    const actual = project.kpis[0]?.reportHistory?.length || 0;
+    return actual < expected;
+  }
+
+  getMissingReports(project: ProjectItem): number {
+    const expected = this.getExpectedReports(project);
+    const actual = project.kpis[0]?.reportHistory?.length || 0;
+    return Math.max(0, expected - actual);
+  }
+
+  getAccumulatedValue(k: KpiItem): number {
+    const historyTotal = k.reportHistory?.reduce((sum, r) => sum + (r.valor || 0), 0) || 0;
+    const currentVal = k.value || 0;
+    return historyTotal + currentVal;
+  }
+
+  getAccumulatedPercent(p: ProjectItem, k: KpiItem): number {
+    if (!k.target || k.target <= 0) return 0;
+    const total = this.getAccumulatedValue(k);
+    return Math.min(100, Math.round((total / k.target) * 100));
   }
 
 

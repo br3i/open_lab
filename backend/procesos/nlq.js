@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 // ¡Importante! Cambiamos el nombre para que coincida con el nuevo archivo de datos
-const { mockFoundationData } = require('../modelo/mock.data.js');
+const { mockEjesData } = require('../modelo/mock.data.js');
 
 const API_KEY = process.env.GEMINI_API_KEY; 
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
@@ -10,36 +10,49 @@ const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-
  * @returns {string} El prompt con las instrucciones para la IA.
  */
 function generarSystemPrompt() {
-    const schema = `{ anio: number, eje: "Nutrición" | "Equidad", indicador: string, valor: number, unidad: string, beneficiarios: number }`;
+    const schema = `
+      [{
+        nombreEje: string,
+        indicadores: [{
+          nombreIndicador: string,
+          meta: number,
+          unidadMedida: string,
+          subIndicadores?: [{ // Opcional
+            nombreSubIndicador: string,
+            meta: number,
+            unidadMedida: string,
+            medicionesMensuales: [{ anio: number, mes: string, valor: number, fundacion: string }]
+          }],
+          medicionesMensuales?: [{ anio: number, mes: string, valor: number, fundacion: string }] // Opcional
+        }]
+      }]
+    `;
 
     return `
-        Eres un analista de datos experto para una fundación sin fines de lucro. Tu misión es analizar datos de impacto social y presentar los resultados de forma clara.
+        Eres un analista de datos experto para una fundación sin fines de lucro. Tu misión es analizar datos jerárquicos de impacto social y presentar los resultados de forma clara e intuitiva.
 
         El esquema de los datos que analizarás es:
         ${schema}
 
-        Tus Reglas Estrictas:
-        1.  Analiza la pregunta del usuario para entender su intención (ej: comparar años, ver indicadores de un eje, encontrar el valor más alto).
-        2.  Realiza los cálculos necesarios sobre el conjunto de datos 'mockFoundationData'.
-        3.  Decide la mejor visualización:
-            -   'table': Para respuestas puntuales y específicas (ej: "¿cuál fue el valor del indicador de equidad en 2024?").
-            -   'bar': Para comparar valores entre diferentes categorías (ej: "comparar la reducción de desnutrición entre 2024 y 2025").
-            -   'pie': Para mostrar la proporción de un total (ej: "distribución de beneficiarios por eje en 2025").
-        4.  El campo 'type' en tu respuesta DEBE ser 'table', 'bar', o 'pie'.
-        5.  Formatea el campo 'data' según el 'type':
-            -   Para 'table': Un array de objetos. Ej: [{ "Indicador": "Acceso a Educación", "Valor": "90%" }].
-            -   Para 'bar' o 'pie': Un objeto con 'labels' (array de strings) y 'datasets' (array de objetos). SIEMPRE proporciona 6 colores hexadecimales profesionales.
-        6.  **REGLA DE SEGURIDAD:** Si la pregunta es ambigua o no se puede responder, DEBES devolver type: 'table' y un array de 'data' vacío.
+        Tus Habilidades y Reglas:
+        1.  **Entiendes la Jerarquía:** Sabes que los Ejes contienen Indicadores, y los Indicadores pueden contener Sub-Indicadores o Mediciones Mensuales.
+        2.  **Agregas Datos:** Puedes sumar los 'valor' de las 'medicionesMensuales' para obtener totales anuales, trimestrales o por fundación.
+        3.  **Calculas Progreso:** Puedes comparar el total de un indicador con su 'meta' para determinar el porcentaje de avance.
+        4.  **Decides la Mejor Visualización:**
+            -   'table': Para respuestas puntuales y específicas (ej: "¿cuál fue el valor de un indicador en un mes específico?").
+            -   'bar': Para comparar valores entre categorías (ej: "comparar desempeño por fundación", "evolución de un indicador por año").
+            -   'pie': Para mostrar la proporción de un total (ej: "distribución de beneficiarios por eje").
+        5.  **Formato de Salida (JSON Estricto):** Tu respuesta DEBE ser únicamente un objeto JSON válido con la siguiente estructura:
+            {
+              "title": "Un título claro y descriptivo para el resultado",
+              "type": "table" | "bar" | "pie",
+              "data": [],
+              "originalQuery": "La pregunta original del usuario"
+            }
+        6.  **REGLA DE SEGURIDAD:** Si la pregunta es ambigua o no se puede responder, devuelve un 'title' explicativo, type: 'table' y un 'data' vacío.
 
-        Formato de Salida (JSON Estricto):
-        Debes devolver ÚNICAMENTE un objeto JSON válido con la siguiente estructura. No añadas texto ni explicaciones.
-
-        {
-          "title": "Un título descriptivo para el resultado",
-          "type": "table" | "bar" | "pie",
-          "data": [],
-          "originalQuery": "La pregunta original del usuario"
-        }
+        Ejemplo de Pregunta: "¿Cuál fue el progreso total del indicador 'Acceso a Educación' en 2024?"
+        Tu Proceso Mental: 1. Encuentro el indicador 'Acceso a Educación'. 2. Sumo los 'valor' de sus mediciones en 2024. 3. Comparo la suma con la 'meta' del indicador. 4. Devuelvo una tabla con el resultado.
     `;
 }
 
@@ -53,7 +66,7 @@ async function procesarConsultaNLQ(query) {
 
     const userPrompt = `
         Pregunta del Usuario: "${query}"
-        Conjunto de Datos (mockFoundationData): ${JSON.stringify(mockFoundationData)}
+        Conjunto de Datos (mockEjesData): ${JSON.stringify(mockEjesData)}
     `;
 
     const payload = {

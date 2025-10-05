@@ -37,7 +37,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { PanelModule } from 'primeng/panel';
 import { CalendarModule } from 'primeng/calendar';
-
+import { ProgressBarModule } from 'primeng/progressbar';
 import { TreeTableModule } from 'primeng/treetable';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -103,8 +103,13 @@ import { ReportedonacionComponent } from './ModuloAdministracion/pg-principalrep
 import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
+import { PgPrincipalindicadorComponent } from './ModuloAdministracion/pg-principalindicador/pg-principalindicador.component';
+import { PgIndicadorComponent } from './ModuloAdministracion/pg-indicador/pg-indicador.component';
 import { PgPanelNaturalComponent } from './ModuloAdministracion/pg-panel-natural/pg-panel-natural.component';
 import { PgContratoFormularioComponent } from './ModuloAdministracion/pg-contratoformulario/pg-contratoformulario.component';
+import { PgPrincipaladminComponent } from './ModuloAdministracion/pg-principaladmin/pg-principaladmin.component';
+import { PgFormularioreporteComponent } from './ModuloAdministracion/pg-formularioreporte/pg-formularioreporte.component';
+import { PgPanelProgresoComponent } from './ModuloAdministracion/pg-panel-progreso/pg-panel-progreso.component';
 
 registerLocaleData(localeEs);
 
@@ -153,9 +158,14 @@ registerLocaleData(localeEs);
     ModuloPagoComponent,
     PgPersonalorganizacionComponent,
     PgPrincipalorganizacionComponent,
+    PgPrincipalindicadorComponent,
+    PgIndicadorComponent,
+
     PgPanelNaturalComponent,
     PgContratoFormularioComponent,
-
+    PgPrincipaladminComponent,
+    PgFormularioreporteComponent,
+    PgPanelProgresoComponent,
   ],
   imports: [
     BrowserModule, ReactiveFormsModule,
@@ -167,11 +177,9 @@ registerLocaleData(localeEs);
     InputTextModule, ToolbarModule, ButtonModule, MenubarModule, SlideMenuModule, DialogModule, DividerModule, ToastModule, FileUploadModule, DialogModule,
     ConfirmDialogModule,
     MessageModule,
-    ButtonModule,
     ToastModule, DropdownModule, TreeTableModule, CalendarModule,
     MultiSelectModule, StepsModule,
     CheckboxModule, InputSwitchModule,
-    DropdownModule,
     TieredMenuModule,
     AvatarModule,
     CommonModule,
@@ -189,7 +197,8 @@ registerLocaleData(localeEs);
     InputNumberModule,
     ProgressBarModule,
     InputTextareaModule,
-    TooltipModule
+    TooltipModule,
+    ProgressBarModule
   ],
   providers: [FuncionesCompartidasServicio, MessageService, SpinnerService, { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true }, { provide: LOCALE_ID, useValue: 'es-ES' }],// Agrega el interceptor HTTP],
   bootstrap: [AppComponent]

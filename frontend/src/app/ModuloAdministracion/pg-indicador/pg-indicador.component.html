@@ -1,0 +1,258 @@
+<div class="card separador-componentes">
+  <p-toolbar>
+    <div class="p-toolbar-group-center">
+      <p><b>INFORMACIÓN DE LA SOLICITUD DE LAS FUNDACIONES</b></p>
+    </div>
+
+    <div class="p-toolbar-group-end">
+      <span class="p-input-icon-left p-mr-2">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" placeholder="Buscar..." [(ngModel)]="filtroGlobal" (input)="filtrarPlano()" />
+      </span>
+      <p-button label="Agregar Eje" icon="pi pi-plus" (click)="abrirModalEje('nuevo')" styleClass="p-button-success"></p-button>
+    </div>
+  </p-toolbar>
+
+  <!-- TABLA PLANA: Eje | Indicador | Sub-indicador -->
+  <p-table
+    [value]="tablaPlano"
+    [paginator]="true"
+    [rows]="10"
+    [rowHover]="true"
+    [responsiveLayout]="'scroll'"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostrando {first}-{last} de {totalRecords} registros"
+    [rowsPerPageOptions]="[10,25,50]"
+    styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped">
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="min-width: 220px">Eje</th>
+        <th style="min-width: 220px">Indicador</th>
+        <th style="min-width: 280px">Sub-indicador</th>
+        <th class="text-center" style="width: 140px">Acciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-row>
+      <tr>
+        <td>
+          <div class="p-d-flex p-ai-center">
+            <i class="pi pi-sitemap p-mr-2" aria-hidden="true"></i>
+            <span *ngIf="row.eje">{{ row.eje.nombre }}</span>
+            <span *ngIf="!row.eje" class="p-text-italic p-text-secondary">—</span>
+          </div>
+        </td>
+
+        <td>
+          <div class="p-d-flex p-ai-center">
+            <i class="pi pi-share-alt p-mr-2" aria-hidden="true"></i>
+            <span *ngIf="row.indicador">{{ row.indicador.nombre }}</span>
+            <span *ngIf="!row.indicador" class="p-text-italic p-text-secondary">—</span>
+          </div>
+        </td>
+
+        <td>
+          <div class="p-d-flex p-ai-center">
+            <i class="pi pi-list p-mr-2" aria-hidden="true"></i>
+            <span *ngIf="row.subindicador">{{ row.subindicador.descripcion }}</span>
+            <span *ngIf="!row.subindicador" class="p-text-italic p-text-secondary">—</span>
+          </div>
+        </td>
+
+        <td class="text-center">
+          <p-button
+            icon="pi pi-pencil"
+            class="p-button-text p-button-info p-mr-2"
+            (click)="editarFila(row)"
+            pTooltip="Editar"
+            tooltipPosition="top">
+          </p-button>
+
+          <p-button
+            icon="pi pi-trash"
+            class="p-button-text p-button-danger"
+            (click)="eliminarFila(row)"
+            pTooltip="Eliminar"
+            tooltipPosition="top">
+          </p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!-- ======================== MODAL: EDITAR / CREAR EJE ======================== -->
+<p-dialog
+  [(visible)]="visibleModalEje"
+  [modal]="true"
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '80vw', maxWidth: '1100px' }"
+  [contentStyle]="{ padding: '1.25rem', backgroundColor: '#ffffff' }"
+  styleClass="header-verde">
+
+  <ng-template pTemplate="header">
+    <div class="p-d-flex p-ai-center p-jc-between p-w-full">
+      <span class="p-text-bold">
+        {{ esNuevoEje ? 'Nuevo Eje' : 'Editar Eje' }}
+      </span>
+<p-tag *ngIf="!esNuevoEje" severity="info" [value]="'ID: ' + (ejeActual.id || '-')"></p-tag>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="content">
+    <!-- Nombre del Eje -->
+    <div class="p-fluid grid formgrid p-mb-3">
+      <div class="col-12 md:col-8">
+        <label class="p-mb-1">Nombre del Eje</label>
+        <input pInputText type="text" [(ngModel)]="ejeActual.nombre" placeholder="Ej: Impacto Social" />
+      </div>
+      <div class="col-12 md:col-4 p-d-flex p-ai-end p-jc-end">
+        <p-button label="Guardar cambios del Eje" icon="pi pi-save" styleClass="p-button-success"
+                  (click)="guardarEjeActual()"></p-button>
+      </div>
+    </div>
+
+    <!-- Tabla de Indicadores -->
+    <div class="p-card p-3 surface-50 border-round">
+      <div class="p-d-flex p-ai-center p-jc-between p-mb-2">
+        <div class="p-d-flex p-ai-center">
+          <i class="pi pi-share-alt p-pr-2"></i>
+          <h3 class="p-m-0">Indicadores del Eje</h3>
+        </div>
+        <div class="p-d-flex p-ai-center">
+          <input pInputText type="text" placeholder="Nuevo indicador..." [(ngModel)]="nuevoIndicadorNombre" class="p-mr-2" />
+          <p-button label="Agregar" icon="pi pi-plus" (click)="agregarIndicador()" styleClass="p-button-sm"></p-button>
+        </div>
+      </div>
+
+<p-table
+  [value]="ejeActual?.indicadores ?? []"
+  dataKey="id"
+  [rowHover]="true"
+  [responsiveLayout]="'scroll'"
+  styleClass="p-datatable-sm p-datatable-gridlines">
+
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Indicador</th>
+            <th class="text-center" style="width:120px"># Sub-ind.</th>
+            <th class="text-center" style="width:200px">Acciones</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-ind>
+          <tr [ngClass]="{'surface-100': indicadorEditId === ind.id}">
+            <td>
+              <div *ngIf="indicadorEditId !== ind.id; else editIndicadorTpl" class="p-d-flex p-ai-center">
+                <i class="pi pi-bookmark p-mr-2"></i>
+                <span>{{ ind.nombre }}</span>
+              </div>
+              <ng-template #editIndicadorTpl>
+                <input pInputText [(ngModel)]="indicadorEdicion.nombre" placeholder="Nombre del indicador" />
+              </ng-template>
+            </td>
+
+            <td class="text-center">
+              <p-tag [value]="ind.subindicadores?.length || 0" severity="secondary"></p-tag>
+            </td>
+
+            <td class="text-center">
+              <ng-container *ngIf="indicadorEditId !== ind.id; else accionesEdicionIndicador">
+                <p-button icon="pi pi-pencil" class="p-button-text p-button-info p-mr-2"
+                          (click)="iniciarEdicionIndicador(ind)"></p-button>
+                <p-button icon="pi pi-list" class="p-button-text"
+                          (click)="seleccionarIndicadorParaSubs(ind)"></p-button>
+                <p-button icon="pi pi-trash" class="p-button-text p-button-danger p-ml-2"
+                          (click)="eliminarIndicador(ind.id)"></p-button>
+              </ng-container>
+
+              <ng-template #accionesEdicionIndicador>
+                <p-button icon="pi pi-check" class="p-button-text p-button-success p-mr-2"
+                          (click)="guardarEdicionIndicador()"></p-button>
+                <p-button icon="pi pi-times" class="p-button-text p-button-secondary"
+                          (click)="cancelarEdicionIndicador()"></p-button>
+              </ng-template>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <!-- Tabla de Sub-indicadores (según indicador seleccionado) -->
+    <div class="p-card p-3 surface-100 border-round p-mt-3" *ngIf="indicadorSeleccionado">
+      <div class="p-d-flex p-ai-center p-jc-between p-mb-2">
+        <div class="p-d-flex p-ai-center">
+          <i class="pi pi-list p-pr-2"></i>
+<h3 class="p-m-0">
+  Sub-indicadores de: <span class="p-text-bold">{{ indicadorSeleccionado.nombre }}</span>
+</h3>
+        </div>
+        <div class="p-d-flex p-ai-center">
+          <input pInputText type="text" placeholder="Nueva descripción..." [(ngModel)]="nuevoSubDesc" class="p-mr-2" />
+          <p-button label="Agregar" icon="pi pi-plus" (click)="agregarSubIndicador()" styleClass="p-button-sm"></p-button>
+        </div>
+      </div>
+
+    <p-table
+  [value]="indicadorSeleccionado?.subindicadores ?? []"
+  dataKey="id"
+  [rowHover]="true"
+  [responsiveLayout]="'scroll'"
+  styleClass="p-datatable-sm p-datatable-gridlines">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Descripción / Sub-categoría</th>
+            <th class="text-center" style="width: 180px">Acciones</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-sub>
+          <tr [ngClass]="{'surface-200': subEditId === sub.id}">
+            <td>
+              <div *ngIf="subEditId !== sub.id; else editSubTpl" class="p-d-flex p-ai-center">
+                <i class="pi pi-angle-right p-mr-2"></i>
+                <span>{{ sub.descripcion }}</span>
+              </div>
+              <ng-template #editSubTpl>
+                <input pInputText [(ngModel)]="subEdicion.descripcion" placeholder="Descripción del sub-indicador" />
+              </ng-template>
+            </td>
+            <td class="text-center">
+              <ng-container *ngIf="subEditId !== sub.id; else accionesEdSub">
+                <p-button icon="pi pi-pencil" class="p-button-text p-button-info p-mr-2"
+                          (click)="iniciarEdicionSub(sub)"></p-button>
+                <p-button icon="pi pi-trash" class="p-button-text p-button-danger"
+                          (click)="eliminarSubIndicador(sub.id)"></p-button>
+              </ng-container>
+
+              <ng-template #accionesEdSub>
+                <p-button icon="pi pi-check" class="p-button-text p-button-success p-mr-2"
+                          (click)="guardarEdicionSub()"></p-button>
+                <p-button icon="pi pi-times" class="p-button-text p-button-secondary"
+                          (click)="cancelarEdicionSub()"></p-button>
+              </ng-template>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <div class="p-d-flex p-jc-between p-ai-center p-w-full">
+      <div class="p-text-secondary">
+        <small>
+          Los cambios se guardan en la base local del front (localStorage).
+        </small>
+      </div>
+      <div>
+        <p-button label="Cerrar" icon="pi pi-times" class="p-button-secondary" (click)="visibleModalEje=false"></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-dialog>

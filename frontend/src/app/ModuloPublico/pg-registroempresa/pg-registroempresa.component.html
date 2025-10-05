@@ -1,42 +1,10 @@
 <div class="row">
   <div class="grid nested-grid">
-    <div class="col-2">
-      <div class="formgrid grid text-center">
-        <div class="field col">
-          <p-image [src]="imageSrc" [preview]="true" alt="Image" width="150"
-            *ngIf="blSubirFoto==false">
-            <ng-template pTemplate="indicator">
-              <i class="pi pi-check"></i>
-            </ng-template>
 
-          </p-image>
-          <p-image [src]="strFoto" [preview]="true" alt="Image" width="150" *ngIf="blSubirFoto==true">
-            <ng-template pTemplate="indicator">
-              <i class="pi pi-check"></i>
-            </ng-template>
-
-          </p-image>
-          <p-fileUpload styleClass="custom-green-button-guardar" mode="basic" name="demo[]" accept="image/*"
-            url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onBasicUploadAuto($event)" [auto]="true"
-            chooseLabel="Subir logo">
-          </p-fileUpload>
-
-        </div>
-      </div>
-
-      <div class="text-center p-3 border-round-sm font-bold custom-button" style="
-              border: 1px solid #a1c74f;
-              margin-top: 10px;
-              height: 82%;
-              box-sizing: border-box; background-color: #a1c74f
-            ">
-      </div>
-    </div>
-
-    <div class="col-10">
-      <div class="col-12">
+    <div class="col-12">
+      <div>
         <div class="text-center p-3 border-round-sm font-bold " style="background-color: #a1c74f;color: white;">
-          INFORMACIÓN DE LA EMPRESA
+          INFORMACIÓN DE LA FUNDACIÓN
         </div>
       </div>
 
@@ -71,7 +39,7 @@
       </div>
       <div class="formgrid grid" style="margin-left: 10px; margin-right: 10px">
         <div class="field col">
-          <label for="lastname6">Tipo de empresa</label>
+          <label for="lastname6">Tipo de Entidad</label>
           <select [(ngModel)]="strTipoEmpresa"
             class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
             style="appearance: auto; height: 38px;"> 
@@ -119,7 +87,8 @@
             [(ngModel)]="strCelular2" />
         </div>
       </div>
-      <div class="formgrid grid" style="margin-left: 10px; margin-right: 10px">
+
+ <div class="formgrid grid" style="margin-left: 10px; margin-right: 10px">
         <!-- Provincias -->
         <div class="field col">
           <label for="provincias">Provincias</label>
@@ -412,7 +381,7 @@
     <div class="modal-content">
       <p>
         <p>
-          {{ empresa_strnombre }}, actualmente forma parte del Banco de Alimentos Riobamba como una <strong>FUNDACIÓN</strong>.
+          {{ empresa_strnombre }}, actualmente forma parte de la Fundación Favorita como una <strong>FUNDACIÓN</strong>.
         </p>
         <p>
           En caso de tener alguna inquietud o confusión con su registro anterior, por favor acérquese a nuestras instalaciones.

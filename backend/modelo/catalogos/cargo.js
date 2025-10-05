@@ -6,7 +6,7 @@ const { execCentralizada, execCentralizadaProcedimientos } = require('../../conf
 
 module.exports.ListadoCargoActivo = async function () {
     var sentencia;
-    sentencia = 'SELECT * FROM central.f_central_cargo($1, $2, $3, $4 ,$5)'
+    sentencia = 'SELECT * FROM public.f_central_cargo($1, $2, $3, $4 ,$5)'
     var listaParametros = ['LSTACTIVO', null, null, null, null]
     try {
 

@@ -16,12 +16,14 @@ const rutatipoconvenio = require('./rutas/catalogos/rutatipoconvenio');
 const rutatipodonante = require('./rutas/catalogos/rutatipodonante');
 const rutatipoempresa = require('./rutas/catalogos/rutatipoempresa');
 const rutatiposolicitud = require('./rutas/catalogos/rutatiposolicitud');
+const rutacargo = require('./rutas/catalogos/rutacargo');
 
 
 //Rutas compartido
 const rutaenviarcorreo = require('./rutas/compartido/rutaenviarcorreo');
 const rutamensajesolicitud = require('./rutas/compartido/rutamensajesolicitud');
 const rutaubicacion = require('./rutas/compartido/rutaubicacion');
+const rutadatosorganizacion = require('./rutas/rutadatosorganizacion');
 
 //Rutas Convenio
 const rutaclausula = require('./rutas/convenio/rutaclausula');
@@ -77,15 +79,18 @@ app.use(url + '/rutalogin', rutalogin);
 app.use(url + '/rutaperfil', rutaperfil);
 app.use(url + '/rutarecuperarpassword', rutarecuperarpassword);
 
+
 // Rutas catálogos
 app.use(url + '/rutatipoconvenio', rutatipoconvenio);
 
 app.use(url + '/rutatipoempresa', rutatipoempresa);
+app.use(url + '/rutacargos', rutacargo);
 
 // Rutas compartido
 app.use(url + '/rutaenviarcorreo', rutaenviarcorreo);
 app.use(url + '/rutamensajesolicitud', rutamensajesolicitud);
 app.use(url + '/rutaubicacion', rutaubicacion);
+app.use(url + '/rutadatosorganizacion', rutadatosorganizacion);
 
 // Rutas convenio
 app.use(url + '/rutaclausula', rutaclausula);

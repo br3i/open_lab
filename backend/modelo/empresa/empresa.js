@@ -3,7 +3,7 @@ const { execCentralizada, execCentralizadaProcedimientos, execTransaccion } = re
 //Función para listar las empresa/fundaciones segun el tipo de solicitud
 module.exports.ListadoEmpresa = async function (idTipoSolicitud, idTipoEntidad) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,$21,$22)';
+  sentencia = 'SELECT * FROM public.f_central_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,$21,$22)';
   var listaParametros = ['LSET', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, idTipoSolicitud, null, null, null, idTipoEntidad,null];
 
   try {
@@ -23,7 +23,7 @@ module.exports.ListadoEmpresa = async function (idTipoSolicitud, idTipoEntidad) 
 //Listado las empresas/fundaciones que tiene solicitudes aceptadas y en estado activo
 module.exports.ListadoEmpresasAceptadasActivas = async function (idTipoSolicitud, idTipoEntidad) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,$21,$22)';
+  sentencia = 'SELECT * FROM public.f_central_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,$21,$22)';
   var listaParametros = ['LSET', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, idTipoSolicitud, null, null, true, idTipoEntidad,null];
 
   try {
@@ -42,7 +42,7 @@ module.exports.ListadoEmpresasAceptadasActivas = async function (idTipoSolicitud
 
 module.exports.ListadoCargoEmpresaActivos = async function () {
   var sentencia;
-  sentencia = "select * from central.tb_cargo where blestado=true AND idcargo>=1 AND idcargo<=3 "
+  sentencia = "select * from public.tb_cargo where blestado=true AND idcargo>=1 AND idcargo<=3 "
   try {
 
     if (sentencia != "") {
@@ -60,7 +60,7 @@ module.exports.ListadoCargoEmpresaActivos = async function () {
 //Ingresar empresa/fundacion
 module.exports.IngresoEmpresa = async function (client, objEmpresa, objSolicitud) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,$21,$22)';
+  sentencia = 'SELECT * FROM public.f_central_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,$21,$22)';
 
   var listaParametros = [
     'IN', null, objEmpresa.idtipoempresa, objEmpresa.empresa_strnombre, objEmpresa.empresa_dtfechacreacion, objEmpresa.idubicacion, objEmpresa.empresa_strdireccion, objEmpresa.empresa_stractividad, objEmpresa.empresa_strfoto, objEmpresa.empresa_strcorreo1,
@@ -83,7 +83,7 @@ module.exports.IngresoEmpresa = async function (client, objEmpresa, objSolicitud
 //Encontara empresa/fundacion por ruc que tenga solicitudes con estado activo
 module.exports.ObtenerEmpresaRucSolicitudActivo = async function (stRruc, idTipoEntidad, idTipoSolicitud) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,$21,$22)';
+  sentencia = 'SELECT * FROM public.f_central_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20,$21,$22)';
   var listaParametros = ['OERUC', null, null, null, null, null, null, null, null, null, null, null, null, null, stRruc, null, idTipoSolicitud, null, null, null, idTipoEntidad,null];
 
   try {
@@ -101,7 +101,7 @@ module.exports.ObtenerEmpresaRucSolicitudActivo = async function (stRruc, idTipo
 }
 
 module.exports.ActualizarEstadoEmpresa = async function (idEmpresa, empresa_blestado) {
-  const sentencia = 'SELECT * FROM central.f_central_empresa_actualizar($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)';
+  const sentencia = 'SELECT * FROM public.f_central_empresa_actualizar($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)';
   const listaParametros = ['UPE', idEmpresa, null, null, null, null, null, null, null, null, null, empresa_blestado, null, null];
 
   try {
@@ -117,7 +117,7 @@ module.exports.ActualizarEstadoEmpresa = async function (idEmpresa, empresa_bles
 
 module.exports.ListadoRepresentantesEmpresaActivos = async function (idEmpresa) {
   var sentencia;
-  sentencia = 'SELECT * FROM  central.f_central_empresa_representante($1, $2, $3, $4, $5 ,$6)';
+  sentencia = 'SELECT * FROM  public.f_central_empresa_representante($1, $2, $3, $4, $5 ,$6)';
   var listaParametros = ['LIST', null, null, idEmpresa, null, true];
 
   try {
@@ -136,7 +136,7 @@ module.exports.ListadoRepresentantesEmpresaActivos = async function (idEmpresa) 
 
 //Empresa representantes por idrepresentante y idempresa
 module.exports.ObtenerRepresentanteId = async function (idRepresentante, idEmpresa, idCargo) {
-  sentencia = 'SELECT * FROM  central.f_central_empresa_representante( $1, $2, $3, $4,$5,$6)';
+  sentencia = 'SELECT * FROM  public.f_central_empresa_representante( $1, $2, $3, $4,$5,$6)';
   var listaParametros = ['UNOIDR', idRepresentante, null, idEmpresa, idCargo, null];
   try {
 
@@ -155,7 +155,7 @@ module.exports.ObtenerRepresentanteId = async function (idRepresentante, idEmpre
 //Empresa representantes por idpersona y idempresa
 
 module.exports.ObtenerRepresentanteIdPersona = async function (idPersona, idEmpresa, idCargo) {
-  sentencia = 'SELECT * FROM  central.f_central_empresa_representante( $1, $2, $3,$4, $5, $6)';
+  sentencia = 'SELECT * FROM  public.f_central_empresa_representante( $1, $2, $3,$4, $5, $6)';
   var listaParametros = ['UNOIDP', null, idPersona, idEmpresa, idCargo, null];
   try {
 
@@ -174,7 +174,7 @@ module.exports.ObtenerRepresentanteIdPersona = async function (idPersona, idEmpr
 /* Encontrar Empresa Documento RUC Activos*/
 module.exports.EncontrarEmpresaRuc = async function (strRuc) {
 
-  sentencia = 'SELECT * FROM central.f_central_empresa_actualizar($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)';
+  sentencia = 'SELECT * FROM public.f_central_empresa_actualizar($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)';
   var listaParametros = ['UNO', null, null, null, null, null, null, null, null, null, null, null, null, strRuc];
   try {
     if (sentencia != "") {
@@ -192,7 +192,7 @@ module.exports.EncontrarEmpresaRuc = async function (strRuc) {
 
 module.exports.ObtenerEmpresaId = async function (idempresa) {
   var sentencia;
-  sentencia = "SELECT * FROM central.tb_empresa_documento ed INNER JOIN central.tb_empresa as em on ed.idempresa=em.idempresa INNER JOIN central.tb_tipo_empresa as te on te.idtipoempresa=em.idtipoempresa INNER JOIN central.tb_tipo_documento as tp on tp.iddocumento=ed.idtipodocumento WHERE ed.idempresa=" + Number(idempresa) + " and ed.blestado=true"
+  sentencia = "SELECT * FROM public.tb_empresa_documento ed INNER JOIN public.tb_empresa as em on ed.idEmpresa=em.idempresa INNER JOIN public.tb_tipo_empresa as te on te.idtipoempresa=em.idtipoempresa INNER JOIN public.tb_tipo_documento as tp on tp.iddocumento=ed.idtipodocumento WHERE ed.idempresa=" + Number(idempresa) + " and ed.blestado=true"
   try {
 
     if (sentencia != "") {
@@ -211,7 +211,7 @@ module.exports.ObtenerEmpresaId = async function (idempresa) {
 
 module.exports.NuevaSolicitudEmpresa = async function (client, objSolicitud) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_solicitud_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
+  sentencia = 'SELECT * FROM public.f_central_solicitud_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)';
   var listaParametros = ['IN', null, objSolicitud.idtiposolicitud, objSolicitud.idempresa, objSolicitud.idrepresentante, null, objSolicitud.solicitud_strdescripcion, 'ND', null, null, null];
 
   try {
@@ -230,7 +230,7 @@ module.exports.NuevaSolicitudEmpresa = async function (client, objSolicitud) {
 //Registrar nuevo representante legal
 module.exports.RegistrarRepresentante = async function (client, idpersona, idempresa, idcargo) {
   var sentencia;
-  sentencia = 'SELECT * FROM  central.f_central_empresa_representante( $1, $2, $3, $4,$5,$6)';
+  sentencia = 'SELECT * FROM  public.f_central_empresa_representante( $1, $2, $3, $4,$5,$6)';
   var listaParametros = ['IN', null, idpersona, idempresa, idcargo, null];
 
    try {
@@ -251,7 +251,7 @@ module.exports.RegistrarRepresentante = async function (client, idpersona, idemp
 //Actualizar estado de solicitud de empresa Tipo Solicitud
 module.exports.ActualizarEstadoSolicitudEmpresa = async function (idSolicitud, idTipoSolicitud) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_solicitud_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
+  sentencia = 'SELECT * FROM public.f_central_solicitud_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
   var listaParametros = ['UPTS', idSolicitud, idTipoSolicitud, null, null, null, null, null, null, null, null]
   try {
 
@@ -270,7 +270,7 @@ module.exports.ActualizarEstadoSolicitudEmpresa = async function (idSolicitud, i
 //Actualizar datos empresa
 module.exports.ActualizarEmpresa = async function (client, objEmpresa) {
 
-  sentencia = 'SELECT * FROM central.f_central_empresa_actualizar($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)';
+  sentencia = 'SELECT * FROM public.f_central_empresa_actualizar($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)';
 
   var listaParametros = ['UP', objEmpresa.idempresa, objEmpresa.idtipoempresa, objEmpresa.empresa_strnombre, objEmpresa.empresa_strdireccion,
     objEmpresa.empresa_stractividad, objEmpresa.empresa_strfoto, objEmpresa.empresa_strcorreo1, objEmpresa.empresa_strcorreo2, objEmpresa.empresa_strcelular1, // Celular 1
@@ -294,7 +294,7 @@ module.exports.ActualizarEmpresa = async function (client, objEmpresa) {
 
 module.exports.CrearEmpresaAnexo = async function (client, objEmpresaAnexo) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa_anexo($1, $2, $3, $4, $5, $6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_empresa_anexo($1, $2, $3, $4, $5, $6,$7,$8)'
   var listaParametros = ['IN', null, objEmpresaAnexo.emp_anexo_idempresa, objEmpresaAnexo.emp_anexo_strnombre, objEmpresaAnexo.emp_anexo_strdescripcion, objEmpresaAnexo.emp_anexo_strruta, null, null]
   try {
 
@@ -312,7 +312,7 @@ module.exports.CrearEmpresaAnexo = async function (client, objEmpresaAnexo) {
 
 module.exports.ActualizarEmpresaAnexo = async function (client, objEmpresaAnexo) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa_anexo($1, $2, $3, $4, $5, $6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_empresa_anexo($1, $2, $3, $4, $5, $6,$7,$8)'
   var listaParametros = ['UP', null, objEmpresaAnexo.emp_anexo_idempresa, objEmpresaAnexo.emp_anexo_strnombre, objEmpresaAnexo.emp_anexo_strdescripcion, objEmpresaAnexo.emp_anexo_strruta, null, null]
   try {
 
@@ -330,7 +330,7 @@ module.exports.ActualizarEmpresaAnexo = async function (client, objEmpresaAnexo)
 
 module.exports.ObtenerAnexoDadoIdEmpresa = async function (emp_anexo_idempresa) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa_anexo($1, $2, $3, $4, $5, $6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_empresa_anexo($1, $2, $3, $4, $5, $6,$7,$8)'
   var listaParametros = ['UNO', null, emp_anexo_idempresa, null, null, null, null, null]
   try {
     if (sentencia != "") {
@@ -349,7 +349,7 @@ module.exports.ObtenerAnexoDadoIdEmpresa = async function (emp_anexo_idempresa) 
 
 module.exports.ListadoSucursalEmpresa = async function (idEmpresa) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa_sucursal($1, $2, $3, $4, $5 ,$6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_empresa_sucursal($1, $2, $3, $4, $5 ,$6,$7,$8)'
   var listaParametros = ['TODOEMP', null, idEmpresa, null, null, null, null, null]
   try {
 
@@ -368,7 +368,7 @@ module.exports.ListadoSucursalEmpresa = async function (idEmpresa) {
 
 module.exports.CrearSucursal = async function (client, objSucursal) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa_sucursal($1, $2, $3, $4, $5 ,$6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_empresa_sucursal($1, $2, $3, $4, $5 ,$6,$7,$8)'
   var listaParametros = ['IN', null, objSucursal.idempresa, objSucursal.sucursal_strnombre, objSucursal.sucursal_strdescripcion, objSucursal.idubicacion, objSucursal.sucursal_strdireccion, null]
   try {
     if (client) {
@@ -387,7 +387,7 @@ module.exports.CrearSucursal = async function (client, objSucursal) {
 
 module.exports.ActualizarSucursal = async function (objSucursal) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa_sucursal($1, $2, $3, $4, $5 ,$6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_empresa_sucursal($1, $2, $3, $4, $5 ,$6,$7,$8)'
   var listaParametros = ['UP', objSucursal.idsucursal, null, objSucursal.sucursal_strnombre, objSucursal.sucursal_strdescripcion, objSucursal.idubicacion, objSucursal.sucursal_strdireccion, null]
   try {
     if (sentencia != "") {
@@ -405,7 +405,7 @@ module.exports.ActualizarSucursal = async function (objSucursal) {
 
 module.exports.ActualizarSucursalEstado = async function (idSucursal, blEstado) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa_sucursal($1, $2, $3, $4, $5 ,$6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_empresa_sucursal($1, $2, $3, $4, $5 ,$6,$7,$8)'
   var listaParametros = ['UPE', idSucursal, null, null, null, null, null, blEstado]
   try {
 
@@ -425,7 +425,7 @@ module.exports.ActualizarSucursalEstado = async function (idSucursal, blEstado) 
 //obtener listado de sucursales activas por empresa 
 module.exports.ListadoSucursalActivos = async function (idEmpresa) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_empresa_sucursal($1, $2, $3, $4, $5 ,$6,$7,$8)'
+  sentencia = 'SELECT * FROM public.f_central_empresa_sucursal($1, $2, $3, $4, $5 ,$6,$7,$8)'
   var listaParametros = ['LISTEMP', null, idEmpresa, null, null, null, null, true]
   try {
 
@@ -444,7 +444,7 @@ module.exports.ListadoSucursalActivos = async function (idEmpresa) {
 
 module.exports.ActualizarCitaEmpresa = async function (client, idSolicitud, strCita) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_solicitud_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
+  sentencia = 'SELECT * FROM public.f_central_solicitud_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
   var listaParametros = ['UP', idSolicitud, null, null, null, strCita, null, null, null, null, null]
   try {
 
@@ -462,7 +462,7 @@ module.exports.ActualizarCitaEmpresa = async function (client, idSolicitud, strC
 //Actualizar estado de la solicitud (Activo o Desactivo)
 module.exports.ActualizarEstadoLogicoSolicitudEmpresa = async function (idSolicitud, blEstado) {
   var sentencia;
-  sentencia = 'SELECT * FROM central.f_central_solicitud_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
+  sentencia = 'SELECT * FROM public.f_central_solicitud_empresa($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)'
   var listaParametros = ['UPEST', idSolicitud, null, null, null, null, null, null, null, blEstado, null]
   try {
 

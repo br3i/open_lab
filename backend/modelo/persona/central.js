@@ -7,7 +7,7 @@ const { execCentralizada, execCentralizadaProcedimientos, execTransaccion } = re
 
 module.exports.ListadoDocumentos = async function () {
   var sentencia;
-  sentencia = "select * from central.tb_tipo_documento"
+  sentencia = "select * from public.tb_tipo_documento"
   try {
 
     if (sentencia != "") {
@@ -22,26 +22,11 @@ module.exports.ListadoDocumentos = async function () {
 
 }
 
-module.exports.ListadoEtnia = async function () {
-  var sentencia;
-  sentencia = "select * from central.tb_etnia where estado=true"
-  try {
 
-    if (sentencia != "") {
-      const resp = await execCentralizada(sentencia, "OK", "OK");
-      return (resp)
-    } else {
-      return { data: "vacio sql" }
-    }
-  } catch (error) {
-    return { data: "Error: " + error }
-  }
-
-}
 
 module.exports.EncontrarPersonaDadoCedula = async function (cedula) {
   var sentencia;
-  sentencia = "SELECT p.idpersona AS idpersona, pd.documento as documento, p.nombres as nombres,p.apellidos as apellidos,p.correo1 as correo1,p.correo2 as correo2,p.celular1 as celular1, p.celular2 as celular2 , p.edad as edad, p.sexo as sexo FROM central.tb_persona_documento as pd INNER JOIN central.tb_persona as p on p.idpersona=pd.idpersona INNER JOIN central.tb_etnia as e on e.id=p.idetnia INNER JOIN central.tb_estado_civil as ec on ec.id=p.idestadocivil INNER JOIN central.tb_tipo_documento as tp on tp.iddocumento=pd.idtipodocumento WHERE pd.documento='" + cedula + "' and pd.estado=true"
+  sentencia = "SELECT p.idpersona AS idpersona, pd.documento as documento, p.nombres as nombres,p.apellidos as apellidos,p.correo1 as correo1,p.correo2 as correo2,p.celular1 as celular1, p.celular2 as celular2 , p.edad as edad, p.sexo as sexo FROM public.tb_persona_documento as pd INNER JOIN public.tb_persona as p on p.idpersona=pd.idpersona INNER JOIN public.tb_tipo_documento as tp on tp.iddocumento=pd.idtipodocumento WHERE pd.documento='" + cedula + "' and pd.estado=true"
   try {
 
     if (sentencia != "") {
@@ -59,7 +44,7 @@ module.exports.EncontrarPersonaDadoCedula = async function (cedula) {
 
 module.exports.EncontrarPersonaDadoId = async function (idPersona) {
   var sentencia;
-  sentencia = "SELECT * FROM central.tb_persona_documento as pd INNER JOIN central.tb_persona as p on p.idpersona=pd.idpersona INNER JOIN central.tb_etnia as e on e.id=p.idetnia INNER JOIN central.tb_estado_civil as ec on ec.id=p.idestadocivil INNER JOIN central.tb_tipo_documento as tp on tp.iddocumento=pd.idtipodocumento WHERE pd.idpersona=" + Number(idPersona) + " and pd.estado=true"
+  sentencia = "SELECT * FROM public.tb_persona_documento as pd INNER JOIN public.tb_persona as p on p.idpersona=pd.idpersona INNER JOIN public.tb_tipo_documento as tp on tp.iddocumento=pd.idtipodocumento WHERE pd.idpersona=" + Number(idPersona) + " and pd.estado=true"
   try {
 
     if (sentencia != "") {
@@ -77,7 +62,7 @@ module.exports.EncontrarPersonaDadoId = async function (idPersona) {
 // Inserta una persona en la base de datos
 module.exports.IngresarPersona = async function (client, objPersona) {
   const sentencia =
-    'SELECT * FROM central.f_central_persona($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)';
+    'SELECT * FROM public.f_central_persona($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)';
   const listaParametros = [
     'IN',
     null,
@@ -91,8 +76,6 @@ module.exports.IngresarPersona = async function (client, objPersona) {
     objPersona.direccion,
     objPersona.edad,
     objPersona.sexo,
-    objPersona.idestadocivil,
-    objPersona.idetnia,
     null,
     null,
     objPersona.tipodocumento,
@@ -140,7 +123,7 @@ module.exports.InsertarPersonaFoto = async function (client, idPersona, strFoto)
 
 
 module.exports.ActualizarPersona = async function (client, objPersona) {
-  const sentencia = 'SELECT * FROM central.f_central_persona($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)';
+  const sentencia = 'SELECT * FROM public.f_central_persona($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)';
   const listaParametros = [
     'UP',
     objPersona.idpersona,
@@ -154,8 +137,6 @@ module.exports.ActualizarPersona = async function (client, objPersona) {
     objPersona.direccion || null,
     objPersona.edad || null,
     objPersona.sexo || null,
-    objPersona.idestadocivil || null,
-    objPersona.idetnia || null,
     null,
     null,
     objPersona.tipodocumento || null,

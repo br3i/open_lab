@@ -7,7 +7,7 @@ const { execCentralizada, execCentralizadaProcedimientos } = require('../../conf
 /* Tipo empresa */
 module.exports.ListadoTipoEmpresaActivos = async function () {
     var sentencia;
-    sentencia = "select * from central.tb_tipo_empresa where blestadotipo=true"
+    sentencia = "select * from public.tb_tipo_empresa where blestadotipo=true"
     try {
 
         if (sentencia != "") {
@@ -24,7 +24,7 @@ module.exports.ListadoTipoEmpresaActivos = async function () {
 
 module.exports.ListadoTipoEmpresa = async function () {
     var sentencia;
-    sentencia = 'SELECT * FROM central.f_central_tipo_empresa($1, $2, $3, $4,$5)'
+    sentencia = 'SELECT * FROM public.f_central_tipo_empresa($1, $2, $3, $4,$5)'
     var listaParametros = ['TODO', null, null, null, null]
     try {
 
@@ -45,7 +45,7 @@ module.exports.ListadoTipoEmpresa = async function () {
 
 module.exports.ObtenerTipoEmpresaDadoId = async function (idTipoempresa) {
     var sentencia;
-    sentencia = 'SELECT * FROM central.f_central_tipo_empresa($1, $2, $3, $4,$5)'
+    sentencia = 'SELECT * FROM public.f_central_tipo_empresa($1, $2, $3, $4,$5)'
     var listaParametros = ['UNO', idTipoempresa, null, null, null]
     try {
 
@@ -64,7 +64,7 @@ module.exports.ObtenerTipoEmpresaDadoId = async function (idTipoempresa) {
 
 module.exports.CrearTipoEmpresa = async function (strNombre) {
     var sentencia;
-    sentencia = 'SELECT * FROM central.f_central_tipo_empresa($1, $2, $3, $4,$5)'
+    sentencia = 'SELECT * FROM public.f_central_tipo_empresa($1, $2, $3, $4,$5)'
     var listaParametros = ['IN', null, strNombre, null, null]
     try {
 
@@ -83,7 +83,7 @@ module.exports.CrearTipoEmpresa = async function (strNombre) {
 
 module.exports.ActualizarTipoEmpresa = async function (idTipoempresa, strNombre) {
     var sentencia;
-    sentencia = 'SELECT * FROM central.f_central_tipo_empresa($1, $2, $3, $4,$5)'
+    sentencia = 'SELECT * FROM public.f_central_tipo_empresa($1, $2, $3, $4,$5)'
     var listaParametros = ['UP', idTipoempresa, strNombre, null, null]
     try {
 
@@ -101,7 +101,7 @@ module.exports.ActualizarTipoEmpresa = async function (idTipoempresa, strNombre)
 }
 module.exports.ActualizarTipoEmpresaEstado = async function (idTipoempresa, blestado) {
     var sentencia;
-    sentencia = 'SELECT * FROM central.f_central_tipo_empresa($1, $2, $3, $4,$5)'
+    sentencia = 'SELECT * FROM public.f_central_tipo_empresa($1, $2, $3, $4,$5)'
     var listaParametros = ['UPE', idTipoempresa, null, blestado, null]
     try {
 

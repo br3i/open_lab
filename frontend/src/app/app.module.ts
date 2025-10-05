@@ -96,6 +96,9 @@ import { PgEmpresaeditarComponent } from './ModuloAdministracion/pg-empresaedita
 import { PgDashboardMultiComponent } from './ModuloAdministracion/pg-principalreporte/pg-dashboard-multi/pg-dashboard-multi.component';
 import { PgPrincipalreporteComponent } from './ModuloAdministracion/pg-principalreporte/pg-principalreporte.component';
 import { ReportedonacionComponent } from './ModuloAdministracion/pg-principalreporte/reportedonacion/reportedonacion.component';
+import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
+import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
+import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
 
 
 registerLocaleData(localeEs);
@@ -142,6 +145,10 @@ registerLocaleData(localeEs);
     PgPrincipalreporteComponent,
     ReportedonacionComponent,
 
+    ModuloPagoComponent,
+    PgPersonalorganizacionComponent,
+    PgPrincipalorganizacionComponent,
+ 
   ],
   imports: [
     BrowserModule, ReactiveFormsModule,

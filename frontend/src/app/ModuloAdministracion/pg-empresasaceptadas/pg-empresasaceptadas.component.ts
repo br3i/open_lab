@@ -86,7 +86,7 @@ export class PgempresaaceptadaComponent implements OnInit {
 
   async ListadoInformacion() {
     const idTipoSolicitud = this.parametros.tiposSolicitud.ACEPTADO; // Ejemplo: Solicitud de donación
-    const idTipoEntidad = this.parametros.tiposEntidad.EMPRESA;
+    const idTipoEntidad = this.parametros.tiposEntidad.FUNDACIÓN;
     const data = await new Promise<any>(resolve => this.servicios.ListadoSolicitudEmpresas(idTipoSolicitud, idTipoEntidad).subscribe(translated => { resolve(translated) }));
     if (data.success) {
       this.lsListado = data.datos.sort((a: EmpresaAceptada, b: EmpresaAceptada) => {
@@ -311,7 +311,7 @@ console.log("DATOS DE DETALLE EMPRES",seleccion)
     try {
       this.objSeleccion = datosEmpresaForm;
       const data = await new Promise<any>(resolve =>
-        this.servicios.ObtenerAnexoDadoIdEmpresa(this.objSeleccion.idempresa).subscribe(translated => resolve(translated))
+        this.servicios.ObtenerAnexoDadoIdEmpresa(this.objSeleccion.idfundacion).subscribe(translated => resolve(translated))
       );
 
       if (!data || data.success !== true || !data.datos || !data.datos.length) {

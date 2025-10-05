@@ -4,7 +4,7 @@ const { execCentralizadaProcedimientos } = require('../../config/execSQLCentrali
 
 
 module.exports.ListarUbicacion = async function (op, idPadre) {
-  var sentencia = 'SELECT * FROM central.f_central_ubicacion($1, $2)';
+  var sentencia = 'SELECT * FROM public.f_central_ubicacion($1, $2)';
   var listaParametros = [op,idPadre];
 
   try {
@@ -22,7 +22,7 @@ module.exports.ListarUbicacion = async function (op, idPadre) {
 
 //Detalle ubicacion dado idubicacion
 module.exports. DetalleUbicacion= async function (idPadre) {
-  var sentencia = 'SELECT * FROM central.f_central_ubicacion($1, $2)';
+  var sentencia = 'SELECT * FROM public.f_central_ubicacion($1, $2)';
   var listaParametros = ['JERARQUIA',idPadre];
 
   try {

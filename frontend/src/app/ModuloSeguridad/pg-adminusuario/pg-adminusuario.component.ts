@@ -62,9 +62,7 @@ export class PgAdminusuarioComponent implements OnInit {
     celular2: '',
     direccion: '',
     edad: null,
-    sexo: null,
-    idestadocivil: null,
-    idetnia: null,
+    sexo: 1,
     strtiponombre: 'CEDULA'
   };
 
@@ -493,23 +491,6 @@ export class PgAdminusuarioComponent implements OnInit {
       return false;
     }
 
-    if (!this.nuevaPersona.idetnia) {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Advertencia',
-        detail: 'La etnia es obligatoria.',
-      });
-      return false;
-    }
-
-    if (!this.nuevaPersona.idestadocivil) {
-      this.messageService.add({
-        severity: 'warn',
-        summary: 'Advertencia',
-        detail: 'El estado civil es obligatorio.',
-      });
-      return false;
-    }
 
     // Si todos los campos son válidos
     return true;
@@ -780,9 +761,7 @@ export class PgAdminusuarioComponent implements OnInit {
       celular2: '',
       direccion: '',
       edad: null,
-      sexo: null,
-      idestadocivil: null,
-      idetnia: null,
+      sexo: 1,
       strtiponombre: 'CEDULA'
     };
   }

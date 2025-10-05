@@ -158,11 +158,11 @@ router.get('/ObtenerEmpresaDadoRuc/:strRuc', async (req, res) => {
     }
 });
 
-router.get('/ObtenerEmpresaDadoId/:idempresa', async (req, res) => {
-    const idempresa = req.params.idempresa;
+router.get('/ObtenerEmpresaDadoId/:idfundacion', async (req, res) => {
+    const idfundacion = req.params.idfundacion;
     try {
 
-        var listado = await modeloempresa.ObtenerEmpresaId(idempresa);
+        var listado = await modeloempresa.ObtenerEmpresaId(idfundacion);
         if (listado.data.length > 0) {
             return res.json({
                 success: true,
@@ -187,11 +187,11 @@ router.get('/ObtenerEmpresaDadoId/:idempresa', async (req, res) => {
     }
 });
 
-router.get('/ObtenerAnexoDadoIdEmpresa/:idempresa', async (req, res) => {
-    const idempresa = req.params.idempresa;
+router.get('/ObtenerAnexoDadoIdEmpresa/:idfundacion', async (req, res) => {
+    const idfundacion = req.params.idfundacion;
     try {
 
-        var listado = await modeloempresa.ObtenerAnexoDadoIdEmpresa(idempresa);
+        var listado = await modeloempresa.ObtenerAnexoDadoIdEmpresa(idfundacion);
         if (listado.data.length > 0) {
             return res.json({
                 success: true,
@@ -216,11 +216,11 @@ router.get('/ObtenerAnexoDadoIdEmpresa/:idempresa', async (req, res) => {
     }
 });
 
-router.get('/ListadoSucursalEmpresa/:idempresa', async (req, res) => {
-    const idempresa = req.params.idempresa;
+router.get('/ListadoSucursalEmpresa/:idfundacion', async (req, res) => {
+    const idfundacion = req.params.idfundacion;
     try {
 
-        var listado = await modeloempresa.ListadoSucursalEmpresa(idempresa);
+        var listado = await modeloempresa.ListadoSucursalEmpresa(idfundacion);
         if (listado.data.length > 0) {
             return res.json({
                 success: true,
@@ -245,11 +245,11 @@ router.get('/ListadoSucursalEmpresa/:idempresa', async (req, res) => {
     }
 });
 
-router.get('/ListadoSucursalEmpresaActivos/:idempresa', async (req, res) => {
-    const idempresa = req.params.idempresa;
+router.get('/ListadoSucursalEmpresaActivos/:idfundacion', async (req, res) => {
+    const idfundacion = req.params.idfundacion;
     try {
 
-        var listado = await modeloempresa.ListadoSucursalActivos(idempresa);
+        var listado = await modeloempresa.ListadoSucursalActivos(idfundacion);
         if (listado.data.length > 0) {
             return res.json({
                 success: true,
@@ -274,13 +274,13 @@ router.get('/ListadoSucursalEmpresaActivos/:idempresa', async (req, res) => {
     }
 });
 
-router.get('/ObtenerRepresentanteId/:idrepresentante/:idempresa/:idcargo', async (req, res) => {
+router.get('/ObtenerRepresentanteId/:idrepresentante/:idfundacion/:idcargo', async (req, res) => {
     const idRepresentate = req.params.idrepresentante;
-    const idEmpresa = req.params.idempresa;
+    const idFundacion = req.params.idfundacion;
     const idCargo = req.params.idcargo;
     try {
 
-        var listado = await modeloempresa.ObtenerRepresentanteId(idRepresentate, idEmpresa, idCargo);
+        var listado = await modeloempresa.ObtenerRepresentanteId(idRepresentate, idFundacion, idCargo);
         if (listado.data.length > 0) {
             return res.json({
                 success: true,
@@ -306,13 +306,13 @@ router.get('/ObtenerRepresentanteId/:idrepresentante/:idempresa/:idcargo', async
     }
 });
 
-router.get('/ObtenerRepresentanteAnonimo/:idpersona/:idempresa/:idcargo', async (req, res) => {
+router.get('/ObtenerRepresentanteAnonimo/:idpersona/:idfundacion/:idcargo', async (req, res) => {
     const idPersona = req.params.idpersona;
-    const idEmpresa = req.params.idempresa;
+    const idFundacion = req.params.idfundacion;
     const idCargo = req.params.idcargo;
     try {
 
-        var listado = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idEmpresa, idCargo);
+        var listado = await modeloempresa.ObtenerRepresentanteIdPersona(idPersona, idFundacion, idCargo);
         if (listado.data.length > 0) {
             return res.json({
                 success: true,
@@ -400,14 +400,14 @@ router.post('/IngresarPersonalEmpresa', async (req, res) => {
     }
 });
 
-router.get('/IngresarAnonimoEmpresa/:idpersona/:idempresa/:idcargo', async (req, res) => {
+router.get('/IngresarAnonimoEmpresa/:idpersona/:idfundacion/:idcargo', async (req, res) => {
     const idPersona = req.params.idpersona;
-    const idEmpresa = req.params.idempresa;
+    const idFundacion = req.params.idfundacion;
     const idCargo = req.params.idcargo;
     let client = null;
 
     try {
-        const listado = await modeloempresa.RegistrarRepresentante(client, idPersona, idEmpresa,idCargo);
+        const listado = await modeloempresa.RegistrarRepresentante(client, idPersona, idFundacion,idCargo);
 
         // Validación mejorada
         if (listado.data && listado.data.length > 0) {
@@ -475,12 +475,12 @@ router.post('/IngresarSucursal', async (req, res) => {
     }
 });
 
-router.get('/ActualizarEstadoEmpresa/:idempresa/:empresa_blestado', async (req, res) => {
-    const idempresa = req.params.idempresa;
+router.get('/ActualizarEstadoEmpresa/:idfundacion/:empresa_blestado', async (req, res) => {
+    const idfundacion = req.params.idfundacion;
     const empresa_blestado = req.params.empresa_blestado;
 
     try {
-        const listado = await modeloempresa.ActualizarEstadoEmpresa(idempresa, empresa_blestado);
+        const listado = await modeloempresa.ActualizarEstadoEmpresa(idfundacion, empresa_blestado);
 
         // Validación mejorada
         if (listado.data && listado.data.length > 0) {
@@ -548,11 +548,11 @@ router.get('/ActualizarEstadoSolicitudEmpresa/:idSolicitud/:idTipoSolicitud', as
     }
 });
 
-router.get('/ListadoRepresentantesEmpresaActivos/:idempresa', async (req, res) => {
-    const idempresa = req.params.idempresa;
+router.get('/ListadoRepresentantesEmpresaActivos/:idfundacion', async (req, res) => {
+    const idfundacion = req.params.idfundacion;
     try {
 
-        var listado = await modeloempresa.ListadoRepresentantesEmpresaActivos(idempresa);
+        var listado = await modeloempresa.ListadoRepresentantesEmpresaActivos(idfundacion);
         if (listado.data.length > 0) {
             return res.json({
                 success: true,

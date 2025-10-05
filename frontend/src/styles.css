@@ -592,7 +592,7 @@ p-table table td {
 }
 
 
-/* ESTILOS PARA MODAL DE INFORMACIOND E EMPRESAS O FUNDACIONES*/
+/* ESTILOS PARA MODAL DE INFORMACIOND E FUNDACIONES O FUNDACIONES*/
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 2fr 2fr;

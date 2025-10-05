@@ -37,6 +37,7 @@ const rutaempresa = require('./rutas/empresa/rutaempresa');
 const rutapersonas = require('./rutas/persona/rutacentralpersona');
 
 
+const nlqRoutes = require('./rutas/nlq.js');
 
 const cors = require('cors');
 const app = express();
@@ -55,6 +56,8 @@ app.use((req, res, next) => {
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
     next();
 });
+
+//app.use(cors());
 
 /*const limiter = rateLimit({
     windowMs: 1 * 60 * 1000, // 1 minutos
@@ -101,6 +104,7 @@ app.use(url + '/rutaempresa', rutaempresa);
 // Rutas persona
 app.use(url + '/rutapersonas', rutapersonas);
 
+app.use(url + '/nlq', nlqRoutes);
 
 /*MIDLEWARES*/
 app.use(express.json({ limit: '50mb' }));//convierte en objeto js 

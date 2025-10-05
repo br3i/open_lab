@@ -34,6 +34,7 @@ import { PgRegistroempresaComponent } from './ModuloPublico/pg-registroempresa/p
 
 import { PgInicioComponent } from './ModuloAdministracion/pg-inicio/pg-inicio.component';
 
+import { PgPanelPrincipalComponent } from './ModuloAdministracion/pg-panel-principal/pg-panel-principal.component';
 
 
 
@@ -185,6 +186,10 @@ const routes: Routes = [
           { path: '', redirectTo: 'pg-perfil', pathMatch: 'full' }, // Redirección por defecto
           { path: "pg-perfil", component: PgPerfilComponent },
         ],
+      },
+      {
+        path: 'dashboard-natural',
+        component: PgPanelPrincipalComponent
       },
     ]
   }

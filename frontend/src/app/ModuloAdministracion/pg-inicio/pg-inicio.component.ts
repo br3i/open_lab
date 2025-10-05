@@ -24,4 +24,8 @@ export class PgInicioComponent {
   navegarBeneficiarios() {
     this.router.navigate(['./dashadmin/principalfundacion/fundacionaceptado']);
   }
+
+  navegarDashboardNatural(): void {
+    this.router.navigate(['/dashadmin/dashboard-natural']);
+  }
 }

@@ -19,14 +19,14 @@ export class ServiciosWeb {
   ListadoAreaConocimientoActivosss() {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    
+
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutavoluntarios/ListadoAreaConocimientoActivos')
   }
 
   ListadoAreaConocimiento() {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    
+
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaprocesos/ListadoArea')
   }
 
@@ -55,14 +55,14 @@ export class ServiciosWeb {
   ListadoEstudiosActivos() {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    
+
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutavoluntarios/ListadoEstudiosActivos')
   }
 
   ListadoEstudios() {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    
+
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaestudios/ListadoEstudios')
 
   }
@@ -93,7 +93,7 @@ export class ServiciosWeb {
   ListadoTipoVoluntario() {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    
+
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutatipovoluntario/ListadoTipoVoluntario')
   }
 
@@ -123,7 +123,7 @@ export class ServiciosWeb {
   ListadoDisponibilidad() {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    
+
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutadisponibilidad/ListadoDisponibilidad')
   }
 
@@ -154,7 +154,7 @@ export class ServiciosWeb {
   ListadoSituacionLaboralActivos() {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    
+
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutavoluntarios/ListadoSituacionLaboralActivos')
   }
 
@@ -227,7 +227,7 @@ export class ServiciosWeb {
   ListadoTiempoDedicacionActivos() {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    
+
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutavoluntarios/ListadoTiempoDedicacionActivos')
   }
 
@@ -312,14 +312,14 @@ export class ServiciosWeb {
   ListadoEnfermedadActivo() {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    
+
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutaenfermedad/ListadoEnfermedadActivo')
   }
 
     ListadoTipoBono() {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    
+
     return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/rutabeneficiario/ListadoTipoBono')
   }
 
@@ -341,5 +341,11 @@ ListadoBienes(idTipoBien: any, estado: any) {
   );
 }
 
-  
+enviarConsultaNLQ(pregunta: string) {
+  let headers = new HttpHeaders();
+  headers.append('Content-Type', 'application/json');
+    const body = { pregunta };
+    return this.hpptclient.post<any>(this.urlServiciosBancoAlimentos + '/nlq/consulta', body);
+  }
+
 }

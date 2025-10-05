@@ -22,7 +22,7 @@ import { SpinnerInterceptor } from './ModuloServiciosWeb/InterceptorServicios.se
 import {  SpinnerComponent } from './ModuloServiciosWeb/spinner.component';
 import { CommonModule } from '@angular/common';
 import { MenuModule } from 'primeng/menu';
-import { BadgeModule } from 'primeng/badge';  
+import { BadgeModule } from 'primeng/badge';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 
@@ -90,7 +90,9 @@ import { PgPerfilComponent } from './ModuloSeguridad/pg-perfil/pg-perfil.compone
 import { AvatarModule } from 'primeng/avatar';
 
 import { PgEmpresaeditarComponent } from './ModuloAdministracion/pg-empresaeditar/pg-empresaeditar.component';
+import { PgPanelPrincipalComponent } from './ModuloAdministracion/pg-panel-principal/pg-panel-principal.component';
 
+import { ChartModule } from 'primeng/chart';
 
 registerLocaleData(localeEs);
 
@@ -107,7 +109,7 @@ registerLocaleData(localeEs);
     HeaderadminComponent,
     MenuadminComponent,
     DashboardadminComponent,
-  
+
     PgPrincipalempresaComponent,
     PgTipoempresaComponent,
     PgTiposolicitudComponent,
@@ -132,7 +134,8 @@ registerLocaleData(localeEs);
     PgPerfilComponent,
 
     PgEmpresaeditarComponent,
- 
+    PgPanelPrincipalComponent,
+
   ],
   imports: [
     BrowserModule,ReactiveFormsModule,
@@ -153,11 +156,12 @@ registerLocaleData(localeEs);
     AvatarModule,
     CommonModule,
     PanelModule,
-    MenuModule, 
-    BadgeModule, 
-    BreadcrumbModule
+    MenuModule,
+    BadgeModule,
+    BreadcrumbModule,
+    ChartModule
   ],
   providers: [FuncionesCompartidasServicio,MessageService,SpinnerService,{ provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true} , {provide: LOCALE_ID, useValue: 'es-ES' } ],// Agrega el interceptor HTTP],
   bootstrap: [AppComponent]
 })
-export class AppModule { }  
+export class AppModule { }

@@ -100,6 +100,8 @@ import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
 import { PgPanelNaturalComponent } from './ModuloAdministracion/pg-panel-natural/pg-panel-natural.component';
+import { PgPrincipaladminComponent } from './ModuloAdministracion/pg-principaladmin/pg-principaladmin.component';
+import { PgFormularioreporteComponent } from './ModuloAdministracion/pg-formularioreporte/pg-formularioreporte.component';
 
 
 registerLocaleData(localeEs);
@@ -150,6 +152,8 @@ registerLocaleData(localeEs);
     PgPersonalorganizacionComponent,
     PgPrincipalorganizacionComponent,
     PgPanelNaturalComponent,
+    PgPrincipaladminComponent,
+    PgFormularioreporteComponent,
 
   ],
   imports: [

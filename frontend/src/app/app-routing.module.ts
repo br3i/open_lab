@@ -33,7 +33,10 @@ import { PgEmpresaeditarComponent } from './ModuloAdministracion/pg-empresaedita
 import { PgRegistroempresaComponent } from './ModuloPublico/pg-registroempresa/pg-registroempresa.component';
 
 import { PgInicioComponent } from './ModuloAdministracion/pg-inicio/pg-inicio.component';
-
+import { PgDashboardMultiComponent } from './ModuloAdministracion/pg-principalreporte/pg-dashboard-multi/pg-dashboard-multi.component';
+import { PgPrincipalreporteComponent } from './ModuloAdministracion/pg-principalreporte/pg-principalreporte.component';
+import { ReportedonacionComponent } from './ModuloAdministracion/pg-principalreporte/reportedonacion/reportedonacion.component';
+import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
@@ -61,10 +64,15 @@ const routes: Routes = [
         component: PgPublicloginComponent
       },
       {
+        path: 'pago',
+        component: ModuloPagoComponent
+      },
+      {
         path: '',
         redirectTo: 'inicio',
         pathMatch: 'full'
-      }
+      },
+      
 
     ]
   },
@@ -194,6 +202,16 @@ const routes: Routes = [
           { path: "pg-adminusuario", component: PgAdminusuarioComponent },
           { path: "pg-adminroles", component: PgAdminrolesComponent },
         ],
+      },
+      {
+        path: 'principalreporte',
+        component: PgPrincipalreporteComponent,
+        canActivate: [AuthGuard],
+        children: [
+          { path: 'reportedonacion', component: ReportedonacionComponent },
+          { path: 'multi', component: PgDashboardMultiComponent },
+          { path: '', redirectTo: 'reportedonacion', pathMatch: 'full' }
+        ]
       },
       {
         path: 'principalperfil',

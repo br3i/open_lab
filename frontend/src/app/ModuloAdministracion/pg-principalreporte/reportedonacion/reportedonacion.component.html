@@ -1,0 +1,93 @@
+<div class="reportedonacion">
+  <h3>Reporte de Donaciones</h3>
+  <p>Dashboard: KPIs y muchas visualizaciones de ejemplo.</p>
+
+    <div style="display:flex; gap:12px;">
+      <div style="flex:1; background:#fff; padding:12px; border-radius:6px;">
+        <h5>Configurar KPIs por tipo de gráfico</h5>
+
+        <!-- Line chart section -->
+        <div style="margin-top:12px; background:#fafafa; padding:12px; border-radius:6px;">
+          <h6>Line Chart</h6>
+          <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+            <p-multiSelect [options]="availableKpis" optionLabel="label" [(ngModel)]="selectedForLine" placeholder="KPIs para Line"></p-multiSelect>
+            <button pButton type="button" label="Actualizar" (click)="updateLineChart()"></button>
+          </div>
+          <div style="height:240px; margin-top:8px"><canvas #chartLine></canvas></div>
+        </div>
+
+        <!-- Doughnut chart section -->
+        <div style="margin-top:12px; background:#fafafa; padding:12px; border-radius:6px;">
+          <h6>Doughnut</h6>
+          <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+            <p-multiSelect [options]="availableKpis" optionLabel="label" [(ngModel)]="selectedForDoughnut" placeholder="KPIs para Doughnut"></p-multiSelect>
+            <button pButton type="button" label="Actualizar" (click)="updateDoughnutChart()"></button>
+          </div>
+          <div style="height:240px; margin-top:8px"><canvas #chartDoughnut></canvas></div>
+        </div>
+
+        <!-- Polar chart section -->
+        <div style="margin-top:12px; background:#fafafa; padding:12px; border-radius:6px;">
+          <h6>Polar Area</h6>
+          <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+            <p-multiSelect [options]="availableKpis" optionLabel="label" [(ngModel)]="selectedForPolar" placeholder="KPIs para Polar"></p-multiSelect>
+            <button pButton type="button" label="Actualizar" (click)="updatePolarChart()"></button>
+          </div>
+          <div style="height:240px; margin-top:8px"><canvas #chartPolar></canvas></div>
+        </div>
+
+        <!-- Radar has its own block below for maximum visibility -->
+        <div style="margin-top:12px; background:#fafafa; padding:12px; border-radius:6px;">
+          <h6>Radar (KPIs por rol)</h6>
+          <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+            <p-multiSelect [options]="availableKpis" optionLabel="label" [(ngModel)]="selectedForRadar" placeholder="KPIs para Radar"></p-multiSelect>
+            <button pButton type="button" label="Actualizar" (click)="updateRadarChart()"></button>
+          </div>
+          <div style="height:320px; margin-top:8px"><canvas #chartRadar></canvas></div>
+        </div>
+      </div>
+    </div>
+  <div style="display:flex; gap:12px; margin-top:12px;">
+    <div style="flex:1; background:#fff; padding:12px; border-radius:6px;">
+      <h5>Tabla - Usuarios recientes</h5>
+      <p-table [value]="usuariosRecientes">
+        <ng-template pTemplate="header">
+          <tr><th>ID</th><th>Nombre</th><th>Rol</th><th>Creado</th></tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+          <tr><td>{{row.id}}</td><td>{{row.nombre}}</td><td>{{row.rol}}</td><td>{{row.creado}}</td></tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div style="width:320px; background:#fff; padding:12px; border-radius:6px;">
+      <h5>Árbol</h5>
+      <p-tree [value]="treeNodes"></p-tree>
+    </div>
+  </div>
+  
+
+  <div style="margin-top:12px; background:#fff; padding:12px; border-radius:6px;">
+    <h5>Timeline (PrimeNG) - Left align</h5>
+    <p-timeline [value]="timeline" align="left">
+      <ng-template pTemplate="marker" let-item>
+        <span class="marker">•</span>
+      </ng-template>
+      <ng-template pTemplate="content" let-item>
+        <h6>{{item.fecha}}</h6>
+        <p>{{item.evento}}</p>
+      </ng-template>
+    </p-timeline>
+
+    <h5 style="margin-top:12px">Timeline - Alternate</h5>
+    <p-timeline [value]="timeline" align="alternate">
+      <ng-template pTemplate="opposite" let-item>
+        <small>{{item.fecha}}</small>
+      </ng-template>
+      <ng-template pTemplate="content" let-item>
+        <p>{{item.evento}}</p>
+      </ng-template>
+    </p-timeline>
+  </div>
+
+</div>

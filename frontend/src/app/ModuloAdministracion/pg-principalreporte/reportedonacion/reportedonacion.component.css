@@ -1,0 +1,15 @@
+.reportedonacion {
+    padding: 12px;
+}
+
+.kpi-row {
+    display: flex;
+    gap: 12px;
+}
+
+.kpi {
+    padding: 8px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}

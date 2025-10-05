@@ -47,7 +47,7 @@ export class MenuadminComponent implements OnInit, OnDestroy {
 
   menuOpcionesBase: Record<number, { label: string; icon: string; routerLink?: string; items?: MenuItem[] }> = {
     1: { label: 'Inicio', icon: 'pi pi-fw pi-home', routerLink: '/dashadmin/inicio' },
-    2: { label: 'Administración', icon: 'pi pi-fw pi-cog', routerLink: '/dashadmin/principaladmin' },
+    2: { label: 'Informes', icon: 'pi pi-fw pi-cog', routerLink: '/dashadmin/principaladmin' },
     3: { label: 'Organización', icon: 'pi pi-fw pi-users', routerLink: '/dashadmin/principalorganizacion' },
     5: {
       label: 'Beneficiarios', icon: 'pi pi-heart',
@@ -66,10 +66,10 @@ export class MenuadminComponent implements OnInit, OnDestroy {
 
   opcionesPorRol = {
     [this.variablesRoles.Administrador]: [1, 2, 3, 5, 7, 8, 9],
-    [this.variablesRoles.TecnicoAdmin]: [ 5, 7, 8, 9],
-    [this.variablesRoles.Practicante]: [6, 9],
+    [this.variablesRoles.TecnicoAdmin]: [5, 7, 8, 9],
+    [this.variablesRoles.Practicante]: [2, 9],
     [this.variablesRoles.TecnicoOperativo]: [5, 9],
-    [this.variablesRoles.Voluntario]: [ 9],
+    [this.variablesRoles.Voluntario]: [9],
 
   };
 

@@ -38,6 +38,7 @@ const rutaempresa = require('./rutas/empresa/rutaempresa');
 //Rutas persona
 const rutapersonas = require('./rutas/persona/rutacentralpersona');
 
+const nlqRoutes = require('./rutas/nlq.js');
 
 
 const cors = require('cors');
@@ -106,7 +107,7 @@ app.use(url + '/rutaempresa', rutaempresa);
 // Rutas persona
 app.use(url + '/rutapersonas', rutapersonas);
 
-
+app.use(url + '/nlq', nlqRoutes);
 /*MIDLEWARES*/
 app.use(express.json({ limit: '50mb' }));//convierte en objeto js 
 app.use(express.urlencoded({ extended: false }));//procesa datos de formularios(en otros modulos extended true)

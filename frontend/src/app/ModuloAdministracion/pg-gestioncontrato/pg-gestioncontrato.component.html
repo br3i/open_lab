@@ -1,7 +1,7 @@
 <div class="card separador-componentes">
   <p-toolbar>
     <div class="p-toolbar-group-center">
-      <p>GESTION DE CONTRATO</p>
+      <p>GESTION DE PROYECTO</p>
     </div>
   </p-toolbar>
 
@@ -20,33 +20,33 @@
 
 
   <div class="flex flex-column gap-2 mt-3">
-    <label for="contrato">Identificador del Convenio</label>
-    <input pInputText id="contrato" placeholder="Ingrese el Identificador del Convenio"
+    <label for="contrato">Identificador del Proyecto</label>
+    <input pInputText id="contrato" placeholder="Ingrese el Identificador del Proyecto"
       [(ngModel)]="contrato_strIdentificador" />
   </div>
 
   <!-- Campo para introducir el titulo del contrato -->
   <div class="flex flex-column gap-2 mt-3">
-    <label for="contrato">Titulo Convenio</label>
-    <textarea id="contrato" pInputText placeholder="Ingrese el Título del Convenio" rows="5" cols="30"
+    <label for="contrato">Titulo Proyecto</label>
+    <textarea id="contrato" pInputText placeholder="Ingrese el Título del Proyecto" rows="5" cols="30"
       [(ngModel)]="contrato_strTitulo">
   </textarea>
   </div>
 
   <!-- Campo para introducir la descripcion del contrato -->
   <div class="flex flex-column gap-2 mt-3">
-    <label for="contrato">Introducción Convenio</label>
-    <textarea id="contrato" pInputText placeholder="Ingrese la introducción del Convenio" rows="5" cols="30"
+    <label for="contrato">Introducción Proyecto</label>
+    <textarea id="contrato" pInputText placeholder="Ingrese la introducción del Proyecto" rows="5" cols="30"
       [(ngModel)]="contrato_strDescripcion">
   </textarea>
   </div>
 
   <br>
-  <!-- Botón para expandir/contraer la sección de Cláusulas -->
+  <!-- Botón para expandir/contraer la sección de Indicadores -->
   <div class="card separador-componentes">
     <div class="flex justify-content-between">
       <div>
-        <p-button label="Cláusulas" icon="{{ expandirClausulas ? 'pi pi-chevron-up' : 'pi pi-chevron-down' }}"
+        <p-button label="Indicadores" icon="{{ expandirClausulas ? 'pi pi-chevron-up' : 'pi pi-chevron-down' }}"
           (click)="activarExpandirClausulas()" styleClass="p-button-text">
         </p-button>
       </div>
@@ -58,20 +58,20 @@
       </div>
     </div>
     <div>
-      <p-dialog header="Nueva Cláusula" [(visible)]="visibleNuevaClausula" [modal]="true" [style]="{ width: '55vw' }"
+      <p-dialog header="Nueva Indicadores" [(visible)]="visibleNuevaClausula" [modal]="true" [style]="{ width: '55vw' }"
         [draggable]="false" [resizable]="false" class="general-modal header-verde">
 
         <ng-template pTemplate="header">
-          <span class="text-xl font-bold">Nueva Cláusula</span>
+          <span class="text-xl font-bold">Nueva Indicadores</span>
         </ng-template>
 
         <ng-template pTemplate="content">
           <br>
-          <p-button type="button" icon="pi pi-external-link" label="Lista de Cláusulas" class="p-mb-3"
+          <p-button type="button" icon="pi pi-external-link" label="Lista de Indicadores" class="p-mb-3"
             (click)="  ModalDialogClausula()">
           </p-button>
           <div class="flex flex-column gap-2 mt-3">
-            <label for="tituloClausula">Título de la Cláusula</label>
+            <label for="tituloClausula">Título del Indicadores</label>
             <input pInputText id="tituloClausula" placeholder="Ingrese el título de la cláusula"
               [(ngModel)]="clausula_strTitulo" /> <!-- Vinculado al modelo de título -->
           </div>
@@ -93,7 +93,7 @@
 
     <div *ngIf="expandirClausulas">
       <div class="container mt-2">
-        <!-- Tabla de Cláusulas -->
+        <!-- Tabla de Indicadores -->
         <p-table [value]="ListadoClausula" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
           [tableStyle]="{ 'min-width': '10rem' }" styleClass="p-datatable-sm"
           currentPageReportTemplate="Mostrar {first} - {last} de {totalRecords} elementos"
@@ -143,14 +143,14 @@
 
   </div>
 
-  <!-- Modal para Cláusula -->
-  <p-dialog header="Detalle de la Cláusula" [(visible)]="dialogVerClausulaVisible" [modal]="true"
+  <!-- Modal para Indicadores -->
+  <p-dialog header="Detalle del Indicadores" [(visible)]="dialogVerClausulaVisible" [modal]="true"
     [style]="{width: '50vw'}" [draggable]="false" [resizable]="false">
 
     <ng-template pTemplate="content">
       <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12">
-          <label for="nombreClausula">Título de la Cláusula</label>
+          <label for="nombreClausula">Título del Indicadores</label>
           <input id="nombreClausula" type="text" pInputText [(ngModel)]="clausulaVisualizada.clausula_strtitulo"
             disabled />
         </div>
@@ -169,22 +169,22 @@
     </ng-template>
   </p-dialog>
 
-  <p-dialog header="Editar Cláusula" [(visible)]="visibleEditarClausula" [modal]="true" [style]="{ width: '75vw' }"
+  <p-dialog header="Editar Indicadores" [(visible)]="visibleEditarClausula" [modal]="true" [style]="{ width: '75vw' }"
     [draggable]="false" [resizable]="false" class="general-modal header-verde">
 
     <ng-template pTemplate="header">
-      <span class="text-xl font-bold">Editar Cláusula</span>
+      <span class="text-xl font-bold">Editar Indicadores</span>
     </ng-template>
 
     <ng-template pTemplate="content">
       <div class="flex flex-column gap-2 mt-3">
-        <label for="tituloClausula">Título de la Cláusula</label>
-        <input pInputText id="tituloClausula" placeholder="Ingrese el título de la Cláusula"
+        <label for="tituloClausula">Título del Indicadores</label>
+        <input pInputText id="tituloClausula" placeholder="Ingrese el título del Indicadores"
           [(ngModel)]="clausulaSeleccionada.clausula_strtitulo" />
       </div>
       <div class="flex flex-column gap-2 mt-3">
-        <label for="contenidoCausula">Contenido de la Cláusula</label>
-        <textarea pInputText id="contenidoClausula" rows="5" placeholder="Ingrese el contenido de la Cláusula"
+        <label for="contenidoCausula">Contenido del Indicadores</label>
+        <textarea pInputText id="contenidoClausula" rows="5" placeholder="Ingrese el contenido del Indicadores"
           [(ngModel)]="clausulaSeleccionada.clausula_strdescripcion" style="width: 100%;">
         </textarea>
       </div>
@@ -257,7 +257,7 @@
     </ng-template>
   </p-dialog>
 
-  <p-dialog header="Lista de Cláusulas" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body"
+  <p-dialog header="Lista de Indicadores" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body"
     [(visible)]="dialogClausulasVisible" [style]="{width: '75vw'}" [contentStyle]="{height: '300px'}">
 
     <div class="flex justify-content-end align-items-center mb-4">
@@ -295,10 +295,10 @@
     </ng-template>
   </p-dialog>
 
-  <p-dialog header="Elminar Cláusula" [(visible)]="visibleEliminarClausula" [modal]="true" [style]="{ width: '25vw' }"
+  <p-dialog header="Elminar Indicadores" [(visible)]="visibleEliminarClausula" [modal]="true" [style]="{ width: '25vw' }"
     [draggable]="false" [resizable]="false">
     <ng-template pTemplate="header">
-      <span class="text-xl font-bold">Eliminar Cláusula</span>
+      <span class="text-xl font-bold">Eliminar Indicadores</span>
     </ng-template>
 
     <ng-template pTemplate="content">
@@ -673,7 +673,7 @@
     </ng-template>
   </p-dialog>
 
-  <p-dialog header="Previsualización del Convenio" [(visible)]="visiblepdfContrato" [modal]="true"
+  <p-dialog header="Previsualización del Proyecto" [(visible)]="visiblepdfContrato" [modal]="true"
     [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
     <ng-template pTemplate="header">
       <span class="text-xl font-bold">GENERACIÓN DOCUMENTO</span>

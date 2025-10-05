@@ -52,7 +52,7 @@ function calcularAlturaEncabezado(contenidoEncabezado) {
 
 //Encabezado con datos de la organización
 module.exports.encabezadoOcultoHtml = async function () {
-  const imagenheader = pathimage.join(__dirname, '../public/imagenes/logobar2.png');
+  const imagenheader = pathimage.join(__dirname, '../public/imagenes/logo.jpg');
 
   try {
     // Obtener los datos de la organización
@@ -121,7 +121,7 @@ module.exports.encabezadoOcultoHtml = async function () {
 };
 
 module.exports.encabezadoHtml = async function () {
-  const imagenheader = pathimage.join(__dirname, '../public/imagenes/logobar2.png');
+  const imagenheader = pathimage.join(__dirname, '../public/imagenes/logo.jpg');
 
   try {
     // Obtener los datos de la organización
@@ -191,7 +191,7 @@ module.exports.encabezadoHtml = async function () {
 
 
 module.exports.piepaginaHtml = function () {
-  var imagenfooter = pathimage.join(__dirname, '../public/imagenes/logobar.png');
+  var imagenfooter = pathimage.join(__dirname, '../public/imagenes/logo.jpg');
   const footerHtml = `<div style="text-align: center;">
         <img src="data:image/jpeg;base64,${imageToBase64(imagenfooter)}" alt="Footer Image" style="width: 300px;height: 30px">
         <p style='text-align: right;font-size: 10px;'>Fecha impresión : <strong>${FechaActual()} </strong> </p>
@@ -200,7 +200,7 @@ module.exports.piepaginaHtml = function () {
   return footerHtml
 }
 module.exports.piepaginaOcultoHtml = function () {
-  var imagenfooter = pathimage.join(__dirname, '../public/imagenes/logobar.png');
+  var imagenfooter = pathimage.join(__dirname, '../public/imagenes/logo.jpg');
   const footerHtml2 = `<div style="text-align: center;display:none">
         <img src="data:image/jpeg;base64,${imageToBase64(imagenfooter)}" alt="Footer Image" style="width: 300px;height: 30px">
         <p style='text-align: right;font-size: 11px;'> Fecha impresión : <strong>${FechaActual()} </strong> </p>

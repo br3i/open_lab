@@ -59,14 +59,14 @@
 
 
 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  border-color: #95c11f !important;
-  color: #95c11f !important;
+  border-color: #E22646 !important;
+  color: #E22646 !important;
 }
 
 .p-menubar {
   gap: 20px;
   background-color: #ffffff;
-  border-bottom: 3px solid #95c11f6b;
+  border-bottom: 3px solid #E226466b;
   border-radius: 0 !important;
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
@@ -84,7 +84,7 @@
 
 .p-slidemenu {
   width: auto !important;
-  border-right: 2px solid #95c11f6b;
+  border-right: 2px solid #E226466b;
   border-radius: 0 !important;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -93,7 +93,7 @@
 }
 
 .p-slidemenu .p-menuitem-link:not(.p-disabled):hover {
-  background: #95c11f3d;
+  background: #E226463d;
 }
 
 .layout-menu {
@@ -133,7 +133,7 @@
 
 .footer {
   grid-area: footer;
-  background: #96c11f;
+  background: #E22646;
   color: white;
   padding: 10px;
   text-align: center;
@@ -147,7 +147,7 @@
 }
 
 .p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-link:not(.p-disabled):hover {
-  background: #95c11f3d;
+  background: #E226463d;
 }
 
 
@@ -210,15 +210,15 @@
   padding: 10px;
   border-radius: 4px;
   font-size: 0.9rem;
-  border: 1px solid var(--input-border-color, #96c11f);
+  border: 1px solid var(--input-border-color, #E22646);
   /* Borde configurable */
   transition: box-shadow 0.3s ease;
 }
 
 .input-style:focus {
   outline: none;
-  box-shadow: 0 0 4px var(--input-border-color, #96c11f);
-  border: 1px solid var(--input-border-focus-color, #96c11f);
+  box-shadow: 0 0 4px var(--input-border-color, #E22646);
+  border: 1px solid var(--input-border-focus-color, #E22646);
 }
 
 
@@ -242,7 +242,7 @@
 }
 
 .upload-container.dragover {
-  border-color: #96c11f;
+  border-color: #E22646;
   background-color: #e9f7ef;
 }
 
@@ -263,7 +263,7 @@
 .color-iconos {
   background-color: var(--icon-bg-color, #e9f7ef);
   /* Fondo configurable */
-  color: var(--icon-color, #96c11f);
+  color: var(--icon-color, #E22646);
   /* Color del icono configurable */
   display: flex;
   align-items: center;
@@ -278,7 +278,7 @@
 
 /* Cambiar icono y texto al pasar el mouse */
 .upload-container:hover .upload-text {
-  color: #96c11f;
+  color: #E22646;
 }
 
 
@@ -506,11 +506,11 @@
 
 
 .custom-green-button-guardar {
-  background-color: #96c11f !important;
+  background-color: #E22646 !important;
   /* Fondo verde claro */
   color: rgb(255, 255, 255) !important;
   /* Texto negro */
-  border: 1px solid #96c11f !important;
+  border: 1px solid #E22646 !important;
   /* Borde verde */
   border-radius: 4px;
   /* Borde redondeado */
@@ -551,13 +551,13 @@
 
 /* Cambia el fondo del ícono del calendario */
 p-calendar .p-datepicker-trigger {
-  background-color: #96c11f !important;
+  background-color: #E22646 !important;
   /* Cambia este color */
 }
 
 /* Cambiar color del ícono desplegable en p-autoComplete */
 p-autoComplete .p-autocomplete-dropdown {
-  background-color: #96c11f !important;
+  background-color: #E22646 !important;
   /* Cambia este color */
   color: #ffffff !important;
   /* Cambia el color del ícono */
@@ -575,7 +575,7 @@ p-autoComplete .p-autocomplete-dropdown .p-dropdown-trigger-icon {
 
 ::ng-deep .p-accordion-header:hover {
 
-  color: #95c11f !important;
+  color: #E22646 !important;
 }
 
 ::ng-deep .p-accordion-header a {
@@ -714,7 +714,7 @@ p-table table td {
 
 /* Cambiar color del header del modal */
 .header-verde .p-dialog-header {
-  background-color: #96c11f !important;
+  background-color: #E22646 !important;
   /* Verde del header */
   color: white !important;
   /* Color del texto */
@@ -755,28 +755,28 @@ label {
 
 /* Paso ACTIVO (verde) */
 .wizard-custom.p-steps .p-steps-item.p-highlight .p-steps-number {
-  background: #95c11f !important;
-  border-color: #95c11f !important;
+  background: #E22646 !important;
+  border-color: #E22646 !important;
   color: #fff !important;
 }
 .wizard-custom.p-steps .p-steps-item.p-highlight .p-steps-title {
-  color: #95c11f !important;
+  color: #E22646 !important;
   font-weight: 600;
 }
 
 /* Pasos COMPLETADOS (visitados) */
 .wizard-custom.p-steps .p-steps-item.p-steps-complete .p-steps-number {
   background: #e9f5d9 !important;
-  border-color: #95c11f !important;
-  color: #95c11f !important;
+  border-color: #E22646 !important;
+  color: #E22646 !important;
 }
 .wizard-custom.p-steps .p-steps-item.p-steps-complete .p-steps-title {
-  color: #95c11f !important;
+  color: #E22646 !important;
 }
 
 /* Línea conectora en verde cuando el paso está completo */
 .wizard-custom.p-steps .p-steps-item.p-steps-complete .p-steps-separator {
-  border-top-color: #95c11f !important;
+  border-top-color: #E22646 !important;
 }
 
 /* (Opcional) subrayado bajo el título del paso activo */
@@ -788,6 +788,6 @@ label {
   position: absolute;
   left: 0; right: 0; bottom: -6px;
   height: 3px;
-  background: #95c11f;
+  background: #E22646;
   border-radius: 2px;
 }

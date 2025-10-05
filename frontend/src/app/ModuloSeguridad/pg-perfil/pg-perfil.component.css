@@ -21,7 +21,7 @@
 
 /* Icono de usuario centrado */
 .perfil-avatar {
-    background: #95c11f; /* 🔹 Cambia el color del fondo del icono */
+    background: #E22646; /* 🔹 Cambia el color del fondo del icono */
     color: white; /* 🔹 Cambia el color del ícono */
     border-radius: 50%;
     width: 120px; /* 🔹 Aumenta el tamaño del círculo */
@@ -39,7 +39,7 @@
     align-items: center;
     margin-top: -10px; /* Ajusta la posición más cerca del avatar */
     font-size: 22px;
-    color: #95c11f;
+    color: #E22646;
     cursor: pointer;
     position: relative;
 }
@@ -52,7 +52,7 @@
 }
 
 .perfil-cambiar-foto:hover {
-    color: #95c11f;
+    color: #E22646;
 }
 
 /* 🔹 Info al lado del avatar */
@@ -88,7 +88,7 @@
 /* 🎨 Íconos */
 .perfil-item i {
     font-size: 1.2rem;
-    color: #95c11f;
+    color: #E22646;
 }
 
 /* 🏷 Etiquetas */
@@ -137,7 +137,7 @@
 
 .perfil-sidebar li.active,
 .perfil-sidebar li:hover {
-    background: #95c11f;
+    background: #E22646;
     color: white;
 }
 
@@ -170,7 +170,7 @@
 
 .perfil-item i {
     margin-right: 10px;
-    color: #95c11f;
+    color: #E22646;
     font-size: 20px;
 }
 

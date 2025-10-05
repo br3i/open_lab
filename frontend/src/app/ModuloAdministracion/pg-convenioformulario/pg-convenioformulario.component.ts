@@ -107,27 +107,9 @@ export class PgConvenioFormularioComponent implements OnInit {
         this.idTipoDonante = params['idTipoDonante'] ? Number(params['idTipoDonante']) : null;
       });
 
-      // Si no se recibió el dato por queryParams, buscar en localStorage
-      if (!this.idTipoDonante) {
-        const storedId = localStorage.getItem('idTipoDonante');
-        if (storedId) {
-          this.idTipoDonante = Number(storedId);
-        }
-      }
+  
 
-      // Establecer un valor predeterminado si no hay valor disponible
-      if (!this.idTipoDonante) {
-        this.idTipoDonante = this.personaNatural; // Valor predeterminado (Persona Natural)
-      }
-
-      // Llamadas asincrónicas basadas en el tipo de donante
-      if (this.idTipoDonante === this.personaNatural) {
-        this.setValoresPorDefectoPersonaNatural();
-        await this.ListarPersonas();
-
-      } else if (this.idTipoDonante === this.personaJuridica) {
-        await this.ListarEmpresas();
-      }
+ await this.ListarEmpresas();
 
       // Llamadas asincrónicas generales
       await Promise.all([

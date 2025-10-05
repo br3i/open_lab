@@ -5,28 +5,10 @@
         </div>
     </p-toolbar>
 
-    <div class="card seleccion-tipo-donante mb-4">
-        <h5><i class="pi pi-user"></i> Seleccione un tipo de donante</h5>
-        <div class="form-row mt-3 align-items-center">
-            <div class="col-auto d-flex align-items-center">
-                <label class="mr-2 bold-label">Tipo de donante:</label>
-                <p-dropdown [options]="ListadoTiposDonantes" [(ngModel)]="selectedTipoDonante"
-                    optionLabel="tipodonante_strnombre" placeholder="Seleccione un tipo de donante"
-                    (onChange)="CargarConvenios()">
-                </p-dropdown>
-            </div>
-        </div>
 
-        <div *ngIf="selectedTipoDonante" class="form-row mt-3">
-            <span><strong>Descripción:</strong>
-                {{ selectedTipoDonante?.tipodonante_strdescripcion || 'Descripción del tipo de donante' }}
-            </span>
-        </div>
-    </div>
 
-    <div class="titulo-convenios" *ngIf="selectedTipoDonante">
-        LISTADO DE LOS CONVENIOS DE {{ selectedTipoDonante.tipodonante_strnombre }}
-    </div>
+    <div class="titulo-convenios" >
+        LISTADO DE LOS CONVENIOS     </div>
 
     <div style="display: flex; justify-content: flex-end;">
         <p-button type="button" icon="pi pi-plus" styleClass="custom-green-button-guardar" label="Nuevo"
@@ -35,7 +17,7 @@
     </div>
 
 
-    <div *ngIf="selectedTipoDonante">
+    <div >
         <p-table #dt [value]="listadoConvenioFiltrado" *ngIf="!datosCargando" [rows]="10" [paginator]="true"
             [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
             [tableStyle]="{ 'min-width': '75rem' }" [(selection)]="selectedConvenios" [rowHover]="true"
@@ -77,18 +59,9 @@
 
                     <!-- Donador -->
                     <td>
-                        <ng-container
-                            *ngIf="convenio.ouconvenio_idtipodonante === personaNatural || (selectedTipoDonante?.idtipodonante === 0 && convenio.representante?.idpersona && !convenio.empresa)">
-                            <strong>NOMBRES:</strong>
-                            {{ convenio.representante?.nombres }} {{ convenio.representante?.apellidos }}<br />
-                            <strong>CÉDULA:</strong> {{ convenio.representante?.documento }}<br />
-                            <strong>CELULAR:</strong> {{ convenio.representante?.celular1 }}<br />
-                            <strong>CORREO:</strong> {{ convenio.representante?.correo1 }}
-                        </ng-container>
-
                         <!-- Persona Jurídica -->
                         <ng-container
-                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idfundacion)">
+                            >
                             <strong>FUNDACIÓN:</strong> {{ convenio.empresa?.empresa_strnombre }}<br />
                             <strong>RUC:</strong> {{ convenio.empresa?.strdocumento }}<br />
                             <strong>CELULAR:</strong> {{ convenio.empresa?.empresa_strcelular1 }}<br />
@@ -99,7 +72,7 @@
                     <!-- Representante Legal -->
                     <td>
                         <ng-container
-                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idfundacion)">
+                            >
                             <strong>NOMBRES:</strong>
                             {{ convenio.representante?.ourepresentante_nombres + ' ' +
                             convenio.representante?.ourepresentante_apellidos}}
@@ -126,7 +99,7 @@
                             (click)="ModalCambiarEstado(convenio)"></p-button>
 
                         <ng-container
-                            *ngIf="convenio.ouconvenio_idtipodonante === personaJuridica || (selectedTipoDonante?.idtipodonante === 0 && convenio.empresa?.idfundacion)">
+                           >
 
                             <p-button type="button" icon="pi pi-download" styleClass="p-button-text"
                                 (click)="descargarContrato(convenio)" pTooltip="Descargar Convenio"

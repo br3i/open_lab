@@ -71,10 +71,10 @@ export class PgConvenioComponent implements OnInit {
 
   async ListadoTiposDonante() {
     try {
-      const data = await new Promise<any>((resolve) => this.serviciosCentral.ListadoTipoDonanteActivos().subscribe(translated => { resolve(translated) }));
+      const data = await new Promise<any>((resolve) => this.serviciosCentral.ListadoTipoEmpresaActivos().subscribe(translated => { resolve(translated) }));
 
       if (data.success) {
-        this.ListadoTiposDonantes = [{ idtipodonante: 0, tipodonante_strnombre: 'TODOS' }, ...data.datos];
+        this.ListadoTiposDonantes = [{ idtipoempresa: 0, strnombretipo: 'TODOS' }, ...data.datos];
       } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo cargar la lista de tipos de donante.' });
       }
@@ -93,7 +93,7 @@ export class PgConvenioComponent implements OnInit {
       this.listadoconvenios = [];
       return;
     }
-    const idTipoDonante = Number(this.selectedTipoDonante.idtipodonante);
+    const idTipoDonante = Number(this.selectedTipoDonante.idtipoempresa);
 
     try {
       let data;

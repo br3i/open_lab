@@ -41,7 +41,7 @@
 }
 
 .icon-box:hover {
-  background-color: #95c11f; /* Cambia el fondo al pasar el cursor */
+  background-color: #E22646; /* Cambia el fondo al pasar el cursor */
   color: #fff; /* Cambia el color del texto e ícono al pasar el cursor */
   transform: translateY(-5px);
   box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.2);

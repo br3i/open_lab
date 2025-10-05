@@ -4,7 +4,7 @@
     font-family: 'Arial', sans-serif;  /* Tipo de letra */
     font-size: 1rem;  /* Tamaño de letra de 1rem */
     padding: 1rem;
-    border-right: 3px solid #95c11f6b; /* Borde lateral del menú */
+    border-right: 3px solid #E226466b; /* Borde lateral del menú */
     width: 225px;  /* Ancho fijo del menú */
     height: 100%;
     border-radius: 0;
@@ -28,14 +28,14 @@
 
   /* Estilo al pasar el mouse */
   .menu-lateral a:hover {
-    background-color: #95c11f3d; /* Fondo suave al pasar el mouse */
+    background-color: #E226463d; /* Fondo suave al pasar el mouse */
     color: #000000; /* Cambio de color del texto */
     font-weight: bold; /* Negrita en el texto */
   }
 
   /* Enlace activo */
   .menu-lateral a.active-menu-item {
-    background-color: #95c11f; /* Fondo cuando está activo */
+    background-color: #E22646; /* Fondo cuando está activo */
     color: #fff;  /* Texto blanco cuando está activo */
     font-weight: bold;
   }
@@ -116,14 +116,14 @@
 
 /* Estilo para los enlaces activos en el menú */
 .menu-lateral a.active-menu-item {
-  background-color: #95c11f;
+  background-color: #E22646;
   color: #fff; 
   font-weight: bold; 
 }
 
 /* Estilo para los submenús activos */
 .submenu a.active-submenu-item {
-  background-color: #95c11f; 
+  background-color: #E22646; 
   color: #fff;  
   font-weight: bold; 
 }

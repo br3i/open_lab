@@ -1,0 +1,63 @@
+.progress-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.custom-progress-bar-container {
+  flex-grow: 1;
+  height: 1.5rem;
+  background-color: #e9ecef;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.custom-progress-bar {
+  height: 100%;
+  transition: width 0.4s ease;
+  border-radius: 6px;
+}
+
+.progress-label {
+  min-width: 50px;
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+/* --- ===== NUEVOS ESTILOS PARA LA CABECERA DE LA TARJETA ===== --- */
+.card-title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline; /* Alinea el texto base de ambos elementos */
+  width: 100%;
+}
+
+.project-name {
+  font-size: 1.25rem; /* Un poco más grande */
+  font-weight: 600;
+  color: #334155;
+}
+
+.foundation-name {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+
+:host ::ng-deep .project-completed .p-card {
+  /* Degradado sutil de un verde claro a blanco */
+  background: linear-gradient(to right, #f0fdf4, #ffffff);
+  border-left: 5px solid #22c55e;
+  transition: all 0.3s ease;
+}
+
+/* --- ESTILOS PARA LA SECCIÓN DE FACTURACIÓN --- */
+.completion-section {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

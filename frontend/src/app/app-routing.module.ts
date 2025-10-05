@@ -40,9 +40,8 @@ import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
-
+import { PgContratoFormularioComponent } from './ModuloAdministracion/pg-contratoformulario/pg-contratoformulario.component';
 import { PgPanelProgresoComponent } from './ModuloAdministracion/pg-panel-progreso/pg-panel-progreso.component';
-
 
 import { PgPrincipalindicadorComponent } from './ModuloAdministracion/pg-principalindicador/pg-principalindicador.component';
 import { PgIndicadorComponent } from './ModuloAdministracion/pg-indicador/pg-indicador.component';
@@ -186,6 +185,11 @@ const routes: Routes = [
           {
             path: 'listadocontratos',
             component: PgContratoComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'ingresoformulario',
+            component: PgContratoFormularioComponent,
             canActivate: [AuthGuard]
           },
           {

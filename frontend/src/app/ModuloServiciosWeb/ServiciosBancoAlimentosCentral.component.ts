@@ -496,4 +496,15 @@ ObtenerConvenioDadoId(idConvenio: any) {
     return this.hpptclient.post<any>(this.urlServiciosBancoAlimentos + '/rutamensajesolicitud/mensajeSolicitudDonante  ',contenido)
   }
 
+  // Métodos genéricos para peticiones
+  PostGET(ruta: string) {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.hpptclient.get<any>(this.urlServiciosBancoAlimentos + '/' + ruta).toPromise();
+  }
+
+  PostFormData(ruta: string, formData: FormData) {
+    return this.hpptclient.post<any>(this.urlServiciosBancoAlimentos + '/' + ruta, formData).toPromise();
+  }
+
 }

@@ -1,0 +1,533 @@
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.loading-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Card de indicadores */
+:host ::ng-deep .card-indicadores {
+  border: 2px solid #e3e8ef;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+:host ::ng-deep .card-indicadores .p-card-body {
+  padding: 1.5rem;
+}
+
+.card-header-custom {
+  padding: 1rem;
+  background: linear-gradient(135deg, rgb(226, 38, 70) 0%, rgb(180, 30, 56) 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 10px 10px 0 0;
+}
+
+/* Pasos numerados */
+.paso-seccion {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  background: #fff5f7;
+  border-left: 4px solid rgb(226, 38, 70);
+  border-radius: 4px;
+}
+
+.paso-numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, rgb(226, 38, 70) 0%, rgb(180, 30, 56) 100%);
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  margin-right: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.paso-titulo {
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+/* Divider para subindicador */
+.divider-subindicador {
+  padding: 0.5rem 1rem;
+  background: #e8f4f8;
+  border-left: 3px solid #17a2b8;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+/* Estilos para el badge de eje */
+.badge-eje {
+  display: inline-block;
+  background: linear-gradient(135deg, rgb(226, 38, 70) 0%, rgb(180, 30, 56) 100%);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 18px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(226, 38, 70, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Estilos para badges de unidad de medición */
+.badge-unidad {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-cantidad {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.badge-porcentaje {
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.badge-otros {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+/* Header de la tabla */
+.tabla-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 1rem 1.25rem;
+  border-radius: 8px 8px 0 0;
+  border: 1px solid #dee2e6;
+  border-bottom: none;
+  color: #495057;
+  font-size: 1rem;
+}
+
+/* Estilos para la tabla de indicadores */
+:host ::ng-deep .tabla-indicadores {
+  border: 1px solid #dee2e6;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+}
+
+:host ::ng-deep .tabla-indicadores .p-datatable-thead > tr > th {
+  background: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+  padding: 0.75rem;
+}
+
+.p-datatable-sm td {
+  vertical-align: middle;
+  padding: 0.75rem;
+}
+
+.p-datatable-striped .p-datatable-tbody > tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.p-datatable-striped .p-datatable-tbody > tr:hover {
+  background-color: #e9ecef !important;
+}
+
+/* Células de la tabla */
+.indicador-cell,
+.subindicador-cell,
+.hito-cell {
+  line-height: 1.4;
+}
+
+.meta-text {
+  color: rgb(226, 38, 70);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.meta-text-sub {
+  color: #17a2b8;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.hito-titulo {
+  color: rgb(226, 38, 70);
+  font-size: 0.9rem;
+}
+
+/* Estilos para texto de información */
+.text-info {
+  color: #17a2b8 !important;
+}
+
+.d-block {
+  display: block !important;
+}
+
+/* Campos que aparecen debajo del indicador */
+.campo-debajo-indicador {
+  background: #fff5f7;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border-left: 3px solid rgb(226, 38, 70);
+  border-radius: 4px;
+}
+
+.campo-debajo-subindicador {
+  background: #e8f4f8;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border-left: 3px solid #17a2b8;
+  border-radius: 4px;
+}
+
+/* Campo de hito */
+.campo-hito {
+  background: #fff3e0;
+  padding: 1rem;
+  margin-top: 0.5rem;
+  border-left: 3px solid rgb(226, 38, 70);
+  border-radius: 4px;
+}
+
+/* Botones rojos */
+:host ::ng-deep .btn-rojo .p-button {
+  background: linear-gradient(135deg, rgb(226, 38, 70) 0%, rgb(180, 30, 56) 100%);
+  border-color: rgb(226, 38, 70);
+  color: white;
+  font-weight: 600;
+}
+
+:host ::ng-deep .btn-rojo .p-button:hover {
+  background: linear-gradient(135deg, rgb(200, 30, 60) 0%, rgb(160, 25, 50) 100%);
+  border-color: rgb(200, 30, 60);
+}
+
+:host ::ng-deep .btn-rojo .p-button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(226, 38, 70, 0.25);
+}
+
+/* Botón de agregar indicador */
+:host ::ng-deep .btn-agregar-indicador .p-button {
+  background: linear-gradient(135deg, rgb(226, 38, 70) 0%, rgb(180, 30, 56) 100%);
+  border-color: rgb(226, 38, 70);
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+}
+
+:host ::ng-deep .btn-agregar-indicador .p-button:hover {
+  background: linear-gradient(135deg, rgb(200, 30, 60) 0%, rgb(160, 25, 50) 100%);
+  border-color: rgb(200, 30, 60);
+}
+
+/* Textarea de hitos */
+:host ::ng-deep .campo-hito textarea {
+  min-height: 120px;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Estilos para indicadores agregados */
+.indicadores-section {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* Estilos para checkboxes */
+.flex.align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+/* Estilos para campos de hitos */
+.field input[type="text"],
+.field textarea {
+  width: 100%;
+}
+
+/* Estilos para los modales */
+:host ::ng-deep .p-dialog .p-dialog-header {
+  background: linear-gradient(135deg, rgb(226, 38, 70) 0%, rgb(180, 30, 56) 100%);
+  color: white;
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  padding: 1.5rem;
+}
+
+/* Destacar opción "Otro" */
+.text-primary {
+  color: rgb(226, 38, 70) !important;
+  font-weight: 600;
+}
+
+/* Responsive para la tabla */
+@media (max-width: 768px) {
+  .p-datatable th, .p-datatable td {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+  }
+  
+  .badge-eje {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+  }
+  
+  .grid.mt-3 {
+    margin-top: 1rem;
+  }
+}
+
+/* Estilos para el formulario */
+.field {
+  margin-bottom: 1rem;
+}
+
+.field label {
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.text-red-500 {
+  color: rgb(226, 38, 70) !important;
+}
+
+.text-primary {
+  color: rgb(226, 38, 70) !important;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Estilos para las secciones */
+.grid.mb-4 h5 {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+hr {
+  border-top: 2px solid #e9ecef;
+  margin: 1rem 0;
+}
+
+/* Estilos para los botones */
+.flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+/* Estilos para el archivo */
+.border-1 {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.border-dashed {
+  border-style: dashed;
+}
+
+.border-300 {
+  border-color: #dee2e6;
+}
+
+.border-green-500 {
+  border-color: #28a745;
+}
+
+.bg-green-50 {
+  background-color: #f8fff9;
+}
+
+.p-3 {
+  padding: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.d-block {
+  display: block;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .flex.justify-content-between {
+    flex-direction: column;
+  }
+  
+  .flex.justify-content-between > div {
+    margin-top: 1rem;
+  }
+  
+  .flex.justify-content-between > div:first-child {
+    margin-top: 0;
+  }
+  
+  .gap-2 {
+    gap: 0.25rem;
+  }
+}
+
+/* Animaciones */
+.grid {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilos para PrimeNG overrides */
+.p-dropdown {
+  width: 100%;
+}
+
+.p-calendar {
+  width: 100%;
+}
+
+.p-inputnumber {
+  width: 100%;
+}
+
+.p-inputtext {
+  width: 100%;
+}
+
+/* Estilos para archivo seleccionado */
+.bg-green-50 {
+  background-color: #f8fff9 !important;
+}
+
+.border-green-500 {
+  border-color: #28a745 !important;
+}
+
+/* Estilos para mensajes de error */
+.p-error {
+  color: #dc3545;
+  font-size: 0.875rem;
+}
+
+.p-invalid {
+  border-color: #dc3545;
+}
+
+/* Estilos para el card */
+.p-card {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 8px;
+}
+
+/* Estilos para el header del card */
+.p-card .p-card-header {
+  background: linear-gradient(135deg, rgb(226, 38, 70) 0%, rgb(180, 30, 56) 100%);
+  color: white;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Icono de flecha para indicar campos anidados */
+.pi-arrow-right,
+.pi-angle-double-right {
+  color: rgb(226, 38, 70);
+  font-weight: 600;
+}
+
+/* Estilos para los iconos */
+.pi {
+  font-size: 1rem;
+}
+
+.pi-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Estilos para el texto */
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* Estilos para los márgenes */
+.mr-2 {
+  margin-right: 0.5rem;
+}
+
+/* Estilos para el tamaño del texto */
+.text-2xl {
+  font-size: 1.5rem;
+}

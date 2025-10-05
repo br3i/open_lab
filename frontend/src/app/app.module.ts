@@ -65,6 +65,10 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { TreeModule } from 'primeng/tree';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { TimelineModule } from 'primeng/timeline';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { PgPrincipalempresaComponent } from './ModuloAdministracion/pg-principalempresa/pg-principalempresa.component';
 import { PgTipoempresaComponent } from './ModuloAdministracion/pg-tipoempresa/pg-tipoempresa.component';
@@ -102,10 +106,10 @@ import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-prin
 import { PgPrincipalindicadorComponent } from './ModuloAdministracion/pg-principalindicador/pg-principalindicador.component';
 import { PgIndicadorComponent } from './ModuloAdministracion/pg-indicador/pg-indicador.component';
 import { PgPanelNaturalComponent } from './ModuloAdministracion/pg-panel-natural/pg-panel-natural.component';
+import { PgContratoFormularioComponent } from './ModuloAdministracion/pg-contratoformulario/pg-contratoformulario.component';
 import { PgPrincipaladminComponent } from './ModuloAdministracion/pg-principaladmin/pg-principaladmin.component';
 import { PgFormularioreporteComponent } from './ModuloAdministracion/pg-formularioreporte/pg-formularioreporte.component';
 import { PgPanelProgresoComponent } from './ModuloAdministracion/pg-panel-progreso/pg-panel-progreso.component';
-
 
 registerLocaleData(localeEs);
 
@@ -158,10 +162,10 @@ registerLocaleData(localeEs);
     PgIndicadorComponent,
 
     PgPanelNaturalComponent,
+    PgContratoFormularioComponent,
     PgPrincipaladminComponent,
     PgFormularioreporteComponent,
-    PgPanelProgresoComponent
-
+    PgPanelProgresoComponent,
   ],
   imports: [
     BrowserModule, ReactiveFormsModule,
@@ -190,7 +194,11 @@ registerLocaleData(localeEs);
     ,
     TimelineModule,
     ChartModule,
+    InputNumberModule,
     ProgressBarModule,
+    InputTextareaModule,
+    TooltipModule,
+    ProgressBarModule
   ],
   providers: [FuncionesCompartidasServicio, MessageService, SpinnerService, { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true }, { provide: LOCALE_ID, useValue: 'es-ES' }],// Agrega el interceptor HTTP],
   bootstrap: [AppComponent]

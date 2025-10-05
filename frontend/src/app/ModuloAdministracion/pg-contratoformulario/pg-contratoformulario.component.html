@@ -1,0 +1,810 @@
+<div class="p-fluid">
+  <div class="grid">
+    <div class="col-12">
+      <p-card>
+        <ng-template pTemplate="header">
+          <div class="p-3">
+            <h3 class="text-center">
+              <i class="pi pi-file-edit mr-2"></i>
+              Nuevo Contrato
+            </h3>
+          </div>
+        </ng-template>
+        
+        <div class="p-3">
+          <form [formGroup]="contratoForm" (ngSubmit)="onSubmit()">
+            
+            <!-- Información del Proyecto -->
+            <div class="grid mb-4">
+              <div class="col-12">
+                <h5 class="text-primary">
+                  <i class="pi pi-briefcase mr-2"></i>
+                  Información del Proyecto
+                </h5>
+                <hr>
+              </div>
+            </div>
+
+            <div class="grid">
+              <div class="col-12">
+                <div class="field">
+                  <label for="nombre_proyecto">
+                    Nombre del Proyecto <span class="text-red-500">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    id="nombre_proyecto"
+                    pInputText
+                    [class.p-invalid]="nombreProyecto?.invalid && nombreProyecto?.touched"
+                    formControlName="nombre_proyecto"
+                    placeholder="Ingrese el nombre del proyecto">
+                  <small class="p-error" *ngIf="nombreProyecto?.invalid && nombreProyecto?.touched">
+                    <span *ngIf="nombreProyecto?.errors?.['required']">El nombre del proyecto es requerido</span>
+                    <span *ngIf="nombreProyecto?.errors?.['minlength']">El nombre debe tener al menos 3 caracteres</span>
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Información de la Fundación -->
+            <div class="grid mb-4 mt-4">
+              <div class="col-12">
+                <h5 class="text-primary">
+                  <i class="pi pi-building mr-2"></i>
+                  Información de la Fundación
+                </h5>
+                <hr>
+              </div>
+            </div>
+
+            <div class="grid">
+              <div class="col-12 md:col-6">
+                <div class="field">
+                  <label for="fundacion">
+                    Fundación <span class="text-red-500">*</span>
+                  </label>
+                  <p-dropdown
+                    [options]="listadoFundaciones"
+                    formControlName="id_fundacion"
+                    optionLabel="ouempresa_strnombre"
+                    optionValue="ouidempresa"
+                    placeholder="Seleccione una fundación"
+                    [showClear]="true"
+                    [filter]="true"
+                    filterBy="ouempresa_strnombre,oustrruc,direccion_completa"
+                    (onChange)="onFundacionChange($event)"
+                    [class.p-invalid]="fundacion?.invalid && fundacion?.touched"
+                    styleClass="w-full">
+                    <ng-template pTemplate="selectedItem" let-option>
+                      <div *ngIf="option">
+                        <strong>{{option.ouempresa_strnombre}}</strong>
+                        <small class="text-muted d-block">RUC: {{option.oustrruc}}</small>
+                        <small class="text-muted d-block"><i class="pi pi-map-marker"></i> {{option.direccion_completa}}</small>
+                      </div>
+                    </ng-template>
+                    <ng-template pTemplate="item" let-option>
+                      <div>
+                        <strong>{{option.ouempresa_strnombre}}</strong>
+                        <small class="text-muted d-block">RUC: {{option.oustrruc}}</small>
+                        <small class="text-muted d-block"><i class="pi pi-map-marker"></i> {{option.direccion_completa}}</small>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                  <small class="p-error" *ngIf="fundacion?.invalid && fundacion?.touched">
+                    La fundación es requerida
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-12 md:col-6">
+                <div class="field">
+                  <label for="representante_fundacion">
+                    Representante de la Fundación <span class="text-red-500">*</span>
+                  </label>
+                  <p-dropdown
+                    [options]="listadoRepresentantesFundacion"
+                    formControlName="id_representante_fundacion"
+                    optionLabel="ourepresentante_nombres"
+                    optionValue="ouidpersona"
+                    placeholder="Seleccione un representante"
+                    [showClear]="true"
+                    [filter]="true"
+                    filterBy="ourepresentante_nombres,ourepresentante_apellidos"
+                    [disabled]="!fundacion?.value"
+                    [class.p-invalid]="representanteFundacion?.invalid && representanteFundacion?.touched"
+                    styleClass="w-full">
+                    <ng-template pTemplate="selectedItem" let-option>
+                      <div *ngIf="option">
+                        <span>{{option.ourepresentante_nombres}} {{option.ourepresentante_apellidos}}</span>
+                      </div>
+                    </ng-template>
+                    <ng-template pTemplate="item" let-option>
+                      <div>
+                        <strong>{{option.ourepresentante_nombres}} {{option.ourepresentante_apellidos}}</strong>
+                        <small class="text-muted d-block">{{option.ourepresentante_correo}}</small>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                  <small class="p-error" *ngIf="representanteFundacion?.invalid && representanteFundacion?.touched">
+                    El representante de la fundación es requerido
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid">
+              <div class="col-12 md:col-6">
+                <div class="field">
+                  <label for="coordinador_proyecto">
+                    Coordinador Asignado del Proyecto
+                  </label>
+                  <p-dropdown
+                    [options]="listadoCoordinadoresProyecto"
+                    formControlName="id_coordinador_proyecto"
+                    optionLabel="nombreCompleto"
+                    optionValue="ouidpersonal"
+                    placeholder="Seleccione un coordinador (opcional)"
+                    [showClear]="true"
+                    [filter]="true"
+                    filterBy="nombreCompleto,oudocumento"
+                    styleClass="w-full">
+                    <ng-template pTemplate="selectedItem" let-option>
+                      <div *ngIf="option">
+                        <i class="pi pi-user mr-2"></i>
+                        <span>{{option.nombreCompleto}}</span>
+                      </div>
+                    </ng-template>
+                    <ng-template pTemplate="item" let-option>
+                      <div>
+                        <i class="pi pi-user mr-2"></i>
+                        <strong>{{option.nombreCompleto}}</strong>
+                        <small class="text-muted d-block">Cédula: {{option.oudocumento}}</small>
+                        <small class="text-muted d-block">Celular: {{option.oucelular1}}</small>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </div>
+              </div>
+            </div>
+
+            <!-- Información Temporal -->
+            <div class="grid mb-4 mt-4">
+              <div class="col-12">
+                <h5 class="text-primary">
+                  <i class="pi pi-calendar mr-2"></i>
+                  Información Temporal
+                </h5>
+                <hr>
+              </div>
+            </div>
+
+            <div class="grid">
+              <div class="col-12 md:col-6">
+                <div class="field">
+                  <label for="fecha_inicio">
+                    Fecha de Inicio <span class="text-red-500">*</span>
+                  </label>
+                  <p-calendar
+                    formControlName="fecha_inicio"
+                    [showIcon]="true"
+                    [minDate]="fechaMinima"
+                    [maxDate]="fechaMaxima"
+                    dateFormat="dd/mm/yy"
+                    placeholder="Seleccione fecha de inicio"
+                    [class.p-invalid]="fechaInicio?.invalid && fechaInicio?.touched"
+                    styleClass="w-full">
+                  </p-calendar>
+                  <small class="p-error" *ngIf="fechaInicio?.invalid && fechaInicio?.touched">
+                    La fecha de inicio es requerida
+                  </small>
+                </div>
+              </div>
+
+              <div class="col-12 md:col-6">
+                <div class="field">
+                  <label for="fecha_fin">
+                    Fecha de Fin <span class="text-red-500">*</span>
+                  </label>
+                  <p-calendar
+                    formControlName="fecha_fin"
+                    [showIcon]="true"
+                    [minDate]="fechaInicio?.value || fechaMinima"
+                    [maxDate]="fechaMaxima"
+                    dateFormat="dd/mm/yy"
+                    placeholder="Seleccione fecha de fin"
+                    [class.p-invalid]="fechaFin?.invalid && fechaFin?.touched"
+                    styleClass="w-full">
+                  </p-calendar>
+                  <small class="p-error" *ngIf="fechaFin?.invalid && fechaFin?.touched">
+                    La fecha de fin es requerida
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Indicadores del Proyecto -->
+            <div class="grid mb-4 mt-4">
+              <div class="col-12">
+                <h5 class="text-primary">
+                  <i class="pi pi-chart-line mr-2"></i>
+                  Indicadores del Proyecto <span class="text-red-500">*</span>
+                </h5>
+                <hr>
+              </div>
+            </div>
+
+            <!-- Panel para agregar indicadores -->
+            <div class="grid">
+              <div class="col-12">
+                <p-card styleClass="card-indicadores">
+                  <ng-template pTemplate="header">
+                    <div class="card-header-custom">
+                      <i class="pi pi-plus-circle mr-2"></i>
+                      <span>Agregar Indicador</span>
+                    </div>
+                  </ng-template>
+
+                  <!-- Paso 1: Selección de Eje e Indicador -->
+                  <div class="grid">
+                    <div class="col-12">
+                      <div class="paso-seccion">
+                        <span class="paso-numero">1</span>
+                        <strong class="paso-titulo">Seleccione Eje e Indicador</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid">
+                    <div class="col-12 md:col-4">
+                      <div class="field">
+                        <label for="eje">Eje <span class="text-red-500">*</span></label>
+                        <p-dropdown
+                          [options]="listadoEjes"
+                          [(ngModel)]="ejeSeleccionado"
+                          [ngModelOptions]="{standalone: true}"
+                          (onChange)="onEjeChange($event)"
+                          placeholder="Seleccione un eje"
+                          [showClear]="true"
+                          styleClass="w-full">
+                        </p-dropdown>
+                      </div>
+                    </div>
+
+                    <div class="col-12 md:col-8">
+                      <div class="field">
+                        <label for="indicador">Indicador (Nivel 1) <span class="text-red-500">*</span></label>
+                        <p-dropdown
+                          [options]="indicadoresDelEje"
+                          [(ngModel)]="indicadorSeleccionado"
+                          [ngModelOptions]="{standalone: true}"
+                          (onChange)="onIndicadorChange($event)"
+                          optionLabel="nombre"
+                          placeholder="Seleccione un indicador"
+                          [showClear]="true"
+                          [disabled]="!ejeSeleccionado"
+                          styleClass="w-full">
+                          <ng-template pTemplate="item" let-option>
+                            <div>
+                              <strong [class.text-primary]="option.id === 999">{{option.nombre}}</strong>
+                              <small class="text-muted d-block">{{option.descripcion}}</small>
+                            </div>
+                          </ng-template>
+                        </p-dropdown>
+                      </div>
+                      
+                      <!-- Unidad y Meta del Indicador (aparece debajo cuando se selecciona) -->
+                      <div class="grid campo-debajo-indicador" *ngIf="indicadorSeleccionado">
+                        <div class="col-12 md:col-4">
+                          <div class="field">
+                            <label for="unidad_medicion_indicador">
+                              <i class="pi pi-arrow-right mr-1"></i>
+                              Unidad (N1) <span class="text-red-500">*</span>
+                            </label>
+                            <p-dropdown
+                              [options]="listadoUnidadesMedicion"
+                              [(ngModel)]="unidadMedicionIndicador"
+                              [ngModelOptions]="{standalone: true}"
+                              optionLabel="label"
+                              optionValue="value"
+                              styleClass="w-full">
+                            </p-dropdown>
+                          </div>
+                        </div>
+
+                        <div class="col-12 md:col-8">
+                          <div class="field">
+                            <label for="meta_indicador">
+                              <i class="pi pi-arrow-right mr-1"></i>
+                              Meta (N1) <span class="text-red-500">*</span>
+                            </label>
+                            <input 
+                              type="text" 
+                              pInputText
+                              [(ngModel)]="metaIndicador"
+                              [ngModelOptions]="{standalone: true}"
+                              placeholder="Ej: 100 familias, 500kg, 75%, etc.">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Paso 2: Subindicador (Opcional) -->
+                  <div class="grid mt-3" *ngIf="indicadorSeleccionado">
+                    <div class="col-12">
+                      <div class="paso-seccion">
+                        <span class="paso-numero">2</span>
+                        <strong class="paso-titulo">Subindicador (Opcional)</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid" *ngIf="indicadorSeleccionado">
+                    <div class="col-12 md:col-3">
+                      <div class="field">
+                        <div class="flex align-items-center">
+                          <p-checkbox
+                            [(ngModel)]="tieneSubIndicador"
+                            [ngModelOptions]="{standalone: true}"
+                            (onChange)="onTieneSubIndicadorChange()"
+                            [binary]="true"
+                            inputId="tieneSubIndicador">
+                          </p-checkbox>
+                          <label for="tieneSubIndicador" class="ml-2"><strong>Agregar Subindicador (Nivel 2)</strong></label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-12 md:col-9" *ngIf="tieneSubIndicador">
+                      <div class="field">
+                        <label for="subindicador">Subindicador (Nivel 2) <span class="text-red-500">*</span></label>
+                        <p-dropdown
+                          [options]="subIndicadoresDelIndicador"
+                          [(ngModel)]="subIndicadorSeleccionado"
+                          [ngModelOptions]="{standalone: true}"
+                          (onChange)="onSubIndicadorChange($event)"
+                          optionLabel="nombre"
+                          placeholder="Seleccione un subindicador"
+                          [showClear]="true"
+                          styleClass="w-full">
+                          <ng-template pTemplate="item" let-option>
+                            <div>
+                              <strong [class.text-primary]="option.id === 9999">{{option.nombre}}</strong>
+                              <small class="text-muted d-block">{{option.descripcion}}</small>
+                            </div>
+                          </ng-template>
+                        </p-dropdown>
+                      </div>
+                      
+                      <!-- Unidad y Meta del Subindicador (aparece debajo cuando se selecciona) -->
+                      <div class="grid campo-debajo-subindicador" *ngIf="subIndicadorSeleccionado">
+                        <div class="col-12 md:col-4">
+                          <div class="field">
+                            <label for="unidad_medicion_subindicador">
+                              <i class="pi pi-angle-double-right mr-1"></i>
+                              Unidad (N2) <span class="text-red-500">*</span>
+                            </label>
+                            <p-dropdown
+                              [options]="listadoUnidadesMedicion"
+                              [(ngModel)]="unidadMedicionSubIndicador"
+                              [ngModelOptions]="{standalone: true}"
+                              optionLabel="label"
+                              optionValue="value"
+                              styleClass="w-full">
+                            </p-dropdown>
+                          </div>
+                        </div>
+
+                        <div class="col-12 md:col-8">
+                          <div class="field">
+                            <label for="meta_subindicador">
+                              <i class="pi pi-angle-double-right mr-1"></i>
+                              Meta (N2) <span class="text-red-500">*</span>
+                            </label>
+                            <input 
+                              type="text" 
+                              pInputText
+                              [(ngModel)]="metaSubIndicador"
+                              [ngModelOptions]="{standalone: true}"
+                              placeholder="Ej: 50 niños, 200kg, 60%, etc.">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Paso 3: Hito (Opcional) -->
+                  <div class="grid mt-3" *ngIf="indicadorSeleccionado">
+                    <div class="col-12">
+                      <div class="paso-seccion">
+                        <span class="paso-numero">3</span>
+                        <strong class="paso-titulo">Marcar como Hito (Opcional)</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="grid" *ngIf="indicadorSeleccionado">
+                    <div class="col-12">
+                      <div class="field">
+                        <div class="flex align-items-center">
+                          <p-checkbox
+                            [(ngModel)]="esHito"
+                            [ngModelOptions]="{standalone: true}"
+                            [binary]="true"
+                            inputId="esHito">
+                          </p-checkbox>
+                          <label for="esHito" class="ml-2">
+                            <i class="pi pi-flag-fill mr-1"></i>
+                            <strong>Marcar como Hito</strong>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Campos del Hito (aparecen debajo cuando se marca) -->
+                  <div class="grid campo-hito" *ngIf="esHito">
+                    <div class="col-12">
+                      <div class="field">
+                        <label for="titulo_hito">
+                          <i class="pi pi-flag mr-1"></i>
+                          Título del Hito <span class="text-red-500">*</span>
+                        </label>
+                        <input 
+                          type="text" 
+                          pInputText
+                          [(ngModel)]="tituloHito"
+                          [ngModelOptions]="{standalone: true}"
+                          placeholder="Ej: Meta Trimestral Q1, Entrega de Alimentos Diciembre, etc.">
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="field">
+                        <label for="descripcion_hito">
+                          <i class="pi pi-flag mr-1"></i>
+                          Descripción del Hito <span class="text-red-500">*</span>
+                        </label>
+                        <textarea 
+                          pInputTextarea
+                          [(ngModel)]="descripcionHito"
+                          [ngModelOptions]="{standalone: true}"
+                          rows="4"
+                          placeholder="Describa los hitos importantes del proyecto. Puede ingresar varios hitos separados. Ej: 
+- Completar registro de 100 familias en el primer trimestre
+- Realizar entrega de alimentos antes de las festividades
+- Capacitar al personal en manejo de alimentos
+- Establecer alianzas con 3 organizaciones locales">
+                        </textarea>
+                        <small class="text-muted d-block">
+                          <i class="pi pi-info-circle"></i> Puede ingresar varios hitos importantes del proyecto
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Botón Añadir -->
+                  <div class="grid mt-4" *ngIf="indicadorSeleccionado">
+                    <div class="col-12">
+                      <div class="flex justify-content-end">
+                        <p-button
+                          label="Añadir Indicador"
+                          icon="pi pi-plus-circle"
+                          (click)="agregarIndicador()"
+                          styleClass="btn-rojo btn-agregar-indicador">
+                        </p-button>
+                      </div>
+                    </div>
+                  </div>
+
+                </p-card>
+              </div>
+            </div>
+
+            <!-- Tabla de indicadores agregados -->
+            <div class="grid mt-4" *ngIf="indicadoresAgregados.length > 0">
+              <div class="col-12">
+                <div class="tabla-header">
+                  <i class="pi pi-list mr-2"></i>
+                  <strong>Indicadores Agregados ({{indicadoresAgregados.length}})</strong>
+                </div>
+                <p-table [value]="indicadoresAgregados" styleClass="p-datatable-sm p-datatable-striped tabla-indicadores">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th style="width: 120px">Eje</th>
+                      <th>Indicador (Nivel 1)</th>
+                      <th style="width: 120px">Unidad N1</th>
+                      <th style="width: 140px">Meta N1</th>
+                      <th>Subindicador (Nivel 2)</th>
+                      <th style="width: 120px">Unidad N2</th>
+                      <th style="width: 140px">Meta N2</th>
+                      <th style="width: 80px" class="text-center">Hito</th>
+                      <th style="width: 180px">Detalles del Hito</th>
+                      <th style="width: 80px" class="text-center">Acciones</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-item let-i="rowIndex">
+                    <tr>
+                      <td>
+                        <span class="badge-eje">{{item.indicador.eje}}</span>
+                      </td>
+                      <td>
+                        <div class="indicador-cell">
+                          <strong>{{item.indicador.nombre}}</strong>
+                          <small class="text-muted d-block">{{item.indicador.descripcion}}</small>
+                        </div>
+                      </td>
+                      <td>
+                        <span class="badge-unidad" 
+                          [class.badge-cantidad]="item.unidadMedicionIndicador === 'CANTIDAD'"
+                          [class.badge-porcentaje]="item.unidadMedicionIndicador === 'PORCENTAJE'"
+                          [class.badge-otros]="item.unidadMedicionIndicador === 'OTROS'">
+                          <i class="pi pi-chart-bar mr-1"></i>
+                          {{item.unidadMedicionIndicador === 'CANTIDAD' ? 'Cantidad' : 
+                            item.unidadMedicionIndicador === 'PORCENTAJE' ? '%' : 'Otros'}}
+                        </span>
+                      </td>
+                      <td>
+                        <strong class="meta-text">{{item.metaIndicador}}</strong>
+                      </td>
+                      <td>
+                        <div *ngIf="item.subIndicador" class="subindicador-cell">
+                          <strong class="text-info">{{item.subIndicador.nombre}}</strong>
+                          <small class="text-muted d-block">{{item.subIndicador.descripcion}}</small>
+                        </div>
+                        <span *ngIf="!item.subIndicador" class="text-muted text-center d-block">-</span>
+                      </td>
+                      <td>
+                        <span *ngIf="item.subIndicador" class="badge-unidad" 
+                          [class.badge-cantidad]="item.unidadMedicionSubIndicador === 'CANTIDAD'"
+                          [class.badge-porcentaje]="item.unidadMedicionSubIndicador === 'PORCENTAJE'"
+                          [class.badge-otros]="item.unidadMedicionSubIndicador === 'OTROS'">
+                          <i class="pi pi-chart-bar mr-1"></i>
+                          {{item.unidadMedicionSubIndicador === 'CANTIDAD' ? 'Cantidad' : 
+                            item.unidadMedicionSubIndicador === 'PORCENTAJE' ? '%' : 'Otros'}}
+                        </span>
+                        <span *ngIf="!item.subIndicador" class="text-muted text-center d-block">-</span>
+                      </td>
+                      <td>
+                        <strong *ngIf="item.subIndicador" class="meta-text-sub">{{item.metaSubIndicador}}</strong>
+                        <span *ngIf="!item.subIndicador" class="text-muted text-center d-block">-</span>
+                      </td>
+                      <td class="text-center">
+                        <p-tag 
+                          *ngIf="item.esHito" 
+                          value="HITO" 
+                          severity="danger"
+                          icon="pi pi-flag-fill">
+                        </p-tag>
+                        <span *ngIf="!item.esHito" class="text-muted">-</span>
+                      </td>
+                      <td>
+                        <div *ngIf="item.esHito" class="hito-cell">
+                          <strong class="hito-titulo">{{item.tituloHito}}</strong>
+                          <small class="text-muted d-block">{{item.descripcionHito}}</small>
+                        </div>
+                        <span *ngIf="!item.esHito" class="text-muted text-center d-block">-</span>
+                      </td>
+                      <td class="text-center">
+                        <p-button
+                          icon="pi pi-trash"
+                          severity="danger"
+                          pTooltip="Eliminar indicador"
+                          tooltipPosition="top"
+                          (click)="eliminarIndicador(i)">
+                        </p-button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="emptymessage">
+                    <tr>
+                      <td colspan="10" class="text-center text-muted py-4">
+                        <i class="pi pi-info-circle mr-2"></i>
+                        No hay indicadores agregados. Agregue al menos uno para continuar.
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+
+            <!-- Archivo del Convenio -->
+            <div class="grid mb-4 mt-4">
+              <div class="col-12">
+                <h5 class="text-primary">
+                  <i class="pi pi-upload mr-2"></i>
+                  Archivo del Convenio
+                </h5>
+                <hr>
+              </div>
+            </div>
+
+            <div class="grid">
+              <div class="col-12">
+                <div class="field">
+                  <label>Archivo del Convenio (PDF, DOC, DOCX)</label>
+                  
+                  <div *ngIf="!archivoConvenio" class="border-1 border-dashed border-300 p-3 text-center">
+                    <p-fileUpload
+                      mode="basic"
+                      chooseLabel="Seleccionar Archivo"
+                      [auto]="false"
+                      accept=".pdf,.doc,.docx"
+                      [maxFileSize]="10485760"
+                      (onSelect)="onArchivoSeleccionado($event)"
+                      [disabled]="enviandoFormulario"
+                      styleClass="btn-rojo">
+                    </p-fileUpload>
+                    <small class="text-muted d-block mt-2">
+                      Formatos permitidos: PDF, DOC, DOCX. Tamaño máximo: 10MB
+                    </small>
+                  </div>
+
+                  <div *ngIf="archivoConvenio" class="p-3 border-1 border-green-500 bg-green-50 flex justify-content-between align-items-center">
+                    <div>
+                      <i class="pi pi-file mr-2"></i>
+                      <strong>{{archivoConvenio.nombre}}</strong>
+                      <small class="text-muted d-block">{{archivoConvenio.tipo}}</small>
+                    </div>
+                    <p-button 
+                      icon="pi pi-trash"
+                      severity="danger"
+                      size="small"
+                      (click)="removerArchivo()"
+                      [disabled]="enviandoFormulario">
+                    </p-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones de Acción -->
+            <div class="grid mt-4">
+              <div class="col-12">
+                <hr>
+                <div class="flex justify-content-between">
+                  <p-button 
+                    label="Limpiar"
+                    icon="pi pi-refresh"
+                    severity="secondary"
+                    (click)="limpiarFormulario()"
+                    [disabled]="enviandoFormulario">
+                  </p-button>
+                  
+                  <div class="flex gap-2">
+                    <p-button 
+                      label="Volver"
+                      icon="pi pi-arrow-left"
+                      severity="secondary"
+                      routerLink="/dashadmin/principalconvenio/listadocontratos">
+                    </p-button>
+                    
+                    <p-button 
+                      type="submit"
+                      [label]="enviandoFormulario ? 'Guardando...' : 'Crear Contrato'"
+                      icon="pi pi-save"
+                      [loading]="enviandoFormulario"
+                      [disabled]="!contratoForm.valid || enviandoFormulario"
+                      styleClass="btn-rojo">
+                    </p-button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Overlay -->
+<div *ngIf="cargandoDatos" class="loading-overlay">
+  <div class="loading-content">
+    <i class="pi pi-spin pi-spinner text-2xl text-primary"></i>
+    <p class="mt-2">Cargando datos del formulario...</p>
+  </div>
+</div>
+
+<!-- Modal para agregar nuevo indicador -->
+<p-dialog 
+  header="Agregar Nuevo Indicador" 
+  [(visible)]="mostrarModalNuevoIndicador"
+  [modal]="true"
+  [style]="{width: '500px'}"
+  [draggable]="false"
+  [resizable]="false">
+  
+  <div class="p-fluid">
+    <div class="field">
+      <label for="nuevo_indicador_nombre">Nombre del Indicador <span class="text-red-500">*</span></label>
+      <input 
+        type="text" 
+        pInputText 
+        [(ngModel)]="nuevoIndicador.nombre"
+        placeholder="Ingrese el nombre del indicador">
+    </div>
+
+    <div class="field">
+      <label for="nuevo_indicador_descripcion">Descripción <span class="text-red-500">*</span></label>
+      <textarea 
+        pInputTextarea 
+        [(ngModel)]="nuevoIndicador.descripcion"
+        rows="3"
+        placeholder="Ingrese la descripción del indicador">
+      </textarea>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button 
+      label="Cancelar" 
+      icon="pi pi-times" 
+      severity="secondary"
+      (click)="cerrarModalNuevoIndicador()">
+    </p-button>
+    <p-button 
+      label="Guardar" 
+      icon="pi pi-check" 
+      (click)="agregarNuevoIndicador()"
+      styleClass="btn-rojo">
+    </p-button>
+  </ng-template>
+</p-dialog>
+
+<!-- Modal para agregar nuevo subindicador -->
+<p-dialog 
+  header="Agregar Nuevo Subindicador" 
+  [(visible)]="mostrarModalNuevoSubIndicador"
+  [modal]="true"
+  [style]="{width: '500px'}"
+  [draggable]="false"
+  [resizable]="false">
+  
+  <div class="p-fluid">
+    <div class="field">
+      <label for="nuevo_subindicador_nombre">Nombre del Subindicador <span class="text-red-500">*</span></label>
+      <input 
+        type="text" 
+        pInputText 
+        [(ngModel)]="nuevoSubIndicador.nombre"
+        placeholder="Ingrese el nombre del subindicador">
+    </div>
+
+    <div class="field">
+      <label for="nuevo_subindicador_descripcion">Descripción <span class="text-red-500">*</span></label>
+      <textarea 
+        pInputTextarea 
+        [(ngModel)]="nuevoSubIndicador.descripcion"
+        rows="3"
+        placeholder="Ingrese la descripción del subindicador">
+      </textarea>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button 
+      label="Cancelar" 
+      icon="pi pi-times" 
+      severity="secondary"
+      (click)="cerrarModalNuevoSubIndicador()">
+    </p-button>
+    <p-button 
+      label="Guardar" 
+      icon="pi pi-check" 
+      (click)="agregarNuevoSubIndicador()"
+      styleClass="btn-rojo">
+    </p-button>
+  </ng-template>
+</p-dialog>
+
+<!-- Confirmación y Mensajes -->
+<p-confirmDialog 
+  header="Confirmación" 
+  icon="pi pi-question-circle"
+  acceptLabel="Sí"
+  rejectLabel="No">
+</p-confirmDialog>
+
+<p-toast position="top-right"></p-toast>

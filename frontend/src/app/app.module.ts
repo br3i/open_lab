@@ -99,6 +99,8 @@ import { ReportedonacionComponent } from './ModuloAdministracion/pg-principalrep
 import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
+import { PgPrincipalindicadorComponent } from './ModuloAdministracion/pg-principalindicador/pg-principalindicador.component';
+import { PgIndicadorComponent } from './ModuloAdministracion/pg-indicador/pg-indicador.component';
 
 
 registerLocaleData(localeEs);
@@ -148,6 +150,8 @@ registerLocaleData(localeEs);
     ModuloPagoComponent,
     PgPersonalorganizacionComponent,
     PgPrincipalorganizacionComponent,
+    PgPrincipalindicadorComponent,
+    PgIndicadorComponent,
  
   ],
   imports: [

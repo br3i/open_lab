@@ -61,15 +61,17 @@ export class MenuadminComponent implements OnInit, OnDestroy {
     },
     7: { label: 'Contratos', icon: 'pi pi-fw pi-file', routerLink: '/dashadmin/principalconvenio' },
     8: { label: 'Reportes', icon: 'pi pi-fw pi-chart-line', routerLink: '/dashadmin/principalreporte' },
-    9: { label: 'Seguridad', icon: 'pi pi-fw pi-lock', routerLink: '/dashadmin/principalseguridad' }
+    9: { label: 'Seguridad', icon: 'pi pi-fw pi-lock', routerLink: '/dashadmin/principalseguridad' },
+    10: { label: 'Administración', icon: 'pi pi-fw pi pi-fw pi-cog', routerLink: '/dashadmin/principalindicador' }
+
   };
 
   opcionesPorRol = {
-    [this.variablesRoles.Administrador]: [1, 2, 3, 5, 7, 8, 9],
-    [this.variablesRoles.TecnicoAdmin]: [ 5, 7, 8, 9],
-    [this.variablesRoles.Practicante]: [6, 9],
+    [this.variablesRoles.Administrador]: [1, 2, 3, 5, 7, 8, 9,10],
+    [this.variablesRoles.TecnicoAdmin]: [5, 7, 8, 9],
+    [this.variablesRoles.Practicante]: [2, 6, 9],
     [this.variablesRoles.TecnicoOperativo]: [5, 9],
-    [this.variablesRoles.Voluntario]: [ 9],
+    [this.variablesRoles.Voluntario]: [9],
 
   };
 

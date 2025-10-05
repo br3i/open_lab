@@ -41,6 +41,8 @@ import { ModuloPagoComponent } from './modulo-pago/modulo-pago.component';
 import { PgPersonalorganizacionComponent } from './ModuloAdministracion/pg-personalorganizacion/pg-personalorganizacion.component';
 import { PgPrincipalorganizacionComponent } from './ModuloAdministracion/pg-principalorganizacion/pg-principalorganizacion.component';
 
+import { PgPrincipalindicadorComponent } from './ModuloAdministracion/pg-principalindicador/pg-principalindicador.component';
+import { PgIndicadorComponent } from './ModuloAdministracion/pg-indicador/pg-indicador.component';
 
 const routes: Routes = [
   {
@@ -221,6 +223,16 @@ const routes: Routes = [
           { path: '', redirectTo: 'pg-perfil', pathMatch: 'full' }, // Redirección por defecto
           { path: "pg-perfil", component: PgPerfilComponent },
         ],
+      },
+            {
+        path: 'principalindicador',
+        component: PgPrincipalindicadorComponent,
+        canActivate: [AuthGuard],
+        children: [
+          { path: 'indicador', component: PgIndicadorComponent },
+          
+          { path: '', redirectTo: 'indicador', pathMatch: 'full' }
+        ]
       },
     ]
   }

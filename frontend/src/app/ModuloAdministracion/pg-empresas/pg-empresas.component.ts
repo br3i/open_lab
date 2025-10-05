@@ -285,7 +285,7 @@ console.log("DATOS DE DETALLE EMPRES",seleccion)
     try {
       this.objSeleccion = datosEmpresaForm;
       const data = await new Promise<any>(resolve =>
-        this.servicios.ObtenerAnexoDadoIdEmpresa(this.objSeleccion.idfundacion).subscribe(translated => resolve(translated))
+        this.servicios.ObtenerAnexoDadoIdEmpresa(this.objSeleccion.idempresa).subscribe(translated => resolve(translated))
       );
 
       if (!data || data.success !== true || !data.datos || !data.datos.length) {
